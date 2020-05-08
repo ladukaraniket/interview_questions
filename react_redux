@@ -390,3 +390,52 @@ Q.Why we go for forward reference?
 Q. What is hook?
 Q. How many hooks are available in React?
 Q.How does React Hooks re-renders a function Component?
+
+
+Q. What is a Hook? 
+	//A Hook is a special function that lets you “hook into” React features.
+	
+Q. Why Hook names always start with use?
+
+Q. What are the rules of hooks?
+	//Don’t call Hooks inside loops, conditions, or nested functions
+	//Only Call Hooks from React Functions
+		//✅ Call Hooks from React function components.
+		//✅ Call Hooks from custom Hooks.
+
+Q. What is useState()?
+	//It is to create a state variable for fucntional components
+	//equivalent to this.state in class components
+
+Q. Which library is having useState? 
+	//React
+	
+Q. When would I use a Hook? 
+	//If you write a function component and realize you need to add some state to it, 
+		previously you had to convert it to a class. 
+		Now you can use a Hook inside the existing function component.
+	
+Q. How many arguments useState() has?
+	//only one argument value we can pass
+	//that can be of any type..either string,number,boolean,object or array
+	//Unlike with classes, the state doesn’t have to be an object.
+	
+Q. What does calling useState do?
+	//This is to create a state variable and initialise it..
+
+Q. What does useState return? 
+	// It returns a pair of values: the current state and a function that updates it. 
+	This is why we write const [count, setCount] = useState(). 
+	This is similar to this.state.count and this.setState in a class
+	
+Q. How we can create a state variable in functional components?
+ 	  const [count, setCount] = useState(0);
+	  
+Q. How we can read a state variable in functional components?
+	  <p>You clicked {count} times</p>
+
+Q. How we can update a state variable in functional components?
+	  setCount(count+1)
+
+
+
