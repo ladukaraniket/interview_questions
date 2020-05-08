@@ -793,7 +793,79 @@ Q. bindActionCreators() coing from which library?
 	//import {bindActionCreators} from 'redux'
 
 Q. What do you understand by thunk middleware? Why we need this middleware?
+	//Redux Thunk middleware allows you to write action creators that return a function instead of an action. 
+	//The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. 
+	//The inner function receives the store methods dispatch and getState as parameters.
+	
+	A thunk is a function that wraps an expression to delay its evaluation.
+	// calculation of 1 + 2 is immediate
+	// x === 3
+	let x = 1 + 2;
 
+	// calculation of 1 + 2 is delayed
+	// foo can be called later to perform the calculation
+	// foo is a thunk!
+	let foo = () => 1 + 2;
+	
+	
+Q. What is redux saga?
+	Sagas are implemented using generator functions (a new ES2015 feature). 
+	Unlike normal functions which run to completion and return a final value, 
+	generator functions can be paused and resumed on demand and can return (more accurately yield) multiple values.
+	sagas are developed to replace action methods
+	
+Q. How we are going to register saga?What is syntax?
+	//we have to pass as second argument to createStore() within applyMiddleware(saga)
+	
+	import createSagaMiddleware from 'redux-saga';
+	const sagaMiddleware=createSagaMiddleware();
+
+	const store=createStore(rootReducer,applyMiddleware(logger,thunk,sagaMiddleware));
+	sagaMiddleware.run(rootSaga);
+	
+	
+Q. Tell me the overall flow of redux saga?
+	//for async calls
+	//component -> saga -> servercall -> server(node) -> database(mongodb) --------------------
+									       			    |
+         component <- Store <- reducers <- actionaction <- servercall <- node <- database(mongodb) <-
+
+	
+	//if no async calls
+	//component -> saga -> reducer -> store -> component
+	
+Q. What is the difference between the normal redux action or thunk flow from redux saga?
+	//We register saga methods with a unique identity in every saga file..
+	//We create a single saga method and export it..
+	
+	import {takeLatest,call,put} from 'redux-saga/effects'
+	import ServerCall from '../services/ServerCall';
+	function* getComments(){}
+	function* updateComments(){}
+	function* commentsSaga(){
+    		yield takeLatest('GC',getComments);
+    		yield takeLatest('UC',updateComments)
+	}
+	export default commentsSaga;
+	
+	//in redux saga from component we will have to call saga method using dispatch() and its based on it's unique identity..
+	  store.dispatch({
+      		type:'GP'	
+    	  })
+		
+	//there is a method called all() available in 'redux-saga/effects'
+	//This all() method is used to start all the sagas at once..This is called from a singe method which is exported..
+	import {all} from 'redux-saga/effects'
+		function* rootSaga(){
+		   return yield all([
+        		commentsSaga(),
+        		postsSaga()
+    		]);
+	}
+
+	export default rootSaga;
+
+Q. 
 	
 Q. How to add bootstrap to react?
 	npm i bootstrap --save
