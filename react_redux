@@ -724,13 +724,13 @@ Q. When we will go for actions?
 	
 Q. Tell me the overall flow of redux?
 	//for async calls
-	//component -> action -> servercall -> server(node) -> database(mongodb) 
-									       |
-				component <- reducer <- action <- server(node)<-
+	//component -> action -> servercall -> server(node) -> database(mongodb) --------------------
+									       			    |
+         component <- Store <- reducers <- actionaction <- servercall <- node <- database(mongodb) <-
 
 	
 	//if no async calls
-	//component -> reducer ->  component
+	//component -> action -> reducer -> store -> component
 									       
 
 Q. What is an action? Why it is needed?
@@ -746,6 +746,13 @@ Q. What is an action? Why it is needed?
 	
 	reducer() is a pure function and we are not supposed to do any asyc calls here..
 	
+Q. How many ways we can get dispatch() within my action() method?
+	//by seding dispatch as an argument to the action() methd while calling
+	//by using store - store.dispatch()
+	
+	
+Q. What is bindActionCreator()?
+Q. What do you understand by thunk middleware? Why we need this middleware?
 
 	
 	
