@@ -220,6 +220,7 @@ Q. So what are the steps involved while passing data using context?
                 	<B />
              	</ctx.Provider>
 	//3. All my remaining children components should have to consume the data from the context..
+		//While consuming we get a callback method with one argument..
  		<ctx.Consumer>
                    {
                        (data)=>{
@@ -227,24 +228,116 @@ Q. So what are the steps involved while passing data using context?
                        }
                    }
                 </ctx.Consumer>
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
+		
+Q. How to send multiple data in context?
+	//we can create an object and send that in value attribute
+		<ctx.Provider value={this.obj}>
+                	<B />
+             	</ctx.Provider>
+	
+	
+Q. What are the lfe cycle methods available in react?
+	
+Q. Is life cycle methods avaiable only for class components?
+	//yes, for functional components we can use hooks
+	
+Q. What is the default value for my shouldComponentUpdate()?//true
+
+Q. Can we unmount a component explicitly? 
+	//using conditional rendering..
+	{this.state.isShow && <App /> }
+	{this.state.isShow ? <App /> : <OtherComp /> }
+	
+Q. On intial load or first time what all life cycle methods are triggered?
+	//constructor()
+	//componentWillMount() - deprecated
+	//getDerivedStateFromProps()
+	//render()
+	//componentDidMount()
+
+Q. If we defined only componentWillMount() will it be triggerred or there will be any error as it is deprecated?
+	//we must be getting a warning if we have written only componentWillMount() and not getDerivedStateFromProps()
+	Lets check the browser console..
+	react-dom.development.js:12503 Warning: componentWillMount has been renamed, and is not recommended for use. 
+	See https://fb.me/react-unsafe-component-lifecycles for details.
+	
+Q. On we have defined both the methods in the class component i.e. componentWillMount() and getDerivedStateFromProps() then will it give error?
+	//yes
+	//react-dom.development.js:524 Warning: Unsafe legacy lifecycles will not be called for components using new component APIs.
+
+Q. What is the syntax of getDerivedStateFromProps()?
+	//It taks 2 arguments..
+	//1st one is props and 2nd is state
+	//it is a static method
+	//getDerivedStateFromProps() is working like componentWillMount() on initial load
+	//getDerivedStateFromProps() is woring like componentWillUpdate() on state update
+	//getDerivedStateFromProps() is woring like componentWillReceiveProps() on props change
+
+	
+Q. How many static life cycle methods are there?
+	//2
+	//getDerivedStateFromProps()
+	//getDerivedStateFromErrors()
+	
+Q. Is it is mandatory to return one object otherwise null from within getDerivedStateFromProps()?
+	//yes otherwise we will get error
+	react-dom.development.js:524 Warning: App.getDerivedStateFromProps(): 
+		A valid state object (or null) must be returned. You have returned undefined.
+		
+Q. On state update what all life cycle methods are triggered?
+	If getDerivedStateFromProps() is not available, but getSnapshotBeforeUpdate() is available
+	============================================================================================
+	shouldComponentUpdate()
+	//componentWillUpdate()
+	render()
+	getSnapshotBeforeUpdate()
+	componentDidUpdate()
+	setstate()
+	
+	If getDerivedStateFromProps() is available and also componentWillUpdate() also available
+	============================================================================================
+	getDerivedStateFromProps()
+	shouldComponentUpdate()
+	render()
+	getSnapshotBeforeUpdate()
+	componentDidUpdate()
+	setState() callback..
+	
+	NOTE**
+	If we have componentWillUpdate() then it is triggered after shouldComponentUpdate()
+	If we have getDerivedStateFromProps() then it is triggered before shouldComponentUpdate()
+
+
+Q. On state update in parent and props changes in child what all life cycle methods are triggered?
+	get derived state
+	should update
+	//will update
+	render
+	//will receive props
+	get derived state - child
+	child render
+	get snapshot
+	did update
+
+Q. If my shouldComponentUpdate() returns true then what all life cycle methods executed ?
+	//getDerivedStateFromProps()
+	//shouldComponentUpdate()
+	//After this none of the methods gets executed..
+	
+	
+	//getDerivedStateFromProps()
+	//shouldComponentUpdate()
+		//After the above all of the methods gets executed..
+	//render()
+	//getSnapshotBeforeUpdate()
+	//componentDidUpdate()
+	
+Q. If my shouldComponentUpdate() returns false then what all life cycle methods executed ?
+	//getDerivedStateFromProps()
+	//shouldComponentUpdate()
+	//After this none of the methods gets executed..
+	
+
 Q.
 Q.getSnapshotBeforeUpdate() returns what?//previous state values
 Q. As a children if you want to know which props are coming to me then?
@@ -263,10 +356,7 @@ Q. How to update state without setState()?
 Q.
 Q.What is forceUpdate()??
 	//without setState() I want to update the state
-Q.
-Q.
-Q.
-Q.
+
 Q.How many arguments reducer() method takes?//2
 Q.What is 1st argument to reducer()?//state
 Q.What is the 2nd argument to reducer()? //action
@@ -296,259 +386,7 @@ Q.What is the structure of HOC?
 Q.Why we go for HOC?//reusability
 Q.What is React.createRef()?
 Q.Why we go for forward reference?
-Q.
-Q.
-Q.
+
 Q. What is hook?
 Q. How many hooks are available in React?
 Q.How does React Hooks re-renders a function Component?
-
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
-Q.
