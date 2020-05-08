@@ -391,14 +391,22 @@ Q. What is hook?
 Q. How many hooks are available in React?
 Q.How does React Hooks re-renders a function Component?
 
+======::==============================  Hooks ==============================::======
 
 Q. What is a Hook? 
 	//A Hook is a special function that lets you “hook into” React features.
 	
 Q. Why Hook names always start with use?
 
+Q. What all hooks available for react?
+	//React.useState()
+	//React.useEffect()
+	//React.useContext()
+	//React.useRef() 
+	//React.useReducer() 
+	//React.Memo()
+	
 Q. What are the rules of hooks?
-	//Don’t call Hooks inside loops, conditions, or nested functions
 	//Only Call Hooks from React Functions
 		//✅ Call Hooks from React function components.
 		//✅ Call Hooks from custom Hooks.
@@ -436,6 +444,156 @@ Q. How we can read a state variable in functional components?
 
 Q. How we can update a state variable in functional components?
 	  setCount(count+1)
+
+
+Q. What does useEffect do?
+	//By using this Hook, you tell React that your component needs to do something after render.
+	
+Q. Does useEffect run after every render?
+	//yes
+	
+Q. useEffect() is equivalent to which life cycle methods of class component?
+	//componentDidMount()
+	//comonentDidUpdate()
+	//componentWillUnMount()
+	
+Q. code example of useEffect()? to demonstrate all the 3 lifecycle methods..
+	 const TitleUpdateF =()=>{
+     		const [cnt,updateCnt]=React.useState(0);
+     		const [name,updateName]=React.useState('');
+     		React.useEffect(()=>{
+         		console.log('title udpate');
+         		document.title="He clicked me " + cnt + "  time(s)"
+			//this below return fucntion is used for componentWillUnMount()
+         		return ()=>{
+             			alert('am going to un mount');
+         		}
+     		},[cnt])
+    		return <div>
+            		<h1>Hook Compnent</h1>
+            		<input onChange={(e)=>updateName(e.target.value)} />
+            		<input type='button' value="click" onClick={()=>updateCnt(cnt+1)}  />
+         	</div>
+ 	}
+	 class App extends React.Component{
+     constructor(){
+         super();
+         this.state={
+             isShow:true
+         }
+     }
+     fnUpdate(){
+         this.setState({
+             isShow:!this.state.isShow
+         })
+     }
+     render(){
+        return <div>
+        <input type='button' value='toggle' onClick={this.fnUpdate.bind(this)} />
+         {
+             this.state.isShow && <TitleUpdateF />
+         }
+        </div>
+     }
+ }
+  ReactDOM.render(<App />,document.getElementById('root'));
+
+
+Q. What is useContext()?
+	//In functional components also providing a context is same as class components..
+	i.e. first 2 steps
+	step1. creating a context => const ctx = React.createContext();
+	step2. providing context data => <ctx.Provider value="soumya"><B/></ctx.Provider>
+	
+	step3. consuming the data is only different here..here we dont have callback function like ctx.Consumer
+	i.e. const data = React.useContext(ctx)
+	Then to print within render we can use {data}
+	
+Q. How many arguments useContext() takes?
+	//only one argument that is context variable name
+
+Q. What is useReducer()? Is it same as js reduce() method?
+	
+Q. How many arguments useReducer() takes?
+	//2 arguments - reducer function, initialState
+
+Q. How many arguments useReducer() method reducer() fucntion takes?
+	//2 i.e. initialState and action
+	//returns an updated state..
+	i.e. const reducer1 = (state,action) => { return updatedState;}
+
+Q. What useReducer() returns?
+	// It returns a pair of values array destructuring: the current state and dispatch that is going to call reducer()
+	
+	const reducer1 = (state,action) => {}
+	const reducer2 = (state,action) => {}
+	let [currentState, dispatch] = React.useReducer(reducer1,initialState)
+	
+	**note :- here when we call dispatch() it will call reducer1..
+
+Q. when we call dispatch({}) with passing one object it is received as?
+	//second argument of reducer() function
+	
+Q. How we can make useReducer() global state available to all the components?
+	//using context..
+	//we can set context at root component i.e. App
+	
+	const ctx = React.createContext();
+  	const initVal = {
+    		name: 'sachin',
+    		loc: 'mum',
+  	};
+
+  	const reducer = (state, action) => {
+    		switch (action.type) {
+      			case 'LOC':
+        			state = {
+          			...state,
+          			loc: action.payload,
+        			};
+        			break;
+    			}
+    			return state;
+  		};
+  
+  	const C = () => {
+    		var ctxData = React.useContext(ctx);
+    		return (
+      			<h1>
+        		Loc: {ctxData.state.loc}
+      			</h1>
+    		);
+  	};
+  
+  	const B = () => {
+    		const [loc, updateLoc] = React.useState('');
+    		const ctxData = React.useContext(ctx);
+    		return (
+      			<h1>
+        		B: Loc: <input onChange={(e) => updateLoc(e.target.value)} />
+        		<input
+          			type='button'
+          			value='submit'
+          			onClick={() => ctxData.dispatch({ type: 'LOC', payload: loc })}
+        		/>
+      			</h1>
+    		);
+  	};
+	  
+	 const App=()=>{
+        	const [state,dispatch]=React.useReducer(reducer,initVal)
+          	return <div>
+            			<ctx.Provider value={{state,dispatch}}>
+              				<A />
+              				<B />
+              				<C />
+            			</ctx.Provider >
+          		</div> 
+   	 }
+	 
+	
+Q. What is React.memo()?
+Q. What is React.useCallback()?
 
 
 
