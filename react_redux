@@ -23,6 +23,7 @@ Q. Why can’t browser read JSX?
 Q. How different is React ES6 standard from when compared to ES5?
 Q. What do you understand from “In React, everything is a component.”
 Q. Explain the purpose of render() in React.
+Q. What do you understand by expression in react? When exactly we will use {}?
 Q. What is the error we will get if we don’t import react-dom?
 	//ReferenceError: Can't find variable: ReactDOM
 Q. What error we will get if you load ReactDOM before React? 
@@ -36,8 +37,10 @@ Q. If we don’t mention script type=“text/babel” then what will happen?
 	//SyntaxError: Unexpected token ‘<'
 Q.  ReactDOM.render() method takes how many arguments?
 	//3 - component, container, callback
-
-
+Q. Can you tell me my component class render() method is triggered how many times?
+	//On initial load first my constructor is going to trigger, then my render() method is going to trigger
+	//state change also
+	//on receiving new props as well
 
 Q. How many types of components are available?
 Q. Do we need to import react for functional components as well?
@@ -58,6 +61,11 @@ Q. What is the syntax of setState()? How many ways it can be used?
 	//this.setState({},()=>{})
 	//this.setState({})
 	//this.setState(()=>{})
+Q. If we change the variable n value like below then what is the problem?
+	//this.state.n =10;
+Q. What is React.forceUpdate()? When we should go for it?
+
+
 Q. What all life cycle methods are called when setState() is called?
 Q. What is a Pure component?
 Q. What is the difference between a class component and a pure component?
@@ -69,10 +77,6 @@ Q. Is constructor() is mandatory for a class component?//no
 
 Q. What are mandatory methods for a class component?
 	//only render() method is mandatory to override
-
-
-
-
 
 Q. How many ways we can style a component?
 	//using style= {{}}
@@ -93,8 +97,19 @@ Q. where my execution is going to start in react app?
 	//My execution is always going to start from ReactDOM.render() method only
 
 
+Q. How to handle a click event in react?
+	//<input type='submit' value='Submit' onClick={this.showValue} />
+	//Always we mention the function name , react will internally check if its a function it is going to call it..
 
 Q. How many ways we can retrieve the values from a textbook?
+	//ref and this.refs
+	//onChange event - getting event.target.value and then saving it to a state variable
+	//using createRef()
+	
+Q. What is this.props.children?
+Q. What is the difference between <App> </App> and <App />?
+Q.
+
 
 
 
@@ -130,25 +145,7 @@ Q. Difference between HashRouter and BrowserRouter?
 	Note :: the Router path should match exactly to this urlpath
 Q. We have to wrap all Route configuration along with the anchors or all Route configuration along with the ul li inside a single wrapper div. Is it true or false?
 	//true
-
-
-
-
-
-
-
-
 Q. What is the difference between HashRouter and BrowserRouter?
-
-
-
-
-
-
-
-
-
-
 
 Q. What is the difference between a class state variable and a function state variable(hooks)?
 	//we always have to create an object in class state variable..
@@ -174,10 +171,62 @@ Q. Inside a functional component how we can display a state variable if below is
 	const [data,showData] = React.useState({a : 1, b : 2});
 	//<div>{data.a}</div>
 
-Q.
-Q.
-Q.
-Q.
+
+
+
+Q. How we can pass data from a parent to child?
+	//parent omponent can pass using attribute while instantiating e.g. <child name="soumya" />
+	//using this.props a child can receive e.g. {this.props.name}
+	
+Q. How we can pass data from a child to parent?
+	//using event delegation
+	//we can define a method in parent class with some arguments that child will be passing while calling this method
+	//We pass this method like an attribute - same flow like parent to child..
+		fnGetName(name){
+			this.setState({name})
+		}
+		<child fnGetName={this.fnGetName} />
+		
+	//Inside child on any event for example button click we have the name and we have to send it to parent 
+	//From child we will use this.props.fnGetName() and we can call this as a callback and pass the value...
+		...
+		fnsubmit(){
+			this.props.fnGetName(this.refs.name.value)
+		}
+		render(){
+			return <div>
+					<input type="text" ref="name" />
+					<input type="button" onClick={this.fnsubmit} /> 
+				</div>
+		}
+		....
+		
+		
+Q. From parent to child one level down we can get the data via this.props..
+	But suppose I have a requirement like A -> ((B -> D -> E -> F -> G) , (C))
+	multiple hierarchies are there...
+	Suppose I want to pass data from A to G
+	We are not going to pass data everytime to the children A to B , B to D , D to E, E to F and F to G..not a good idea.
+	What is the solution?
+
+	//We will go for context..
+	
+Q. So what are the steps involved while passing data using context?
+	//3 steps React.createContext(), ctx.Provider, ctx.Consumer
+	//1. We have to create the context..
+		const ctx=React.createContext();
+	//2. My parent component has to provide the data to the context
+		<ctx.Provider value={this.name}>
+                	<B />
+             	</ctx.Provider>
+	//3. All my remaining children components should have to consume the data from the context..
+ 		<ctx.Consumer>
+                   {
+                       (data)=>{
+                            return <div>{data}</div>
+                       }
+                   }
+                </ctx.Consumer>
 Q.
 Q.
 Q.
