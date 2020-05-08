@@ -1,0 +1,505 @@
+
+====::===================================== REACT INTERVIEW QUESTIONS ====::===================================== 
+
+Q. What is react?
+Q. What is SPA?
+Q. Is React is SPA?
+Q. What is difference between React and Angular?
+Q. What are the features of React?
+Q. What is advantages of React?
+Q. What are the limitations of react?
+Q. What are the minimum libraries we need for a basic react application?
+Q. What is MEAN and MERN?
+Q. What is the difference between a framework and a library?
+Q. My react is a framework or a library?//library
+Q. My angular/angularjs is a framework or a library?//framework
+
+Q. What is current version of React?
+Q. What is Virtual DOM?
+Q. What is the difference between Virtual DOM and Actual DOM?
+Q. What is diffing algorithm and reconciliation?
+Q. What is JSX?
+Q. Why can’t browser read JSX?
+Q. How different is React ES6 standard from when compared to ES5?
+Q. What do you understand from “In React, everything is a component.”
+Q. Explain the purpose of render() in React.
+Q. What is the error we will get if we don’t import react-dom?
+	//ReferenceError: Can't find variable: ReactDOM
+Q. What error we will get if you load ReactDOM before React? 
+	//Error: ReactDOM was loaded before React. 
+	Make sure you load the React package before loading ReactDOM.
+Q. What if we have not imported react ?
+	//Error: ReactDOM was loaded before React. 
+	Make sure you load the React package before loading ReactDOM.
+	//ReferenceError: Can't find variable: ReactDOM
+Q. If we don’t mention script type=“text/babel” then what will happen?
+	//SyntaxError: Unexpected token ‘<'
+Q.  ReactDOM.render() method takes how many arguments?
+	//3 - component, container, callback
+
+
+
+Q. How many types of components are available?
+Q. Do we need to import react for functional components as well?
+Q. What all things we get from React.Component class?
+	//this.state, this.props, this.refs, this.setState(), render(), constructor() & life cycle methods
+Q. Whatever a component receives from outside world or its parent can be received as?
+	//this.props
+Q. How many ways we can create variables within a class component?
+	//let, const, this.varname , also state variable and props
+Q. What is the difference between let, const, this.varname , this.state, this.props and this.refs?
+Q. How a functional component receives values from parent component? 
+	this.props is not available?
+	//using argument
+Q. How we can create a state variable for a class component?
+Q. How we can update a state variable in a class component?
+	this.setState({})
+Q. What is the syntax of setState()? How many ways it can be used?
+	//this.setState({},()=>{})
+	//this.setState({})
+	//this.setState(()=>{})
+Q. What all life cycle methods are called when setState() is called?
+Q. What is a Pure component?
+Q. What is the difference between a class component and a pure component?
+
+Q. What is use of constructor() in class? When we will go for it?
+Q. Why we need to call super() inside constructor?
+Q. When we need to call constructor(props){super(props); }?
+Q. Is constructor() is mandatory for a class component?//no
+
+Q. What are mandatory methods for a class component?
+	//only render() method is mandatory to override
+
+
+
+
+
+Q. How many ways we can style a component?
+	//using style= {{}}
+	//using className=“”
+	//using styled component
+	//bootstrap classes
+
+Q. Why we use double curly braces for style tag?
+Q. if we do not override the React.Component render() method we will get which error?	
+	//Warning: App(...): No `render` method found on the returned component instance: 
+	you may have forgotten to define `render`.
+
+Q. if we extends a class from React.Component class and also overridden render() method 
+	   	But we are not having a return statement. Then what will be the error?
+	//Error: App(...): Nothing was returned from render. 
+
+Q. where my execution is going to start in react app?
+	//My execution is always going to start from ReactDOM.render() method only
+
+
+
+Q. How many ways we can retrieve the values from a textbook?
+
+
+
+
+
+
+
+
+
+Q. What is <></> ?
+Q. What is React.Fragment?
+Q. When we will go for <></> or React.Fragment? One live example…
+
+
+
+
+
+
+
+
+Q. What is the library required for routing?
+	//react-router-dom
+Q. How many ways we can achieve routing?
+	//2 ways - HashRouting,  BrowserRouting
+Q. What components are we using from “react-router-dom”?
+	//HashRouter,BrowserRouter, Route
+Q. Route component which attributes we use for routing?
+	//path, component, exact etc..
+Q. Difference between HashRouter and BrowserRouter?
+	//We use anchor tags with href as “#/urlpath” for HashRouter
+	//We use ul li without # i.e. Link to="/urlpath"
+
+	Note :: the Router path should match exactly to this urlpath
+Q. We have to wrap all Route configuration along with the anchors or all Route configuration along with the ul li inside a single wrapper div. Is it true or false?
+	//true
+
+
+
+
+
+
+
+
+Q. What is the difference between HashRouter and BrowserRouter?
+
+
+
+
+
+
+
+
+
+
+
+Q. What is the difference between a class state variable and a function state variable(hooks)?
+	//we always have to create an object in class state variable..
+	//But we can use any value for functional state variable..
+		number,string,object,array,boolean etc
+
+	//Also in a class we can maintain any number of state variable..
+	//But using useState() we create a single..
+
+Q. What the useState() call do?
+	//It returns an array with exactly 2 element
+	//first element is current state name..we can just name it anything..
+	//second element is the seState() method for this.. We can use any name
+
+Q. Inside a functional component how we can display a state variable if below is the state?
+	const [name,showName] = React.useState(“soumya”);
+	//<div>{name}</div>
+
+	const name = React.useState(“soumya”);
+	//<div>{name[0]}</div>
+
+
+	const [data,showData] = React.useState({a : 1, b : 2});
+	//<div>{data.a}</div>
+
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.getSnapshotBeforeUpdate() returns what?//previous state values
+Q. As a children if you want to know which props are coming to me then?
+	//getDervivedStateFromProps()
+	//componentWillReceiveProps()
+Q.Why we go for context?//share data all my children
+Q.What 3 things to remember for a context?
+	//create the context, give the data, get the data
+Q. How to create the context?//react.createContext()
+Q. How to provide the data?//context.Provider value attribute
+Q. How to provide the data?//context.Consumer with callback function
+
+Q. What is useContext? //if we want to use context or consume with hooks
+Q. useContext() takes how many arguments? //one what is that?// Context
+Q. How to update state without setState()?
+Q.
+Q.What is forceUpdate()??
+	//without setState() I want to update the state
+Q.
+Q.
+Q.
+Q.
+Q.How many arguments reducer() method takes?//2
+Q.What is 1st argument to reducer()?//state
+Q.What is the 2nd argument to reducer()? //action
+Q.From where reducer() will receive the 2nd argument action?	
+	//from dispatch()
+Q.How many ways we can get dispatch()?
+Q.Why we go for React.Fragment?
+Q.What is React.createElement()? Contains how many arguments? And what are they/
+Q.Without jsx how we can create a component?
+Q.What is this.props.children?
+Q.How many ways we can handle exception?
+Q.How many static life cycle methods are available in React?
+Q.Why we cannot update setState() from within getDerivedStateFromError()?
+	//my this is not available within the static context..
+Q.When my getDerivedStateFromError() is going to trigger?
+Q.Where we are going to override getDerivedStateFromError()?
+Q.How many ways we can write setState()?//3 ways
+Q.When we go for setState() with callback function?
+	//my setState() is async..
+	//If I want to perform some operation once my state is updated then we can do here..
+Q.What variables are coming from React.Component?
+Q.What is my lifecycle structure? For both class component and functional component?
+Q.state updated life cycle methods are what??
+Q.
+
+Q.What is the structure of HOC?
+Q.Why we go for HOC?//reusability
+Q.What is React.createRef()?
+Q.Why we go for forward reference?
+Q.
+Q.
+Q.
+Q. What is hook?
+Q. How many hooks are available in React?
+Q.How does React Hooks re-renders a function Component?
+
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
+Q.
