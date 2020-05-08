@@ -597,3 +597,137 @@ Q. What is React.useCallback()?
 
 
 
+======::==============================  Redux ==============================::======
+
+Q. What all libraries required to implement redux?
+	//react : for react
+	//redux : for store
+	//react-redux : for establishing connection between a react and redux..
+	
+Q. What is connect() ?
+	//It is a HOC to make a component to communicate with redux..
+	//connect() is available in react-redux
+
+Q. How many arguments connect() takes?
+	//2 - both are functions
+	//mapStateToProps()
+	//mapDispatchToProps()
+	
+Q. In order to return the same component but with redux capability or to store we havt bind connect() with our component..How?
+	//export default connect(mapStateToProps,mapDispatchToProps)(C);
+
+Q. What is the syntax of mapStateToProps() when we override?
+	mapStateToProps(state){
+		return {
+			key1 : value1,
+			key2 : value2
+			... : ...
+			... : ...
+			keyn : valuen
+		}
+	}
+	
+Q. mapStateToProps() returns?
+	//an object always - state
+	
+Q. If we dont want state can we only send mapDispatchToProps()?
+	//No we must have to pass null as  mapStateToProps() is the first argument to connect()
+	//If we only call connect(mapDispatchToProps)(component), then mapDispatchToProps() will be treated as first argument 
+	 	means it will be considered as returning state instead of dispatch..
+	//export default connect(null,mapDispatchToProps)(C);
+	
+Q. Whatever state value returned from mapStateToProps() as an object..How we can use this within our component?
+	mapStateToProps(state){
+		return {
+     			val1:state.reducer.stateVar1,
+     			val2:state.reducer.stateVar2
+  		}
+	}
+
+	We can use val1 and val2 like {this.props.val1} and {this.props.val2}
+	
+Q. What is the syntax of mapDispatchToProps() when we override?
+	const mapDispatchToProps=(dispatch)=>{
+  		return {
+    			dispatch
+  		}
+	}
+	
+	
+Q. mapDispatchToProps() returns?
+	//an object always - having only one key and value i.e. and it is a dispatch method
+	
+Q. If we dont want dispatch and only state we need can we only send mapStateToProps()?
+	//yes we can skip as it is second argument...
+	//export default connect(mapStateToProps)(C);
+
+Q. Whatever dispatch value returned from mapDispatchToProps() as an object..How we can use this within our component?
+	//write outside of the class..
+	const mapDispatchToProps=(dispatch)=>{
+  		return {
+    			dispatch:dispatch
+  		}
+	}
+	
+	//button click inside class..
+	//We can use this.props.dispatch()
+	 fnSetName(){
+   		let name= this.refs.name.value;
+   		this.props.dispatch({
+      			type:'NAME',
+      			payload:name
+   		});
+  	}
+	
+Q. How we can create a store?
+	//using createStore() coming from redux library..
+
+Q. createStore() is from which library?
+	//redux
+	
+Q. How many arguments createStore() has?
+	//2
+	//1st is for reducer ie. combineReducer(r1,r2,..rn)
+	//2nd is for middlewares ie. applyMiddleware(logger,thunk,sagaMiddleware)
+	
+Q. combineReducer() is coming from which library?
+	//redux
+	//import {combineReducers} from 'redux';
+	//It takes one object as an argument
+	//object will have many key value pairs where each key value represents a reducer..
+	
+Q. applyMiddleware() is coming from which library?
+	//redux
+	//import {createStore,applyMiddleware} from 'redux';
+	//It can take n nuber of arguments.. each representing a middleware..
+	//applyMiddleware(logger,thunk,sagaMiddleware)
+	
+Q. reducer() method is like a normal javascript function which gets called by the dispatch() method..
+   How the redux will detect this function as a reducer()?
+   	//for that only we are registering the reducer in createStore() first argument as combineReducer()
+	
+Q. How we can make the store available for all the components?
+	//For this there is a component called Provider coming from "react-redux library..
+	//This component expects a prop called store
+	//So we will have to set this in the root component..
+	//lets set this where we are doing ReactDom.render(<App />,document.getElementById('root'));
+
+	ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+	
+Q. is it mandatory to pass attribute store from provider component to send our store?
+	//Yes it is because the exact name Provider component is expecting as a prop
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
