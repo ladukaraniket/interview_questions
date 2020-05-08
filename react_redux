@@ -717,10 +717,36 @@ Q. How we can make the store available for all the components?
 Q. is it mandatory to pass attribute store from provider component to send our store?
 	//Yes it is because the exact name Provider component is expecting as a prop
 	
+Q. Why we are not supposed to do async calls inside reducer?
+
+Q. When we will go for actions?
+	//When we want to do some async calls like db crud operations or anything like that we will go for actions..
 	
+Q. Tell me the overall flow of redux?
+	//for async calls
+	//component -> action -> servercall -> server(node) -> database(mongodb) 
+									       |
+				component <- reducer <- action <- server(node)<-
 
 	
+	//if no async calls
+	//component -> reducer ->  component
+									       
+
+Q. What is an action? Why it is needed?
+	//Suppose we want any async calls we can do it in component itself.. 
+	But if we have to use same operation multiple places then it will repetation of code within the component..
+	SO it is advisable to use action()
 	
+	If we do async calls in a reducer then it will not wait for the async operation to finish..and then return state..
+	It will return the previous initial state as is..or undefined
+	
+	So basically we first perform async calls in action..
+	Once we receive the response from db within callback then we call the reducer() using dispatch() and sending the response to update
+	
+	reducer() is a pure function and we are not supposed to do any asyc calls here..
+	
+
 	
 	
 	
