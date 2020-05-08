@@ -752,12 +752,57 @@ Q. How many ways we can get dispatch() within my action() method?
 	
 	
 Q. What is bindActionCreator()?
+	//allows to bind the dispatch method to my action so that it is directly available within action()...
+	//bindActionCreators() returns one more function i.e. action function binding with dispatch..
+	//Hence instead of calling the normal action method we need to call the bindActionCreators() returning action method
+	const mapDispatchToProps=(dispatch)=>{
+  		return {
+       			photosAction:bindActionCreators(photosAction,dispatch)
+  		}
+	}
+	//in this case we will use photosAction() returned from mapDispatchToProps() binded with dispatch
+	//no need to pass as an argument..
+		   this.props.photosAction();
+
+	//Now our action method will have a returing fucntion with dispatch, and getState() as arguments..
+	//We can use thsoe..
+	const photosAction=()=>{
+    		return (dispatch,getState)=>{
+        		ServerCall.fnGetReq('http://jsonplaceholder.typicode.com/photos') 
+        		.then((res)=>{
+            			dispatch({
+                			type:'PHOTOS',
+                			payload:res.data
+            			});
+        		}) 
+        		.catch((res)=>{
+            			dispatch({
+                			type:'PHOTOS',
+                			payload:[]
+            			});
+        		})
+    		}
+	}
+	
+	And to make this bindActionCreators() wor we need to register thunk middleware 
+	inside createStore()
+
+	
+Q. bindActionCreators() coing from which library?
+	//from redux
+	//import {bindActionCreators} from 'redux'
+
 Q. What do you understand by thunk middleware? Why we need this middleware?
 
 	
+Q. How to add bootstrap to react?
+	npm i bootstrap --save
 	
+	And in index.js 
+	import 'bootstrap/dist/css/bootstrap.css';
+
 	
-	
+
 	
 	
 	
