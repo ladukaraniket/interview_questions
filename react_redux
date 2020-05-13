@@ -8,6 +8,13 @@ Q. What is difference between React and Angular?
 Q. What are the features of React?
 Q. What is advantages of React?
 Q. What are the limitations of react?
+Q. What do you understand by react server side rendering?
+Q. What is current version of react?
+Q. What is the difference between Element and Component?
+Q. What is React.createElement()?
+Q. Can we write react component without jsx?
+Q. When to use a Class Component over a Function Component?
+
 Q. What are the minimum libraries we need for a basic react application?
 Q. What is MEAN and MERN?
 Q. What is the difference between a framework and a library?
@@ -24,6 +31,12 @@ Q. How different is React ES6 standard from when compared to ES5?
 Q. What do you understand from “In React, everything is a component.”
 Q. Explain the purpose of render() in React.
 Q. What do you understand by expression in react? When exactly we will use {}?
+Q. Why we use {{}} for style attribute?
+
+Q. While importing what is the difference between below 2 syntax?
+	import React from "react"; //default exported from file
+	import {Component} from "react"; //normal exported from file
+	
 Q. What is the error we will get if we don’t import react-dom?
 	//ReferenceError: Can't find variable: ReactDOM
 Q. What error we will get if you load ReactDOM before React? 
@@ -44,47 +57,6 @@ Q. Can you tell me my component class render() method is triggered how many time
 
 Q. How many types of components are available?
 Q. Do we need to import react for functional components as well?
-Q. What all things we get from React.Component class?
-	//this.state, this.props, this.refs, this.setState(), render(), constructor() & life cycle methods
-Q. Whatever a component receives from outside world or its parent can be received as?
-	//this.props
-Q. How many ways we can create variables within a class component?
-	//let, const, this.varname , also state variable and props
-Q. What is the difference between let, const, this.varname , this.state, this.props and this.refs?
-Q. How a functional component receives values from parent component? 
-	this.props is not available?
-	//using argument
-Q. How we can create a state variable for a class component?
-Q. How we can update a state variable in a class component?
-	this.setState({})
-Q. What is the syntax of setState()? How many ways it can be used?
-	//this.setState({},()=>{})
-	//this.setState({})
-	//this.setState(()=>{})
-Q. If we change the variable n value like below then what is the problem?
-	//this.state.n =10;
-Q. What is React.forceUpdate()? When we should go for it?
-
-
-Q. What all life cycle methods are called when setState() is called?
-Q. What is a Pure component?
-Q. What is the difference between a class component and a pure component?
-
-Q. What is use of constructor() in class? When we will go for it?
-Q. Why we need to call super() inside constructor?
-Q. When we need to call constructor(props){super(props); }?
-Q. Is constructor() is mandatory for a class component?//no
-
-Q. What are mandatory methods for a class component?
-	//only render() method is mandatory to override
-
-Q. How many ways we can style a component?
-	//using style= {{}}
-	//using className=“”
-	//using styled component
-	//bootstrap classes
-
-Q. Why we use double curly braces for style tag?
 Q. if we do not override the React.Component render() method we will get which error?	
 	//Warning: App(...): No `render` method found on the returned component instance: 
 	you may have forgotten to define `render`.
@@ -95,6 +67,78 @@ Q. if we extends a class from React.Component class and also overridden render()
 
 Q. where my execution is going to start in react app?
 	//My execution is always going to start from ReactDOM.render() method only
+
+Q. What all things we get from React.Component class?
+	//this.state, this.props, this.refs, this.setState(), render(), constructor() & life cycle methods
+Q. Whatever a component receives from outside world or its parent can be received as?
+	//this.props
+Q. How many ways we can create variables within a class component?
+	//let, const, this.varname , also state variable and props
+Q. What is the difference between let, const, this.varname , this.state, this.props and this.refs?
+Q. How a functional component receives values from parent component? as this.props not available for functional components..
+	this.props is not available?
+	//using argument
+Q. How we can create a state variable for a class component?
+	//this.state = {}
+Q. How we can update a state variable in a class component?
+	this.setState({})
+Q. What is the syntax of setState()? How many ways it can be used?
+	//this.setState({},()=>{})
+	//this.setState({})
+	//this.setState(()=>{})
+Q. If we change the variable n value like below then what is the problem?
+	//this.state.n =10;
+	//state will be changed but render() method will not be called. 
+	//And state variable updated value will never get printed.
+	//So we need to call setState() which internally calles setState()
+	
+Q. What is React.forceUpdate()? When we should go for it?
+
+Q. What all life cycle methods are called when setState() is called?
+Q. What is a PureComponent?
+	//shouldComponentUpdate() returns false..
+	//so on a state change if both previous and current state values are same it will not trigger any lifecycle method that was supposed to be triggered after shouldComponentUpdate()
+	
+Q. What is the difference between a class component and a pure component?
+
+Q. What is use of constructor() in class? When we will go for it?
+	//initialise state
+	//bind class methods with this
+	//this.myref = React.createRef() reference etc..
+	
+Q. Why we need to call super() inside constructor?
+Q. When we need to call constructor(props){super(props); }?
+Q. Is constructor() is mandatory for a class component?//no
+
+Q. Why we need to bind class methods within constructor?
+
+Q. How many ways we can bind method to this within a class?
+	//inside constructor
+		constructor(){
+			super();
+			this.fnSubmit = this.fnSubmit.bind(this);
+		}
+		fnSubmit(){}
+		
+	//inline binding
+		<input type="button" onClick={this.fnSubmit.bind(this)} />
+		fnSubmit(){}
+	//using inline arrow function
+		<input type="button" onClick={(event)=>{ return this.fnSubmit() }} />
+	//defining class methods as arrow functions...
+		<input type="button" onClick={this.fnSubmit} />
+		fnSubmit = () => {}
+		
+Q. What are synthetic events in React?
+Q. What are "key" props and what is the benefit of using them in arrays of elements?
+Q. What are mandatory methods for a class component?
+	//only render() method is mandatory to override
+
+Q. How many ways we can style a component?
+	//using style= {{}}
+	//using className=“”
+	//using styled component
+	//bootstrap classes
 
 
 Q. How to handle a click event in react?
@@ -108,25 +152,101 @@ Q. How many ways we can retrieve the values from a textbook?
 	
 Q. What is this.props.children?
 Q. What is the difference between <App> </App> and <App />?
-Q.
+Q. What are controlled components?
+	//A component that controls the input elements within the forms on subsequent user input is called Controlled Component, 
+	i.e, every state mutation will have an associated handler function.
+	//For example, to write all the names in uppercase letters, we use handleChange as below,
+	//onChange..
+	handleChange(event) {
+ 		 this.setState({value: event.target.value.toUpperCase()})
+	}
+	
+	In most cases, it's recommend to use controlled components to implement forms.
 
 
+Q. What are uncontrolled components?
+	//The Uncontrolled Components are the ones that store their own state internally, 
+	and you query the DOM using a ref to find its current value when you need it. 
+	This is a bit more like traditional HTML.
+
+Q. What is Lifting State Up in React?
+	When several components need to share the same changing data 
+	then it is recommended to lift the shared state up to their closest common ancestor. 
+	That means if two child components share the same data from its parent, 
+	then move the state to parent instead of maintaining local state in both of the child components.
+
+Q. What are the different phases of component lifecycle?
+	//mounting,updating,unmounting
+	
+Q. How to write comments in React?
+	{/* Multi-line comments for more than
+   	one line */}
+	{/* single line comment *}
+	
+Q. How to set state with a dynamic key name?
+	If you are using ES6 or the Babel transpiler to transform your JSX code then you can accomplish this with computed property names.
+
+	handleInputChange(event) {
+ 	 this.setState({ [event.target.id]: event.target.value })
+	}
 
 
+Q. What is the purpose of using super constructor with props argument?
+	A child class constructor cannot make use of this reference until super() method has been called. The same applies for ES6 sub-classes as well. The main reason of passing props parameter to super() call is to access this.props in your child constructors.
 
+	Passing props:
+	class MyComponent extends React.Component {
+  		constructor(props) {
+    			super(props)
+    			console.log(this.props) // prints { name: 'John', age: 42 }
+  		}
+	}
 
+	Not passing props:
+	class MyComponent extends React.Component {
+  		constructor(props) {
+    			super()
+			console.log(this.props) // prints undefined
+    			// but props parameter is still available
+    			console.log(props) // prints { name: 'John', age: 42 }
+  		}
 
+  		render() {
+   			// no difference outside constructor
+    			console.log(this.props) // prints { name: 'John', age: 42 }
+  		}
+	}
+	The above code snippets reveals that this.props is different only within the constructor. 
+	It would be the same outside the constructor.
 
+Q. What is the difference between super() and super(props) in React using ES6 classes?
+Q. Can you force a component to re-render without calling setState?
 
+Q. How do you access props in attribute quotes?
+	React (or JSX) doesn't support variable interpolation inside an attribute value. 
+	The below representation won't work:
+	<img className='image' src='images/{this.props.image}' />
 
+	But you can put any JS expression inside curly braces as the entire attribute value. 
+	So the below expression works:
+	<img className='image' src={'images/' + this.props.image} />
+
+	Using template strings will also work:
+	<img className='image' src={`images/${this.props.image}`} />
+	
+Q. How to conditionally apply class attributes?
+	You shouldn't use curly braces inside quotes because it is going to be evaluated as a string.
+	<div className="btn-panel {this.props.visible ? 'show' : 'hidden'}">
+
+	Instead you need to move curly braces outside (don't forget to include spaces between class names):
+	<div className={'btn-panel ' + (this.props.visible ? 'show' : 'hidden')}>
+
+	Template strings will also work:
+	<div className={`btn-panel ${this.props.visible ? 'show' : 'hidden'}`}>
+	
 Q. What is <></> ?
 Q. What is React.Fragment?
 Q. When we will go for <></> or React.Fragment? One live example…
-
-
-
-
-
 
 
 
@@ -177,6 +297,8 @@ Q. Inside a functional component how we can display a state variable if below is
 Q. How we can pass data from a parent to child?
 	//parent omponent can pass using attribute while instantiating e.g. <child name="soumya" />
 	//using this.props a child can receive e.g. {this.props.name}
+	
+Q. 
 	
 Q. How we can pass data from a child to parent?
 	//using event delegation
@@ -241,7 +363,7 @@ Q. What are the lfe cycle methods available in react?
 Q. Is life cycle methods avaiable only for class components?
 	//yes, for functional components we can use hooks
 	
-Q. What is the default value for my shouldComponentUpdate()?//true
+Q. What is the default value for my shouldComponentUpdate() return?//true
 
 Q. Can we unmount a component explicitly? 
 	//using conditional rendering..
@@ -261,7 +383,7 @@ Q. If we defined only componentWillMount() will it be triggerred or there will b
 	react-dom.development.js:12503 Warning: componentWillMount has been renamed, and is not recommended for use. 
 	See https://fb.me/react-unsafe-component-lifecycles for details.
 	
-Q. On we have defined both the methods in the class component i.e. componentWillMount() and getDerivedStateFromProps() then will it give error?
+Q. If we have defined both the methods in the class component i.e. componentWillMount() and getDerivedStateFromProps() then will it give error?
 	//yes
 	//react-dom.development.js:524 Warning: Unsafe legacy lifecycles will not be called for components using new component APIs.
 
@@ -272,7 +394,8 @@ Q. What is the syntax of getDerivedStateFromProps()?
 	//getDerivedStateFromProps() is working like componentWillMount() on initial load
 	//getDerivedStateFromProps() is woring like componentWillUpdate() on state update
 	//getDerivedStateFromProps() is woring like componentWillReceiveProps() on props change
-
+	//must have to return an object..That is same as state object. 
+	//If we are not going to return state then we can return null
 	
 Q. How many static life cycle methods are there?
 	//2
@@ -298,6 +421,7 @@ Q. On state update what all life cycle methods are triggered?
 	============================================================================================
 	getDerivedStateFromProps()
 	shouldComponentUpdate()
+	//componentWillUpdate()
 	render()
 	getSnapshotBeforeUpdate()
 	componentDidUpdate()
@@ -307,17 +431,16 @@ Q. On state update what all life cycle methods are triggered?
 	If we have componentWillUpdate() then it is triggered after shouldComponentUpdate()
 	If we have getDerivedStateFromProps() then it is triggered before shouldComponentUpdate()
 
-
 Q. On state update in parent and props changes in child what all life cycle methods are triggered?
-	get derived state
-	should update
-	//will update
-	render
-	//will receive props
-	get derived state - child
-	child render
-	get snapshot
-	did update
+	getDerivedStateFromProps()
+	shouldComponentUpdate()
+	//componentWillUpdate()
+	render()
+	//componentWillReceiveProps()
+	getDerivedStateFromProps() - child
+	render() - child
+	getSnapshotBeforeUpdate()
+	componentDidUpdate()
 
 Q. If my shouldComponentUpdate() returns true then what all life cycle methods executed ?
 	//getDerivedStateFromProps()
@@ -327,7 +450,7 @@ Q. If my shouldComponentUpdate() returns true then what all life cycle methods e
 	
 	//getDerivedStateFromProps()
 	//shouldComponentUpdate()
-		//After the above all of the methods gets executed..
+	//After the above all of the below methods gets executed..if shouldComponentUpdate() returns true
 	//render()
 	//getSnapshotBeforeUpdate()
 	//componentDidUpdate()
@@ -338,24 +461,29 @@ Q. If my shouldComponentUpdate() returns false then what all life cycle methods 
 	//After this none of the methods gets executed..
 	
 
-Q.
-Q.getSnapshotBeforeUpdate() returns what?//previous state values
+Q. getSnapshotBeforeUpdate() returns what?//previous state values
 Q. As a children if you want to know which props are coming to me then?
 	//getDervivedStateFromProps()
 	//componentWillReceiveProps()
-Q.Why we go for context?//share data all my children
-Q.What 3 things to remember for a context?
+	
+Q. What are the methods available for error boundary?
+	// static getDerivedStateFromError(error) 
+	// componentDidCatch(error,errorInfo)
+	
+Q. Why we go for context?//share data all my children
+Q. What 3 things to remember for a context?
 	//create the context, give the data, get the data
+	
 Q. How to create the context?//react.createContext()
 Q. How to provide the data?//context.Provider value attribute
 Q. How to provide the data?//context.Consumer with callback function
 
 Q. What is useContext? //if we want to use context or consume with hooks
 Q. useContext() takes how many arguments? //one what is that?// Context
-Q. How to update state without setState()?
-Q.
-Q.What is forceUpdate()??
-	//without setState() I want to update the state
+
+
+
+
 
 Q.How many arguments reducer() method takes?//2
 Q.What is 1st argument to reducer()?//state
@@ -385,11 +513,23 @@ Q.
 Q.What is the structure of HOC?
 Q.Why we go for HOC?//reusability
 Q.What is React.createRef()?
-Q.Why we go for forward reference?
 
-Q. What is hook?
-Q. How many hooks are available in React?
-Q.How does React Hooks re-renders a function Component?
+Q.Why we go for forward reference?
+	//forwardRef() is required in case we want the createRef ref to be binded to a fucntional component...
+	//If child class is a functional component then we must have to pass as "ref" attribute from parent..i.e. ref={this.myref}
+	//So the whole child functional component we will give to React.forwardRef()
+		React.forwardRef((props,ref)=>{ return <div><input ref={ref} /></div> })
+	
+	
+	//If both are class components then in one class we use createRef() to create a reference and pass as an attribute to child with any name..i.e. refpropname={this.myref} 
+	//In the child class we receive ref as this.props.<refpropname> whatever passed from parent..
+	//Then in child we can assign it to any element using "ref" attribute i..e. ref={this.props.refpropname}
+
+Q. What is useRef()?
+	//for a class component we use createRef() for a reference and for a functional component we use useRef()
+	//rest all flow is same..
+
+
 
 ======::==============================  Hooks ==============================::======
 
@@ -414,8 +554,11 @@ Q. What are the rules of hooks?
 Q. What is useState()?
 	//It is to create a state variable for fucntional components
 	//equivalent to this.state in class components
-
-Q. Which library is having useState? 
+	
+Q.How does React Hooks re-renders a function Component?
+	//return stmt gets executed
+	
+Q. Which library is having useState()? 
 	//React
 	
 Q. When would I use a Hook? 
@@ -431,7 +574,7 @@ Q. How many arguments useState() has?
 Q. What does calling useState do?
 	//This is to create a state variable and initialise it..
 
-Q. What does useState return? 
+Q. What does useState() return? 
 	// It returns a pair of values: the current state and a function that updates it. 
 	This is why we write const [count, setCount] = useState(). 
 	This is similar to this.state.count and this.setState in a class
@@ -449,7 +592,7 @@ Q. How we can update a state variable in functional components?
 Q. What does useEffect do?
 	//By using this Hook, you tell React that your component needs to do something after render.
 	
-Q. Does useEffect run after every render?
+Q. Does useEffect() run after every render?
 	//yes
 	
 Q. useEffect() is equivalent to which life cycle methods of class component?
@@ -598,7 +741,12 @@ Q. What is React.useCallback()?
 
 
 ======::==============================  Redux ==============================::======
-
+Q. What are the core principles of Redux?
+	//singe source of truth
+	//state is read only
+	//changes are made using pure functions
+	
+	
 Q. What all libraries required to implement redux?
 	//react : for react
 	//redux : for store
@@ -679,6 +827,12 @@ Q. Whatever dispatch value returned from mapDispatchToProps() as an object..How 
    		});
   	}
 	
+Q. Can I dispatch an action in reducer?
+	//Dispatching an action within a reducer is an anti-pattern. 
+	Your reducer should be without side effects, simply digesting the action payload and returning a new state object.
+	Adding listeners and dispatching actions within the reducer can lead to chained actions and other side effects.
+	
+Q. What is the difference between component and container in React Redux?
 Q. How we can create a store?
 	//using createStore() coming from redux library..
 
@@ -788,7 +942,7 @@ Q. What is bindActionCreator()?
 	inside createStore()
 
 	
-Q. bindActionCreators() coing from which library?
+Q. bindActionCreators() coming from which library?
 	//from redux
 	//import {bindActionCreators} from 'redux'
 
@@ -807,6 +961,37 @@ Q. What do you understand by thunk middleware? Why we need this middleware?
 	// foo is a thunk!
 	let foo = () => 1 + 2;
 	
+	
+	====
+	//action file name is userAction imported to container
+	//dispatch we receive from mapDispatchToProps() from connect() 2nd argument
+	//bindActionCreators() takes action file and dispatch and binds both and returns a new function..
+	//Now in action file no need to pass dispatch as argument or get it from store..
+	//We will receive as a inner function...
+	
+	//component file
+	//const mapDispatchToProps =(dispatch) =>{
+		userAction : bindActionCreators(userAction,dispatch);
+	}
+	
+	
+	//action file
+	import ServerCall from '../services/ServerCall';
+	const userAction=()=>{
+    		return (dispatch,getState)=>{
+        		//do server call here and use dispatch() to update state by calling reducer() after servercall success
+    		}
+	}
+	export default userAction;
+	
+	//to make bindActionCreators() work we need to activate thunk
+	//store file
+	import thunk from 'redux-thunk'
+	const store=createStore(rootReducer,applyMiddleware(logger,thunk,sagaMiddleware));
+	
+	
+Q. Which library has bindActionCreators?
+	//redux 
 	
 Q. What is redux saga?
 	Sagas are implemented using generator functions (a new ES2015 feature). 
@@ -834,6 +1019,54 @@ Q. Tell me the overall flow of redux saga?
 	//if no async calls
 	//component -> saga -> reducer -> store -> component
 	
+Q. What is a generator function?
+Q. What is yield? 
+Q. How a generator function is executed?
+Q. What is put in redux saga?
+	//put() is same as dispatch(), but put() is provided by saga effects. 
+	//We have to use it within sga files to connect to services
+	
+Q. What is call() in redux saga?
+	//Its like calling any async calls.. same as promise calls..
+	//but instead of using then() catch() we use yield call()...it returns the response and we can assign it to a variable..
+	    const res=yield call(ServerCall.fnGetReq,'https://jsonplaceholder.typicode.com/posts');
+
+Q. What is all() in redux saga?
+	//to register all methods to a single..
+	import commentsSaga from './commentsSaga';
+	import postsSaga from './postsSaga';
+	import {all} from 'redux-saga/effects'
+	function* rootSaga(){
+   		return yield all([
+        		commentsSaga(),
+       		 	postsSaga()
+    		]);
+	}
+
+	export default rootSaga;
+	
+Q. What are the differences between call and put in redux-saga?
+Q. What are the differences between redux-saga and redux-thunk?
+
+Q. How to set initial state in Redux?
+	You need to pass initial state as second argument to createStore:
+
+	const rootReducer = combineReducers({
+  		todos: todos,
+  		visibilityFilter: visibilityFilter
+	})
+
+	const initialState = {
+		  todos: [{ id: 123, name: 'example', completed: false }]
+	}
+
+	const store = createStore(
+  		rootReducer,
+	        initialState
+	)
+	
+	
+Q. How to add multiple middlewares to Redux?
 Q. What is the difference between the normal redux action or thunk flow from redux saga?
 	//We register saga methods with a unique identity in every saga file..
 	//We create a single saga method and export it..
@@ -865,7 +1098,18 @@ Q. What is the difference between the normal redux action or thunk flow from red
 
 	export default rootSaga;
 
-Q. 
+Q. what is difference between takeLatest() and takeEvery()?
+
+Q. How to register saga within store?
+	import rootSaga from './sagas/rootSaga';
+	import createSagaMiddleware from 'redux-saga';
+
+	const sagaMiddleware=createSagaMiddleware();
+
+	const store=createStore(rootReducer,applyMiddleware(logger,thunk,sagaMiddleware));
+	sagaMiddleware.run(rootSaga);
+	
+
 	
 Q. How to add bootstrap to react?
 	npm i bootstrap --save
@@ -875,8 +1119,10 @@ Q. How to add bootstrap to react?
 
 	
 
-	
-	
+Q. What is Redux Form?
+Q. What are the main features of Redux Form?
+Q. How to add validators to redux-form?
+
 	
 	
 	
