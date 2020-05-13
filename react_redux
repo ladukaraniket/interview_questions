@@ -512,6 +512,25 @@ Q.
 
 Q.What is the structure of HOC?
 Q.Why we go for HOC?//reusability
+Q. How to create props proxy for HOC component?
+	You can add/edit props passed to the component using props proxy pattern like this:
+
+	function HOC(WrappedComponent) {
+	  return class Test extends Component {
+ 	   render() {
+ 	     const newProps = {
+  	      title: 'New Header',
+   	      footer: false,
+   	      showFeatureX: false,
+   	      showFeatureY: true
+      	     }
+
+      	   return <WrappedComponent {...this.props} {...newProps} />
+    	 }
+       }
+     }
+
+
 Q.What is React.createRef()?
 
 Q.Why we go for forward reference?
