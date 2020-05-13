@@ -1,1 +1,117 @@
 
+Q. What is less vs sass?
+
+Q. What is less?
+Q. What are mixins in less?
+	//object oriented 
+	
+	.roundedCorners(@radius){
+	-webkit-border-radius : @radius;
+	-moz-border-radius : @radius;
+	border-radius : @radius;
+	}
+
+	img{
+		.roundedCorners(10px)
+	}
+	
+	img{
+	-webkit-border-radius : 10px;
+	-moz-border-radius : 10px;
+	border-radius : 10px;
+	}
+
+	.commonRules{
+		border : @border;
+		text-align : center;
+	}
+	
+	
+	header{
+		font-size: @fontSize;
+		.cooonRules;
+	}
+Q. What are variables in less?
+	@black : #000;
+	@fontSize : 12px;
+	@padding : 15px;
+	@border : 2px solid @black;
+	@stringVar : " - on CodePen";
+	
+	header{
+		color : @black;
+		font-size : @fontSize;
+		padding: @padding  @padding + 15;
+	}
+	
+	footer{
+		border : @border
+	}
+	
+	
+Q. How we can nest css rules together?
+	h1{
+		&:after{
+			content ; @stringVar;
+		}
+	}
+	
+	h1:after{
+		content ; @stringVar;
+	}
+	
+	
+	a{
+		&:hover{
+			color : darker(@black,20%);
+		}
+	}
+	
+	
+	footer{
+		p{
+			span{
+			
+			}
+		}
+	}
+	
+
+Q. operators?
+	margin : @margin+30
+margin : @margin-30
+margin : @margin*3
+margin : @margin/3
+
+
+Q. parametrized mixins?
+	.roundedCorners(@radius:10px){
+	-webkit-border-radius : @radius;
+	-moz-border-radius : @radius;
+	border-radius : @radius;
+	}
+Q. guarded mixins?
+	.set-text-color (@bg-color) when
+	(lightness(@bg-color)>= 50%){
+		color:@dark;
+		background:@bg-color;
+	}
+	
+	//call
+	.set-text-color(@template_color)
+	.set-text-color(lightness(@template_color,10%))
+	
+Q. built-in functions
+	lighten()
+	darken()
+	fadein()
+	fadeout()
+	fade()
+	
+Q.partials(@import)
+	@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css)
+
+
+Q. DRY? Dont repeat yourself..
+
+
