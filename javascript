@@ -113,9 +113,14 @@ What is this operator?
 	console.log(window.b)  // "MDN"
 	console.log(b)         // "MDN"
 
+What is super keyword?
+	//The super keyword is used to access and call functions on an object's parent.
 
 
-	
+
+What is delete operator?
+	//The JavaScript delete operator removes a property from an object; 
+	//if no more references to the same property are held, it is eventually released automatically.
 
 
 
