@@ -1,1 +1,15 @@
 
+What are NoSQL databases? 
+What is mongodb?
+How mongodb is different from other dbs?
+Adavantages of mongodb?
+Disadvantages of mongodb?
+What is mongodb version??//v4.0.3
+How to install mongodb in mac?
+How to install mongodb in windows?
+What is “Namespace” in MongoDB?
+  //MongoDB stores BSON (Binary Interchange and Structure Object Notation) objects in the collection. 
+  //The concatenation of the collection name and database name is called a namespace.
+
+What is a collection in mongodb?
+What is a document in mongodb?
