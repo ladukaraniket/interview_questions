@@ -8,6 +8,121 @@ How to add an external script to a file?
 	
 What are the data types in javascript?
 
+====================================================================================================================
+Expression and Operators
+====================================================================================================================
+What is typeof operator?
+	//The typeof operator returns a string indicating the type of the unevaluated operand.
+
+	typeof operand
+	typeof(operand)
+	
+	console.log(typeof 42);// expected output: "number"
+	console.log(typeof 'blubber');// expected output: "string"
+	console.log(typeof true);// expected output: "boolean"
+	console.log(typeof undeclaredVariable);// expected output: "undefined";
+	typeof undefined //undefined
+	typeof null//Object
+	typeof "" //"string"
+	typeof '' //"string"
+	typeof ``//"string"
+	typeof Array//"function"
+	typeof Function//"function"
+	typeof undefined//"undefined"
+	typeof null//"object"
+	typeof ehsjbf//"undefined"
+	typeof []//"object"
+	typeof {}//"object"
+	typeof true//"boolean"
+	typeof new Boolean(true)//"object"
+
+
+What is void operator?
+	//The void operator evaluates the given expression and then returns undefined.
+
+	void expression;
+	void(expression);
+	
+	void 0; //returns undefined
+	void(1); //returns undefined
+
+	void 'hello'; //undefined
+	void {}; //undefined
+	void []; //undefined
+
+	void myFunction(); 
+	void(myFunction());
+	
+	If you ask why do you need a special keyword just to return undefined instead of just returning undefined: 
+	the reason is that before ES5 you could actually name a global variable undefined, like so: var undefined = "hello" 
+	or var undefined = 23, and most browsers would accept it; 
+	the identifier undefined was not promised to actually be undefined¹. 
+	So to return the actual undefined value, the void operator is/was used. 
+	Its not a very popular operator though and is seldom used.
+
+	//just a normal function
+	function test() {
+	  console.log('hello');
+	  return 2;
+	}
+	//lets call it
+	console.log(test()); //output is hello followed by 2
+	//now lets try with void
+	console.log(void test()); //output is hello followed by undefined
+
+
+	void function test() {
+	  console.log('boo!');
+	  // expected output: "boo!"
+	};
+	try {
+	  test();
+	} catch (e) {
+	  console.log(e);
+	  // expected output: ReferenceError: test is not defined
+	}
+
+
+
+What is this operator?
+	//A function's this keyword behaves a little differently in JavaScript compared to other languages. 
+	//It also has some differences between strict mode and non-strict mode.
+	//globalThis is a keyword always points to window no matter of any context we are in..
+
+	//In most cases, the value of this is determined by how a function is called (runtime binding).
+	//ES5 introduced the bind() method to set the value of a function's this regardless of how it's called
+	//ES6  introduced arrow functions which don't provide their own this binding 
+		(it retains the this value of the enclosing lexical context).
+
+
+	const test = {
+	  prop: 42,
+	  func: function() {
+	    return this.prop;
+	  },
+	};
+
+	console.log(test.func());
+	// expected output: 42
+	
+
+	console.log(this === window); // true
+	a = 37;
+	console.log(window.a); // 37
+	this.b = "MDN";
+	console.log(window.b)  // "MDN"
+	console.log(b)         // "MDN"
+
+
+
+	
+
+
+
+
+
+
+
 
 ====================================================================================================================
 Array
