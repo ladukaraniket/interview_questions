@@ -1613,17 +1613,460 @@ What are the methods a Set object has?
 String
 ====================================================================================================================
 
+What are the string methods available in js?
+	//indexOf(searchStr,fromIndex)
+	//lastIndexOf(searchStr,fromIndex)
+	//toUpperCase()
+	//toLowerCase()
+	//trim()
+	//trimStart()
+	//trimEnd()
+	//split()
+	//concat()
+	//sub() - d
+	//substr() - d
+	//substring()
+	//strike() -d
+	//padEnd()
+	//padStart()
+	
+	//charAt()
+	//charCodeAt()
+	//slice()
+	//valueOf()
+	//raw()
+	//replace()
+	//repeat()
+	//search()
+
+
+How to check length of a string?
+	//str.length
+	
+What is str.toUpperCase()?
+	//The toUpperCase() method returns the calling string value converted to uppercase 
+	(the value will be converted to a string if it isn't one).
+
+	str.toUpperCase()
+
+	const sentence = 'The quick brown fox jumps over the lazy dog.';
+	console.log(sentence.toUpperCase());
+	// expected output: "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG."
+	
+	
+	When called on null or undefined, for example, String.prototype.toUpperCase.call(undefined).
+	
+	
+	
+What is str.toLowerCase()?
+	//The toLowerCase() method returns the calling string value converted to lower case.
+
+	str.toLowerCase()
+
+	const sentence = 'The quick brown fox jumps over the lazy dog.';
+	console.log(sentence.toLowerCase());
+	// expected output: "the quick brown fox jumps over the lazy dog."
+	
+
+	console.log('ALPHABET'.toLowerCase()); // 'alphabet'
+	
+
+
+What is str.indexOf()?
+	//The indexOf() method returns the index within the calling String object of the first occurrence of the specified value, 	starting the search at fromIndex. Returns -1 if the value is not found.
+
+	str.indexOf(searchValue [, fromIndex])
+	//fromIndex default value is 0.
+	//fromIndex values lower than 0, the search starts at index 0 
+	//fromIndex values greater than str.length, the search starts at index str.length meaning -1 no search 
+	
+	
+	const paragraph = 'The quick brown fox jumps over the lazy dog. If the dog barked, was it really lazy?';
+	const searchTerm = 'dog';
+	const indexOfFirst = paragraph.indexOf(searchTerm);
+	console.log(`The index of the first "${searchTerm}" from the beginning is ${indexOfFirst}`);
+	// expected output: "The index of the first "dog" from the beginning is 40"
+	console.log(`The index of the 2nd "${searchTerm}" is ${paragraph.indexOf(searchTerm, (indexOfFirst + 1))}`);
+	// expected output: "The index of the 2nd "dog" is 52"
+	
+
+	'hello world'.indexOf('o', -5)//4
+	'hello world'.indexOf('o', 11)//-1
+	
+	
+	imp::
+	An empty string searchValue produces strange results. 
+	With no fromIndex value, or any fromIndex value lower than the string's length, 
+		the returned value is the same as the fromIndex value
+		
+	'hello world'.indexOf('') // returns 0
+	'hello world'.indexOf('', 0) // returns 0
+	'hello world'.indexOf('', 3) // returns 3
+	'hello world'.indexOf('', 8) // returns 8
+	
+	However, with any fromIndex value equal to or greater than the string's length, the returned value is the string's length:
+
+	'hello world'.indexOf('', 11) // returns 11
+	'hello world'.indexOf('', 13) // returns 11
+	'hello world'.indexOf('', 22) // returns 11
 
 
 
+	'Blue Whale'.indexOf('Blue')      // returns  0
+	'Blue Whale'.indexOf('Blute')     // returns -1
+	'Blue Whale'.indexOf('Whale', 0)  // returns  5
+	'Blue Whale'.indexOf('Whale', 5)  // returns  5
+	'Blue Whale'.indexOf('Whale', 7)  // returns -1
+	'Blue Whale'.indexOf('')          // returns  0
+	'Blue Whale'.indexOf('', 9)       // returns  9
+	'Blue Whale'.indexOf('', 10)      // returns 10
+	'Blue Whale'.indexOf('', 11)      // returns 10
+	'Blue Whale'.indexOf('blue')  // returns -1
+	
+
+What is str.lastIndexOf()?
+	//The lastIndexOf() method returns the index within the calling String object of the last occurrence of the specified value, 	searching backwards from fromIndex. Returns -1 if the value is not found.
+
+	str.lastIndexOf(searchValue[, fromIndex])
+	
+
+	const paragraph = 'The quick brown fox jumps over the lazy dog. If the dog barked, was it really lazy?';
+	const searchTerm = 'dog';
+	console.log(`The index of the first "${searchTerm}" from the end is ${paragraph.lastIndexOf(searchTerm)}`);
+	// expected output: "The index of the first "dog" from the end is 52"
+	
+	
+	'canal'.lastIndexOf('a');     // returns 3
+	'canal'.lastIndexOf('a', 2);  // returns 1
+	'canal'.lastIndexOf('a', 0);  // returns -1
+	'canal'.lastIndexOf('x');     // returns -1
+	'canal'.lastIndexOf('c', -5); // returns 0
+	'canal'.lastIndexOf('c', 0);  // returns 0
+	'canal'.lastIndexOf('');      // returns 5
+	'canal'.lastIndexOf('', 2);   // returns 2
+	
+Difference between indexOf() and lastIndexOf()?
+
+What is trim(),trimStart(),trimEnd()?
+	//The trim() method removes whitespace from both ends of a string. 
+	str.trim()
+	
+	const greeting = '   Hello          world!   ';
+	console.log(greeting);
+	// expected output: "   Hello          world!   ";
+	console.log(greeting.trim());
+	// expected output: "Hello          world!";
+	
+	
+	
+	
+	//The trimEnd() method removes whitespace from the end of a string. trimRight() is an alias of this method.
+	str.trimEnd();
+	str.trimRight();
+	
+	const greeting = '   Hello world!   ';
+	console.log(greeting);
+	// expected output: "   Hello world!   ";
+	console.log(greeting.trimEnd());
+	// expected output: "   Hello world!";
+	
+	var str = '   foo  ';
+	console.log(str.length); // 8
+	str = str.trimEnd();
+	console.log(str.length); // 6
+	console.log(str);        // '   foo'
+	
+	
+	
+	//The trimStart() method removes whitespace from the beginning of a string. trimLeft() is an alias of this method.
+	str.trimStart();
+	str.trimLeft();
+	
+	const greeting = '   Hello world!   ';
+	console.log(greeting);
+		// expected output: "   Hello world!   ";
+	console.log(greeting.trimStart());
+		// expected output: "Hello world!   ";
+	
+	var str = '   foo  ';
+	console.log(str.length); // 8
+	str = str.trimStart();
+	console.log(str.length); // 5
+	console.log(str);        // 'foo  '
+	
+	
+	
+What is str.split()?
+	//The split() method divides a String into an ordered set of substrings, puts these substrings into an array, 
+	//returns an array.  
+	
+	str.split([separator[, limit]])
+	
+	const str = 'The quick brown fox jumps over the lazy dog.';
+	const words = str.split(' ');
+	console.log(words);
+	// expected output: ["The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog."]
+	const chars = str.split('');
+	console.log(chars);
+	// expected output: ["T", "h", "e", " ", "q", "u", "i", "c", "k", " ", "b", "r", "o", "w", "n", " ", "f", "o", "x", " ", "j", 			"u", "m", "p", "s", " ", "o", "v", "e", "r", " ", "t", "h", "e", " ", "l", "a", "z", "y", " ", "d", "o", "g", "."]
+	const strCopy = str.split();
+	console.log(strCopy);
+	// expected output: Array ["The quick brown fox jumps over the lazy dog."]
+	
+	
+	
+What is str.substring()?
+	//The substring() method returns the part of the string between the start and end indexes, or to the end of the string.
+	
+	str.substring(indexStart[, indexEnd])
+	//substring() extracts characters from indexStart up to but not including indexEnd.
+	
+	If indexEnd is omitted, substring() extracts characters to the end of the string.
+	If indexStart is equal to indexEnd, substring() returns an empty string.
+	
+	
+	const str = 'Mozilla';
+	console.log(str.substring(1, 3));
+	// expected output: "oz"
+	console.log(str.substring(2));
+	// expected output: "zilla"
+	
+	If indexStart is greater than indexEnd, then the effect of substring() is as if the two arguments were swapped;
+	See example below.
+	
+	
+	
+	let anyString = 'Mozilla'
+
+	// Displays 'M'
+	console.log(anyString.substring(0, 1))
+	console.log(anyString.substring(1, 0))
+
+	// Displays 'Mozill'
+	console.log(anyString.substring(0, 6))
+
+	// Displays 'lla'
+	console.log(anyString.substring(4))
+	console.log(anyString.substring(4, 7))
+	console.log(anyString.substring(7, 4))
+
+	// Displays 'Mozilla'
+	console.log(anyString.substring(0, 7))
+	console.log(anyString.substring(0, 10))
+	
+	Any argument value that is less than 0  is treated as 0 
+	Any argument value that is greater than stringName.length is treated as stringName.length
+	
+	
+What is the difference between substring() and substr()?
+	//The arguments of substring() represent the starting and ending indexes, 
+	while the arguments of substr() represent the starting index and the number of characters to include in the returned string.
+
+	Furthermore, substr() is considered a legacy feature in ECMAScript and could be removed from future versions, 
+	so it is best to avoid using it if possible.
+	
+Differences between substring() and slice()?
+	The substring() and slice() methods are almost identical, but there are a couple of subtle differences between the two, 	especially in the way negative arguments are dealt with.
+	The substring() method swaps its two arguments if indexStart is greater than indexEnd, 
+		meaning that a string is still returned. 
+	The slice() method returns an empty string if this is the case.
+	let text = 'Mozilla'
+	console.log(text.substring(5, 2))  // => "zil" 
+	console.log(text.slice(5, 2))      // => ""
+	
+	If either or both of the arguments are negative or NaN, the substring() method treats them as if they were 0.
+	console.log(text.substring(-5, 2))  // => "Mo"
+	console.log(text.substring(-5, -2)) // => "" 
+	
+	slice() also treats NaN arguments as 0, 
+	but when it is given negative values it counts backwards from the end of the string to 	find the indexes.
+	console.log(text.slice(-5, 2))   // => ""
+	console.log(text.slice(-5, -2))  // => "zil"
+	
+	
+What is str.concat()?
+	//The concat() method concatenates the string arguments to the calling string and returns a new string.
+	
+	str.concat(str2 [, ...strN])
+	
+	
+	const str1 = 'Hello';
+	const str2 = 'World';
+	console.log(str1.concat(' ', str2));
+	// expected output: "Hello World"
+	console.log(str2.concat(', ', str1));
+	// expected output: "World, Hello"
+	
+	
+	//The concat() function concatenates the string arguments to the calling string and returns a new string. 
+	Changes to the original string or the returned string don't affect the other.
+
+	//If the arguments are not of the type string, they are converted to string values before concatenating.
+
+	let hello = 'Hello, '
+	console.log(hello.concat('Kevin', '. Have a nice day.'))
+	// Hello, Kevin. Have a nice day.
 
 
 
+	let greetList = ['Hello', ' ', 'Venkat', '!']
+	"".concat(...greetList)  // "Hello Venkat!"
 
+	"".concat({})    // [object Object]
+	"".concat([])    // ""
+	"".concat(null)  // "null"
+	"".concat(true)  // "true"
+	"".concat(4, 5)  // "45"
+	console.log("".concat([6],[8]))//68
+	
+	
+	It is strongly recommended that the assignment operators (+, +=) are used instead of the concat() method. 
+	According to this performance test, the assignment operators are several times faster.
+	
+What is str.includes()?
+	//The includes() method determines whether one string may be found within another string,
+		 returning true or false as appropriate.
+		 
+	str.includes(searchString[, position])
+	//The position within the string at which to begin searching for searchString. (Defaults to 0.)
+	
+	//The includes() method is case sensitive. 
+	
+	
+	const str = 'To be, or not to be, that is the question.' 
 
+	console.log(str.includes('To be'))        // true
+	console.log(str.includes('question'))     // true
+	console.log(str.includes('nonexistent'))  // false
+	console.log(str.includes('To be', 1))     // false
+	console.log(str.includes('TO BE'))        // false
+	console.log(str.includes(''))             // true
+	
+	
+What is str.padStart() and str.padEnd()?
+	//The padStart() method pads the current string with another string (multiple times, if needed) until the resulting string 	reaches the given length. 
+	The padding is applied from the start of the current string.
+	
+	str.padStart(targetLength [, padString])
+	targetLength
+	The length of the resulting string once the current str has been padded. 
+	If the value is less than str.length, then str is returned as-is. ex. "soumya".padStart(3,"$")//"soumya"
+	
+	padString Optional
+	The string to pad the current str with. 
+	If padString is too long to stay within the targetLength, it will be truncated from the end. 
+	The default value is " " (U+0020 'SPACE'). ex. "soumya".padStart(9,"Surajita")//"Sursoumya"
 
-
-
-
-
-
+	
+	const str1 = '5';
+	console.log(str1.padStart(3, '0'));
+	// expected output: "005"
+	const fullNumber = '2034399002125581';
+	const last4Digits = fullNumber.slice(-4);
+	const maskedNumber = last4Digits.padStart(fullNumber.length, '*');
+	console.log(maskedNumber);
+	// expected output: "************5581"
+	
+	
+	
+	
+	//The padEnd() method pads the current string with a given string (repeated, if needed) 
+	so that the resulting string reaches a given length. The padding is applied from the end of the current string.
+	
+	str.padEnd(targetLength [, padString])
+	
+	targetLength
+	The length of the resulting string once the current str has been padded. 
+	If the value is lower than str.length, the current string will be returned as-is.
+	ex. "soumya".padEnd(3,"$")//"soumya"
+	
+	padString Optional
+	The string to pad the current str with. 
+	If padString is too long to stay within targetLength, it will be truncated: 
+	for left-to-right languages the left-most part and for right-to-left languages the right-most will be applied. 
+	The default value for this parameter is " " (U+0020).
+	"soumya".padEnd(9,"Surajita")//"soumyaSur"
+	
+	
+	const str1 = 'Breaded Mushrooms';
+	console.log(str1.padEnd(25, '.'));
+	// expected output: "Breaded Mushrooms........"
+	const str2 = '200';
+	console.log(str2.padEnd(5));
+	// expected output: "200  "
+	
+	'abc'.padEnd(10);          // "abc       "
+	'abc'.padEnd(10, "foo");   // "abcfoofoof"
+	'abc'.padEnd(6, "123456"); // "abc123"
+	'abc'.padEnd(1);           // "abc"
+	
+	
+	
+What is str.slice()?
+	//The slice() method extracts a section of a string and returns it as a new string, without modifying the original string.
+	
+	str.slice(beginIndex[, endIndex])
+	
+	beginIndex
+	The zero-based index at which to begin extraction. 
+	If negative, it is treated as str.length + beginIndex. (For example, if beginIndex is -3 it is treated as str.length - 3.)
+	If beginIndex is greater than or equal to str.length, slice() returns an empty string.
+	
+	endIndex Optional
+	The zero-based index before which to end extraction. The character at this index will not be included.
+	If endIndex is omitted, slice() extracts to the end of the string. 
+	If negative, it is treated as str.length + endIndex. (For example, if endIndex is -3 it is treated as str.length - 3.)
+	
+	const str = 'The quick brown fox jumps over the lazy dog.';
+	console.log(str.slice(31));
+	// expected output: "the lazy dog."
+	console.log(str.slice(4, 19));
+	// expected output: "quick brown fox"
+	console.log(str.slice(-4));
+	// expected output: "dog."
+	console.log(str.slice(-9, -5));
+	// expected output: "lazy"
+	
+	
+	
+What is str.replace()?
+		//The replace() method returns a new string with some or all matches of a pattern replaced by a replacement. 
+		//The pattern can be a string or a RegExp, and the replacement can be a string or a function to be called for each match.
+		//If pattern is a string, only the first occurrence will be replaced.
+		
+		const newStr = str.replace(regexp|substr, newSubstr|function)
+		
+		const p = 'The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?';
+		const regex = /dog/gi;
+		console.log(p.replace(regex, 'ferret'));
+		// expected output: "The quick brown fox jumps over the lazy ferret. If the ferret reacted, was it really lazy?"
+		console.log(p.replace('dog', 'monkey'));
+		// expected output: "The quick brown fox jumps over the lazy monkey. If the dog reacted, was it really lazy?"
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
