@@ -8,6 +8,7 @@ How to add an external script to a file?
 	
 What are the data types in javascript?
 
+
 ====================================================================================================================
 Expression and Operators
 ====================================================================================================================
@@ -113,14 +114,10 @@ What is this operator?
 	console.log(window.b)  // "MDN"
 	console.log(b)         // "MDN"
 
-What is super keyword?
-	//The super keyword is used to access and call functions on an object's parent.
 
 
+	
 
-What is delete operator?
-	//The JavaScript delete operator removes a property from an object; 
-	//if no more references to the same property are held, it is eventually released automatically.
 
 
 
@@ -972,11 +969,6 @@ Finding if an element exists in the array or not and adding to the array if not 
 	(arr.indexOf(ele) === -1) ? arr.push(ele) : "already exists"
 
 
-How to check of a variable is of type array?
-	//arr instanceof Array -> true or false
-	//Array.isArray(arr)-> true or false
-
-All methods of array?
 	//push(),pop(),shift(),unshift() - completed
 	//map(),filter(),reduce(),reduceRight()
 	//forEach()
@@ -1006,46 +998,622 @@ All methods of array?
 Object
 ====================================================================================================================
 
+What is javascriipt object?
+How many ways we can create an object in javascript?
+
+What is Object.assign()?
+	//The Object.assign() method copies all enumerable own properties from one or more source objects to a target object.
+	//It returns the target object.
+
+	Object.assign(target, ...sources)
+	
+	const target = { a: 1, b: 2 };
+	const source = { b: 4, c: 5 };
+	const returnedTarget = Object.assign(target, source);
+	console.log(target);
+	// expected output: Object { a: 1, b: 4, c: 5 }
+	console.log(returnedTarget);
+	// expected output: Object { a: 1, b: 4, c: 5 }
+	
+	
+	const o1 = { a: 1 };
+	const o2 = { b: 2 };
+	const o3 = { c: 3 };
+	const obj = Object.assign(o1, o2, o3);
+	console.log(obj); // { a: 1, b: 2, c: 3 }
+	console.log(o1);  // { a: 1, b: 2, c: 3 }, target object itself is changed.
+
+
+	const o1 = { a: 1, b: 1, c: 1 };
+	const o2 = { b: 2, c: 2 };
+	const o3 = { c: 3 };
+	const obj = Object.assign({}, o1, o2, o3);
+	console.log(obj); // { a: 1, b: 2, c: 3 }
+
+
+	const returnedTarget = Object.assign({}, undefined);
+	console.log(returnedTarget);//{}
+	const returnedTarget = Object.assign({}, null);
+	console.log(returnedTarget);//{}
+	
+	
+What is Object.create()?
+	//The Object.create() method creates a new object, using an existing object as the prototype of the newly created object.
+	//return value is A new object with the specified prototype object and properties.
+
+	Object.create(proto, [propertiesObject])
+	
+	const person = {
+	  isHuman: false,
+	  printIntroduction: function() {
+	    console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+	  }
+	};
+	const me = Object.create(person);
+	me.name = 'Matthew'; // "name" is a property set on "me", but not on "person"
+	me.isHuman = true; // inherited properties can be overwritten
+	me.printIntroduction();
+	// expected output: "My name is Matthew. Am I human? true"
+	
+	Object.create(null); //{}
+	Object.create(undefined) //error
+	Object.create({}); //{}
+	
+
+What is Object.defineProperty() or Object.defineProperties()?
+	//The Object.defineProperties() method defines new or modifies existing properties directly on an object, returning the object.
+	
+	Object.defineProperties(obj, props)
+	//props is an object contains various key value properties
+	configurable //defaults to false
+	writable //defaults to false
+	enumerable //defaults to false
+	value //defaults to undefined
+	
+	
+	const object1 = {};
+	Object.defineProperties(object1, {
+	  property1: {
+	    value: 42,
+	    writable: true
+	  },
+	  property2: {}
+	});
+	console.log(object1.property1);
+	// expected output: 42
+	
+What do you mean by writable property in Object.defineProperty()?
+	//default writable value is false if we create Object.create({},{property1 : {value:20}})
+	//default writable value is true if we create Object.create({}) but dont mention any property inside , rather define outside..
+	//default writable value is true if we use new Object(), literal notation {} and Object.create({})
+	
+	
+	obj = {a :3} 
+	obj.a = 5 
+	obj //{a: 5}  => here writable true
+	
+	obj1 = new Object();
+	obj1["b"] = 5
+	obj1["b"] = 8
+	obj1//{b: 8}  => here writable true
+	
+	var obj2 = Object.create({})
+	obj2["c"]=4
+	obj2["c"]=8
+	obj2//{c: 8}  => here writable true
+	
+	var obj2 = Object.create({},{"D" : {value : "20"}})
+	obj2["D"] = 40
+	obj2//{D: "20"} => here writable false
+	
+	
+	//writable propery if set to false can't be modified
+	var obj = Object.create({},{
+		property1:{
+			value:2,
+			writable:true,
+			enumerable:true,
+			configurable:true
+		},
+		property2:{
+			value:3
+		}
+	})
+	
+	obj//{property1: 2, property2: 3}
+	obj.property1 = 4
+	obj.property2 = 4
+
+	obj//{property1: 4, property2: 3}
+
+
+	Object.defineProperty(object1, 'property1', {
+	  value: 42,
+	  writable: false
+	});
+	
+
+What do you mean by enumerable property in Object.defineProperty()?
+	//If we dont specify by default enumerable is false..
+	//Other cases like new Object(), literal notation, or Object.create({}) without any property inside-enumerable is set to true
+	//enumerable means if it can be loop through.....
+	
+	var o = {};
+	Object.defineProperty(o, 'a', {
+	  value: 1,
+	  enumerable: true
+	});
+	Object.defineProperty(o, 'b', {
+	  value: 2,
+	  enumerable: false
+	});
+	Object.defineProperty(o, 'c', {
+	  value: 3
+	}); // enumerable defaults to false
+	o.d = 4; // enumerable defaults to true
+	         // when creating a property by setting it
+
+
+	for (var i in o) {
+	  console.log(i);
+	}
+	// logs 'a' and 'd' (in undefined order)
+	
+	Object.keys(o); // ['a', 'd']
+	
+	
+	var p = { ...o }
+	p.a // 1
+	p.b // undefined
+	p.c // undefined
+	p.d // 4
+	
+What do you mean by configurable property in Object.defineProperty()?
+	
+	
+	//add example...
+	
+	
+What is Object.entries()?
+	//Object.entries() returns an array whose elements are arrays corresponding to the enumerable [key, value] pairs from object. 
+
+	Object.entries(obj)
+	
+
+	const obj = { foo: 'bar', baz: 42 };
+	console.log(Object.entries(obj)); // [ ['foo', 'bar'], ['baz', 42] ]
+
+	// array like object
+	const obj = { 0: 'a', 1: 'b', 2: 'c' };
+	console.log(Object.entries(obj)); // [ ['0', 'a'], ['1', 'b'], ['2', 'c'] ]
+
+	// array like object with random key ordering
+	const anObj = { 100: 'a', 2: 'b', 7: 'c' };
+	console.log(Object.entries(anObj)); // [ ['2', 'b'], ['7', 'c'], ['100', 'a'] ]
+	
+	// getFoo is property which isn't enumerable
+	const myObj = Object.create({}, { getFoo: { value() { return this.foo; } } });
+	myObj.foo = 'bar';
+	console.log(Object.entries(myObj)); // [ ['foo', 'bar'] ]
+	
+	
+	Object.entries(100); //[]
+	
+	// non-object argument will be coerced to an object
+	console.log(Object.entries('foo')); // [ ['0', 'f'], ['1', 'o'], ['2', 'o'] ]
+	
+	
+	// iterate through key-value gracefully
+	const obj = { a: 5, b: 7, c: 9 };
+	for (const [key, value] of Object.entries(obj)) {
+	  console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
+	}
+
+	// Or, using array extras
+	Object.entries(obj).forEach(([key, value]) => {
+	  console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
+	});
+	
+	
+What is Object.keys()?
+	//The Object.keys() method returns an array of a given object's own enumerable property names, 
+		iterated in the same order that a normal loop would
+		
+		Object.keys(obj)
+		
+		
+		
+		const object1 = {
+		  a: 'somestring',
+		  b: 42,
+		  c: false
+		};
+
+		console.log(Object.keys(object1));
+		// expected output: Array ["a", "b", "c"]
+		
+		
+
+		// simple array
+		const arr = ['a', 'b', 'c'];
+		console.log(Object.keys(arr)); // console: ['0', '1', '2']
+
+		// array like object
+		const obj = { 0: 'a', 1: 'b', 2: 'c' };
+		console.log(Object.keys(obj)); // console: ['0', '1', '2']
+
+		// array like object with random key ordering
+		const anObj = { 100: 'a', 2: 'b', 7: 'c' };
+		console.log(Object.keys(anObj)); // console: ['2', '7', '100']
+
+		// getFoo is a property which isn't enumerable
+		const myObj = Object.create({}, {
+		  getFoo: {
+		    value: function () { return this.foo; }
+		  } 
+		});
+		myObj.foo = 1;
+		console.log(Object.keys(myObj)); // console: ['foo']
+		
+		
+
+What is Object.values()?
+	The Object.values() method returns an array of a given object's own enumerable property values, in the same order as that 	provided by a for...in loop.
+	
+	Object.values(obj)
+	
+	const object1 = {
+	  a: 'somestring',
+	  b: 42,
+	  c: false
+	};
+
+	console.log(Object.values(object1));
+	// expected output: Array ["somestring", 42, false]
+	
+	
+	const obj = { foo: 'bar', baz: 42 };
+	console.log(Object.values(obj)); // ['bar', 42]
+
+	// Array-like object
+	const arrayLikeObj1 = { 0: 'a', 1: 'b', 2: 'c' };
+	console.log(Object.values(arrayLikeObj1 )); // ['a', 'b', 'c']
+
+	// Array-like object with random key ordering
+	// When using numeric keys, the values are returned in the keys' numerical order
+	const arrayLikeObj2 = { 100: 'a', 2: 'b', 7: 'c' };
+	console.log(Object.values(arrayLikeObj2 )); // ['b', 'c', 'a']
+
+	// getFoo is property which isn't enumerable
+	const my_obj = Object.create({}, { getFoo: { value: function() { return this.foo; } } });
+	my_obj.foo = 'bar';
+	console.log(Object.values(my_obj)); // ['bar']
+
+	// non-object argument will be coerced to an object
+	console.log(Object.values('foo')); // ['f', 'o', 'o']
+
+	
+	
+What is Object.seal()?
+	//The Object.seal() method seals an object, preventing new properties from being added to it 
+	and marking all existing properties as non-configurable. 
+	Values of present properties can still be changed as long as they are writable.
+	
+	Object.seal(obj)
+	
+	
+	const object1 = {
+	  property1: 42
+	};
+
+	Object.seal(object1);
+	object1.property1 = 33;
+	console.log(object1.property1);
+	// expected output: 33
+
+	delete object1.property1; // cannot delete when sealed
+	console.log(object1.property1);
+	// expected output: 33
+	
+	
+	
+What is Object.freeze?
+	The Object.freeze() method freezes an object. 
+	A frozen object can no longer be changed; freezing an object prevents new properties from being added to it, 
+	existing properties from being removed, prevents changing the enumerability, configurability, 
+	or writability of existing properties, and prevents the values of existing properties from being changed. 
+	In addition, freezing an object also prevents its prototype from being changed. 
+	freeze() returns the same object that was passed in.
+	
+	Object.freeze(obj)
+	
+	const obj = {
+	  prop: 42
+	};
+	Object.freeze(obj);
+	obj.prop = 33;
+	// Throws an error in strict mode
+	console.log(obj.prop);
+	// expected output: 42
+	
+Difference between Object.freeze() and Object.seal()?
+
+What is Object.isFrozen()?
+	//The Object.isFrozen() determines if an object is frozen.
+
+	Object.isFrozen(obj)
+	
+	A Boolean indicating whether or not the given object is frozen.
+
+	const object1 = {
+	  property1: 42
+	};
+	console.log(Object.isFrozen(object1));
+	// expected output: false
+	Object.freeze(object1);
+	console.log(Object.isFrozen(object1));
+	// expected output: true
+	
+What is Object.isSealed()?
+	//The Object.isSealed() method determines if an object is sealed.
+
+	 Object.isSealed(obj)
+	 
+	 
+	 const object1 = {
+	   property1: 42
+	 };
+	 console.log(Object.isSealed(object1));
+	 // expected output: false
+	 Object.seal(object1);
+	 console.log(Object.isSealed(object1));
+	 // expected output: true
+	 
+	
+What is Object.getOwnPropertyNames()?
+	//The Object.getOwnPropertyNames() method returns an array of all properties 
+	(including non-enumerable properties except for those which use Symbol) found directly in a given object.
+
+	 var arr = ['a', 'b', 'c'];
+	 console.log(Object.getOwnPropertyNames(arr).sort()); // .sort() is an array method.
+	 // logs ["0", "1", "2", "length"]
+
+	 // Array-like object
+	 var obj = { 0: 'a', 1: 'b', 2: 'c' };
+	 console.log(Object.getOwnPropertyNames(obj).sort()); // .sort() is an array method.
+	 // logs ["0", "1", "2"]
+	 
+	 
+	 
+What is Object.getOwnPropertyDescriptor()?
+	//The Object.getOwnPropertyDescriptor() method returns a property descriptor for an own property 
+	(that is, one directly present on an object and not in the object's prototype chain) of a given object.
+	
+	Object.getOwnPropertyDescriptor(obj, prop)
+	const object1 = {
+	  property1: 42
+	};
+	const descriptor1 = Object.getOwnPropertyDescriptor(object1, 'property1');
+	console.log(descriptor1.configurable);
+	// expected output: true
+	console.log(descriptor1.value);
+	// expected output: 42
+	
+	var o, d;
+
+	o = { get foo() { return 17; } };
+	d = Object.getOwnPropertyDescriptor(o, 'foo');
+	// d is {
+	//   configurable: true,
+	//   enumerable: true,
+	//   get: /*the getter function*/,
+	//   set: undefined
+	// }
+
+	o = { bar: 42 };
+	d = Object.getOwnPropertyDescriptor(o, 'bar');
+	// d is {
+	//   configurable: true,
+	//   enumerable: true,
+	//   value: 42,
+	//   writable: true
+	// }
+	
+	o = {};
+	Object.defineProperty(o, 'qux', {
+	  value: 8675309,
+	  writable: false,
+	  enumerable: false
+	});
+	d = Object.getOwnPropertyDescriptor(o, 'qux');
+	// d is {
+	//   value: 8675309,
+	//   writable: false,
+	//   enumerable: false,
+	//   configurable: false
+	// }
+	
+What is  Object.getOwnPropertyDescriptors()?
+	//The Object.getOwnPropertyDescriptors() method returns all own property descriptors of a given object.
+	
+	Object.getOwnPropertyDescriptors(obj)
+	
+	const object1 = {
+	  property1: 42
+	};
+	const descriptors1 = Object.getOwnPropertyDescriptors(object1);
+	console.log(descriptors1.property1.writable);
+	// expected output: true
+	console.log(descriptors1.property1.value);
+	// expected output: 42
+
+
+What is Object.is()?
+	//The Object.is() method determines whether two values are the same value.
+
+	Object.is(value1, value2);
+	
+	
+	Object.is('foo', 'foo');     // true
+	Object.is(window, window);   // true
+
+	Object.is('foo', 'bar');     // false
+	Object.is([], []);           // false
+
+	var foo = { a: 1 };
+	var bar = { a: 1 };
+	Object.is(foo, foo);         // true
+	Object.is(foo, bar);         // false
+
+	Object.is(null, null);       // true
+
+	// Special Cases
+	Object.is(0, -0);            // false
+	Object.is(-0, -0);           // true
+	Object.is(NaN, 0/0);         // true
+	
+	
+	
+====================================================================================================================
+JSON
+====================================================================================================================
+What is json?
+What is JSON.parse()?//converts a string to json
+What is JSON.stringify()?//converts json to string
 
 
 
+====================================================================================================================
+Map & Set
+====================================================================================================================
+
+What is Map?
+	//Creates a new Map object.
+	//Using NaN as Map keys
+
+	
+	let myMap = new Map()
+	let keyString = 'a string'
+	let keyObj    = {}
+	let keyFunc   = function() {}
+	// setting the values
+	myMap.set(keyString, "value associated with 'a string'")
+	myMap.set(keyObj, 'value associated with keyObj')
+	myMap.set(keyFunc, 'value associated with keyFunc')
+	myMap.size              // 3
+	// getting the values
+	myMap.get(keyString)    // "value associated with 'a string'"
+	myMap.get(keyObj)       // "value associated with keyObj"
+	myMap.get(keyFunc)      // "value associated with keyFunc"
+	myMap.get('a string')    // "value associated with 'a string'"
+	                         // because keyString === 'a string'
+	myMap.get({})            // undefined, because keyObj !== {}
+	myMap.get(function() {}) // undefined, because keyFunc !== function () {}
 
 
+	let myMap = new Map()
+	myMap.set(NaN, 'not a number')
+	myMap.get(NaN) 
+	// "not a number"
+	let otherNaN = Number('foo')
+	myMap.get(otherNaN) 
+	// "not a number"
+	
+	
+	//Iterating Map with for..of
+	let myMap = new Map()
+	myMap.set(0, 'zero')
+	myMap.set(1, 'one')
+	
+	for (let [key, value] of myMap) {
+	  console.log(key + ' = ' + value)
+	}
+	// 0 = zero
+	// 1 = one
 
+	for (let key of myMap.keys()) {
+	  console.log(key)
+	}
+	// 0
+	// 1
 
+	for (let value of myMap.values()) {
+	  console.log(value)
+	}
+	// zero
+	// one
 
+	for (let [key, value] of myMap.entries()) {
+	  console.log(key + ' = ' + value)
+	}
+	// 0 = zero
+	// 1 = one
+	
+	
+	//Iterating Map with forEach()
+	myMap.forEach(function(value, key) {
+	  console.log(key + ' = ' + value)
+	})
+	// 0 = zero
+	// 1 = one
+	
+	
+	
+	Beware! Setting Object properties works for Map objects as well, and can cause considerable confusion.
 
+	Therefore, this still sort-of works....
 
+	let wrongMap = new Map()
+	wrongMap['bla'] = 'blaa'
+	wrongMap['bla2'] = 'blaaa2'
+	console.log(wrongMap)  // Map { bla: 'blaa', bla2: 'blaaa2' }
+	...But, it does not behave as expected:
+	wrongMap.has('bla')    // false
+	wrongMap.delete('bla') // false
+	console.log(wrongMap)  // Map { bla: 'blaa', bla2: 'blaaa2' }
+	
+	
+	let myMap = new Map()
+	myMap.set('bla','blaa')
+	myMap.set('bla2','blaa2')
+	console.log(myMap)  // Map { 'bla' => 'blaa', 'bla2' => 'blaa2' }
 
+	myMap.has('bla')    // true
+	myMap.delete('bla') // true
+	console.log(myMap)  // Map { 'bla2' => 'blaa2' }
+	
 
-
-
-
+What are the methods a Map object has?
+	//get()
+	//set()
+	//has()
+	//entries()
+	//keys()
+	//values()
+	//forEach()
+	//delete()
+	//clear()
+	
+What is set?
+	//Creates a new Set object.
+	
+	
+What are the methods a Set object has?
+	//add()
+	//has()
+	//entries()
+	//keys()
+	//values()
+	//forEach()
+	//delete()
+	//clear()
+	
 
 ====================================================================================================================
 String
 ====================================================================================================================
 
 
-
-
-====================================================================================================================
-Functions
-====================================================================================================================
-
-
-
-
-====================================================================================================================
-Events
-====================================================================================================================
-
-
-
-
-====================================================================================================================
-Array
-====================================================================================================================
 
 
 
