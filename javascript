@@ -2045,7 +2045,362 @@ What is str.replace()?
 		
 	
 	
+
+====================================================================================================================
+Functions
+====================================================================================================================
+
+What is a function?
+	//block of statements 
 	
+What is difference between function and method?
+	//method we can say is specific to a class or an object..
+	//function when we use it outside using function keyword..
+	
+How many ways we can execute a function?
+	//fnShow()
+	//fnShow.call()
+	//fnShow.apply()
+	//fnShow.bind(this)()
+	
+What is difference between call() and apply()?
+	//call() is to call a function with comma separated arguments.
+		funname.call(arg1,arg2,..,argn)
+	//apply() is to call a function with all arguments passed as an array.
+		funname.call([arg1,arg2,..,argn)
+
+What is bind()?
+	//Used to keep the context of “this” within another function
+	//returns a new function which is actually takes care of the original function binding with this...
+	
+
+What is function declaration?
+What is function expression?
+	 A function expression can be stored in a variable: var x = function (a, b) {return a * b};
+	 After a function expression has been stored in a variable, the variable can be used as a function. ...
+	 They are always invoked (called) using the variable name.
+	 
+What is the difference between a function declaration and a function expression?
+	//function declaration is not hoisted where as a function expression is hoisted always.
+	
+What is anonymous function?
+	//A function that does not have a name..
+	
+What is drawback of anonymous function?
+
+What is arrow function?
+	Arrow functions:
+	1. Do not have this
+	2. Do not have arguments
+	3. Can’t be called with new
+	4. They also don’t have super, but we didn’t study it yet. We will on the chapter Class inheritance
+	
+What is the difference between a normal function and arrow function?
+	//Unlike regular functions, arrow functions do not have their own this.
+	//Arguments objects are not available in arrow functions, but are available in regular functions. 
+
+
+Is it mandatory to have a return statement?//No
+If there is no return statement then what does a fucntion return?//undefined
+
+
+What is a callback function?
+	A callback function is a function passed into another function as an argument,
+	which is then invoked inside the outer function to complete some kind of routine or action
+	
+	Here is a quick example:
+
+	function greeting(name) { alert('Hello ' + name); }
+	function processUserInput(callback) {
+	  var name = prompt('Please enter your name.');
+	  callback(name);
+	}
+	processUserInput(greeting);
+	
+	The above example is a synchronous callback, as it is executed immediately.
+
+	Note, however, that callbacks are often used to continue code execution after an asynchronous operation has completed 
+		— these are called asynchronous callbacks. 
+	A good example is the callback functions executed inside a .then() block chained onto the end of a promise 
+		after that promise fulfills or rejects.
+		
+
+What is a closure?
+	//in javascript variables defined outside of functions can be accessed inside..
+	Because in javascript there is something called lexical scoping
+	Which means inner variables are not accessible outside but outer variables can be accessed iside..
+	
+	
+	var addTo = function(passed){
+		var inner = 2;
+		return passed + inner;
+	}
+	console.log(addTo(3));//5
+	
+	
+	var passed = 3;
+	var addTo = function(){
+		var inner = 2;
+		return passed + inner;
+	}
+	
+	console.log(addTo()); //5
+	console.dir(addTo); //5
+	
+	
+What is lexical scoping?
+	//the variables we have defined in parent or upper scope is by default or automatically available in inner scope...
+	//We dont have to pass it..
+	
+	
+	Example1
+	=========
+	let i =1;
+	const f = () => {
+		console.log(i);
+	}
+	f()
+	
+	Here if we execute this will give result as 1.
+	And this is because of lexical scoping.
+	we defined i in outer scope and it is available to function f() scope..
+
+	Example2
+	=========
+	let f;
+	if(true){
+		let i=1;
+		f=()=>{
+			console.log(i);
+		}
+	}
+	//console.log(i);
+	console.dir(f)
+	f();
+	
+	
+	console.log(i); //it will throw error can not access..
+	f(); //But still when we execute f() from outside somehow it magically able to print i value.
+	Because it holds its variable inside..
+	So where it is holding?
+	lets print console.dir(f) outside..
+	now if we expand f() thts printed on console we will see [[scopes]]
+	And if we expand that we will see Block key holding value 1
+	The block really similar to closure..
+	
+	Lets look at some real closure example..
+	
+	Example3
+	=========
+	let f = () => {
+		let i  = 1;
+		return ()=>{
+			console.log(i)
+		}
+	}
+	console.dir(f());
+	
+	
+	console.dir(f()); //it will return an annonymous function
+	If we expand that we will see [[scopes]]
+	We will see closure (f) holding value 1
+	Now if add another variable lets say j =2, lets see what happens
+	
+	
+	Example4
+	=========
+	let f = () => {
+		let i  = 1;
+		let j  = 2;
+		return ()=>{
+			console.log(i);
+		}
+	}
+	console.dir(f());
+	
+	Now again if we see console we will see it returns the same annonymous function.
+	If we expand that we will see [[scopes]]
+	We will see closure (f) holding value 1 i.e. i variable
+	j variable is not closed here or added...
+	why? because its not using it..
+	Its because it will only add those variables to closure that it is going to use in future..
+	
+	
+Explain how let is different from var in setTimeout()?
+	Example - with let
+	===================
+	for(let i=0;i<3;i++){
+		setTimeout(() => {
+			console.log(i)
+		},1000);
+	}
+	console.log('after the loop');
+	
+	i=0 f(c:i(0));
+	i=1 f(c:i(1));
+	i=2 f(c:i(2));
+	
+	//Because we are using let which is block scoped, as soon the loop ends one new for loop comes back in..
+	//i does not really exists..so it has to give me a new i.
+	//so it would give i which is completely new which is 1..
+	//so the setTimeout functin is going to hold that i..
+	//So we will get 3 different fucntions which holds 3 separate variables as closure
+	//Here after every for loop i variable 
+	
+	
+	Example - with var
+	===================
+	for(var i=0;i<3;i++){
+		setTimeout(() => {
+			console.log(i)
+		},1000);
+	}
+	console.log('after the loop');
+	
+	i=0 f(c:i(0));
+	
+	i=0 f(c:i(1));
+	i=1 f(c:i(1));
+	
+	i=0 f(c:i(2));
+	i=1 f(c:i(2));
+	i=2 f(c:i(2));
+	
+	//Because we are using var which is function scoped, it does not create a new variable.
+	//It just changes the value of existing variable..
+	//So for first iteration i value is 0 ,function will have a closure which will reference to this i
+	//When i = 1 as var is function scope, it does not create anew variable..
+	//so it is same variable with a different value..i.e. 1
+	//Now here this will change the first iteration function closure value to 1 and second iteration closure value to 1 as well.
+	//Now third iteration value of i is 3
+		Here as setTimeout() is async and not executed yet.. 
+		so the value of i will be updaes as 3 for all the three function closures..
+		
+	
+	
+What javascript functions are called first class objects?
+
+What is a closure?
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+What is IIFE?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 	
