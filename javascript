@@ -1604,11 +1604,53 @@ What is the difference between obj.name vs obj["name"]?
 	if name is stored in a variable and if we try to use like
 	var n = name;
 	In this case we cant use like obj.n, it will be undefined always
-	
 	But we can access using obj[n] which will give "soumya"
 	
+What is the difference between below 2 ways while creating objects?
+	1) var Pizza = { 
+		crust : "thin", 
+		toppings : 3, 
+		hasBacon : true, 
+		howmanyToppings: function(){ 
+			return this.toppings;
+		}
+	  }
+	  
+	  console.dir(Pizza)
+	  Object
+		crust: "thin"
+		hasBacon: true
+		howmanyToppings: ƒ ()
+		toppings: 3
+		__proto__: Object
+		
+	2) var Pizza = function(){ 
+		this.crust = "thin"; 
+		this.toppings = 3;
+		this.hasBacon = true;
+		this.howManyToppings = function(){
+			return this.toppings;
+		}
+	   }
+	   
+	   console.dir(Pizza)
+	   //here we wont be able to see any public property that we just created sometimes back.
+	   
+	   ƒ Pizza()
+	   	arguments: null
+		caller: null
+		length: 0
+		name: "Pizza"
+		prototype: {constructor: ƒ}
+		__proto__: ƒ ()
+		[[FunctionLocation]]: VM364:1
+		[[Scopes]]: Scopes[1]
+		0: Global {parent: Window, opener: null, top: Window, length: 0, frames: Window, …}
+		
+	  //So here we cant use like Pizza.crust or Pizza.toppings etc..
+	  
 
-How to create oe object from another object?
+How to create one object from another object?
 	//
 ====================================================================================================================
 JSON
@@ -2687,10 +2729,32 @@ What is a constructor?
 What is master Object?
 
 What is __proto__?
-
-
+	//__proto__ available for non-primitive variables..
+	//Ex:- arrays,objects,functions,map,set etc..
+	//__proto__ represents the master or parent object it is inherited from...
+	//every variable will have many levels of __proto__ till it reaches master object i.e. Object.
+	//We can also see parent class other properties..
+	//for ex: if we create an array 
+		arr=[1,2,3]; 
+		console.dir(arr);
+		//arr __proto__ is Array
+		//Array __proto__ is Object
 	
-What is Object?
+	//for ex: if we create a function
+		var Pizza = function(){ 
+			this.crust = "thin"; 
+			this.toppings = 3;
+			this.hasBacon = true;
+			this.howManyToppings = function(){
+				return this.toppings;
+			}
+	   	}
+		//Pizza __proto__ is f()
+		//f() __proto__ is Object
+	
+	
+	
+What is the difference between prototype and __proto__?
 
 What is console.dir()
 	
