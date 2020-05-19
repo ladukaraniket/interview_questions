@@ -2641,9 +2641,72 @@ What are the limitations or problems happens because of recursion?
 	
 	Because in real time project this recursion call may go with a very big number..
 	
-
-
-
+	
+What is throttling?
+	//
+	
+	
+	
+	
+What is debouncing?
+	//Imagine you are building a shopping cart where user have picked lots of items to purchase.
+	//And as a last event the user is clicking on a purchase button.
+	//And that point the purchase order goes to the server.
+	//What if the user clicks on the purchase button twice accidentaly?
+	//Does that mean the order will go twice?
+	//It depends upon how you design the system
+	//But you can protect that kind of behaviour using debounce function.
+	//debounce function is basically if you keep clicking on the same button multiple times it would execute that event on last clcik
+	//For example if you have an event on mouse move where my mouse moves from one place to another..it will keep firing the mouse move event
+		And on every mouse move you don't have to fire that event.
+		So what you want to do is when the mouse starts to move and as soon as the mouse end then you have to fire that event..
+		
+	//So that way it only happens one time on a mouse move
+	//So similarly you are scrolling on something and you have an event we can use debounce function to prevent lots of events being fired..
+	
+	//so lets see how it actually works..
+	
+	<button id="myid">click me</div>
+	document.getElementById('myid').addEventListener("click",()=>{
+		console.log("clicked");
+	})
+	
+	Now if i click button continuously the event will be triggered that many times..
+	And "clicked" will be printed that many number of times.
+	But i dont want this.
+	What i want is on the last click i want the event to be fired..
+	And thats the right behaviour.
+	because user can accidentally click multiple times.
+	
+	So how do we do that?
+	Lets create a debounce function..
+	So instead of console.log() lets keep our debounce function.
+	We will use setTimeout() to create this.
+	
+	<button id="myid">click me</div>
+	document.getElementById('myid').addEventListener("click", debounce(e => {
+		console.log("clicked");
+	},2000))	
+	
+	Now lets build our debounce function.
+	const debounce = (fn,delay)=>{
+		let timeoutID;
+		return function(...args){
+			if(timeoutID){
+				clearTimeout(timeoutID);
+			}
+			timeoutID = setTimeout(()=>{
+				fn(...args)
+			},delay)
+		}
+	}
+	
+	//Here the event is actually supposed to execute after 2 seconds as we mentioned above.
+	//Before 2 secs if we clicked button n umber of times continuously then we are clearig the timer..
+	//If user continues to click button even after 2 secs then also the function wont get triggered as debunce will keep on clearing the timers
+	//Then last click event gets triggered after 2 seconds..
+	
+	
 
 
 
