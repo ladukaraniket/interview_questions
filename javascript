@@ -58,6 +58,41 @@ What is the difference betwee null and undefined?
 	
 What are the data types in javascript?
 
+What is output of below code?
+	Note :- here the operation always performed from left to right..
+		If we have just 2 values one is number and another is string, it converts number to string.
+		And then perform the addition operation.
+		
+		If we have more tahn 2 values then until it reaches the first string value 
+		Before reaching the string value if all the values are numbers it will just add them as numbers
+		
+		If i want to convert a boolean to number its very easy..
+		true is 1 falseis 0.so it always takes an easy path.
+		So instead of converting a number to boolean , boolean is converted to nuber.
+		
+		//
+		
+	2 + "2" 	//22
+	2 + 2 + "2" 	//42
+	2 + true 	//3 
+	2 + true + "2"  //32
+	true + "2" 	//true2
+	Number('2')  	//2
+	Number('hello')	//NaN
+	typeof(NaN)	//number
+	Boolean(1)	//true
+	Boolean(0)	//false
+	Boolean(5)	//true
+	Boolean(-20)	//true
+	Boolean("hello")//true
+	Boolean("")	//false
+	Boolean(undefined)//false
+	Boolean(null)	//false
+	if([]){} 	//true
+	if({}){} 	//true
+
+
+
 What is hoisting?
 
 What is let,var, const?
@@ -1624,6 +1659,9 @@ What is the difference between below 2 ways while creating objects?
 		toppings: 3
 		__proto__: Object
 		
+	  //here we can access directly Pizza.crust or Pizza.toppings etc.. 
+	   i.e. the properties from obj Pizza directly like this
+	
 	2) var Pizza = function(){ 
 		this.crust = "thin"; 
 		this.toppings = 3;
@@ -1634,7 +1672,7 @@ What is the difference between below 2 ways while creating objects?
 	   }
 	   
 	   console.dir(Pizza)
-	   //here we wont be able to see any public property that we just created sometimes back.
+	   //Here in this second case we wont be able to see any public property that we just created sometimes back.
 	   
 	   ƒ Pizza()
 	   	arguments: null
@@ -1647,8 +1685,12 @@ What is the difference between below 2 ways while creating objects?
 		[[Scopes]]: Scopes[1]
 		0: Global {parent: Window, opener: null, top: Window, length: 0, frames: Window, …}
 		
-	  //So here we cant use like Pizza.crust or Pizza.toppings etc..
-	  
+	  //So here we can't use like Pizza.crust or Pizza.toppings etc..
+	  //Here if we have to access properties from object Pizza here, we have to create object here..
+	  var PizzaA = new Pizza()
+	  console.log(PizzaA.crust);
+	  console.log(PizzaA.constructor);
+	  console.log(PizzaA instanceof Pizza);
 
 How to create one object from another object?
 	//
@@ -2462,64 +2504,143 @@ Explain how let is different from var in setTimeout()?
 What javascript functions are called first class objects?
 
 What is a closure?
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+What is private methods?
+	//closures helps us to create private methods.
 	
 What is IIFE?
+	//Immediately invoked function expression
+	//self executing anonymous function
+	all are same...
+	for that we need to understand what is a function expression is..we already covered that
+	
+	//function
+	function increment(i){
+		return i+1;
+	}
+
+	//function expression
+	var increment = function(i){
+		return i+1;
+	}
+	
+	//...some lines of code..and after that when we need we may execute this function
+	increment(i)
+	//...some lines of code..
+
+	//But sometimes there might be some requirement to execute the function as soon as u defineit..
+	//we are not going to use it again..
+	//so like above we dont need these 2 steps - where we define it and then we execute it..
+	//so we can do that by just simply removning var assignement and wrapping with paranthesis..see below ex
+	(function(i){
+		return i+1;
+	})(j)
+	//so whatever we pass here outer arg that is j will be treated as i in inner function..
+	
+	//another way of writing is as follow.
+	(function(i){
+		return i+1;
+	}(j))
+
+	//another way of writing is below.And this we should use when there is no return from function..
+	!function(){console.log(2);}(); 
+	~function(){console.log(2);}(); 
+	-function(){console.log(2);}(); 
+	+function(){console.log(2);}(); 
 
 
+Real usage of IIFE?
+	1) For minifying
+	(function($){
+		$(this).addClass('MyClass');
+	})(window.JQuery)
 
+	//here we use $ through out the function body intead of using big word window.JQuery
+	//This way it takes a global variable window.JQuery and makes it local to the fucntion body..
+	
+	//IIFE are closures that helps us to establish private methods..while exposing some properties for later use..
+	
+	2)We can write IIFE to create our own libraries..ex
+	var counter = (function(){
+		var i = 0;
+		return{
+			get : funcion(){
+				return i;
+			},
+			set : funcion(val){
+				i = val;
+			},
+			increment : funcion(){
+				return i+1;
+			}	
+		}
+	})();
+	
+	console.log(counter.get());//0
+	counter.set(5);//5
+	counter.increment();
+	console.log(counter.get());//6
 
+What is recursion in javascript?
+	calling the same function inside of the function multiple times until a condition is satisfied
+	
+	let add = function(n){
+		if(n<=0){
+			return 0;
+		}else{
+			return n + add(n-1);
+		}
+	}
+	
+	console.log(add(5));
+	//add(3) => 3 + add(2)
+		 => 3 + 2 + add(1)
+		 => 3 + 2 + 1 + add(0)
+		 => 3 + 2 + 1 + 0
+	
+	So it will looksimilar to follow code..
+	function(3){
+		return 3 + fucntion(2){
+			return 2 + fucntion(1){
+				return 1 + fucntion(0){
+					return 0;
+				}
+			}
+		}
+	}
+	
+What are the limitations or problems happens because of recursion?
 
+	//Now internally this gets called by the callstack
+	let add = function(n){
+		if(n<=0){
+			return 0;
+		}else{
+			return n + add(n-1);
+		}
+	}
+	
+	
+	//the innermost function gets executed first because its LIFO... based on stack rule...
+	function(3){
+		return 3 + fucntion(2){ ====>3rd
+			return 2 + fucntion(1){ ====>2nd
+				return 1 + fucntion(0){ ====>1st
+					return 0; 
+				}
+			}
+		}
+	}
+	
 
+	add(17944)
+	VM867:1 Uncaught RangeError: Maximum call stack size exceeded
 
-
-
-
-
-
-
-
-
-
-
+	add(10000)//50005000
+	That means may be they have set a limitation of 10K inside stack.
+	So recursion is not always advisable..
+	
+	Because in real time project this recursion call may go with a very big number..
+	
 
 
 
