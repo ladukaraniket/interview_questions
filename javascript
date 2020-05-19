@@ -6,9 +6,112 @@ Which one among the above has the highest priority?
 How to add an external script to a file?
 	//<script src="test.js" type="text/javascript" ></script>
 	
+What is the difference between == and ===?
+	//== compares the value but not type
+	//== compares both value and type
+	if("1"==1){}
+	if("1"===1){}
+	
+What is the difference between let and const?
+	//in const once we assigned the variable once we cant reassign the variable again
+	//in let once we assigned the variable we can reassign it again 
+	//in bth cases we cant redeclare
+	
+	let l=1;
+	l=2;
+	console.log(l);
+	
+	let c=1;
+	c=2;
+	console.log(c);
+	
+	const c1; //already assigned value undefined to c1..next line we cant reassign it
+	c1=1;
+	
+How const will behave incase of primitive types in case of objects or arrays ?
+	const c = [1,2];
+	c.push(3);
+	console.log(c); 
+	
+	//Here even though it is a const it will let me change the value of variable..
+	//So i will get [1,2,3]
+	
+	//because its a object it will let me modify it..
+	//we can add or remove elements..
+	//but we can not reassign it..
+	i.e. 
+	const c = [1,2];
+	c=[1,2,3]
+	console.log(c); 
+	//TypeError: Attempted to assign to readonly property.
+	
+What is the difference betwee null and undefined?
+	//Both represents empty values
+	//but the difference is that when you define a variable not assign a value to it , 
+		it will automatically take undefined as the value.
+		Javascript does this for us. we dont have to do it..
+		But null we assign ourselves.
+	//manually also we can assign undefined to a variable, but we should not do it..
+	//typeof undefined is undefined
+	//typeof null is object
+	
+	
 What are the data types in javascript?
 
+What is hoisting?
 
+What is let,var, const?
+What is a block scope?
+	//let - a variable defined with let keyword will die at the end of the block is defined..
+What is a function scope?
+	//var - it will die at the end of the fucntion defintion.
+	
+What is the difference between a function scope and a block scope?? or let vs var?
+	//"let" was introduced in es2015/es6
+	//"let" has block scope.
+	//"let" does not get hoisted
+	
+	//"var" is there in js from the beginning
+	//"var" has function scope..
+	//"var" gets hoisted at the top of the fuction
+	
+Give a code example to show how a let variable is not hoisted and a var variable is hoisted?
+	example
+	=========
+	let x = function(){
+		if(true){
+			var v = 2;
+			let l = 1;
+		}
+		console.log(v);
+		console.log(l);
+	}
+	x();
+	
+	//2
+	//ReferenceError: Can't find variable: l
+	
+	var v is printed as its function scoped
+	let l is notprited as its block scoped - if block
+	
+	example
+	=========
+	let x = function(){
+		if(true){
+			console.log(v,"i");
+			console.log(l,"i");
+			var v = 2;
+			let l = 1;
+		}
+		console.log(v);
+		console.log(l);
+	}
+	x();
+	
+	undefined – "i" 
+	< ReferenceError: Cannot access uninitialized variable.
+	
+	
 ====================================================================================================================
 Expression and Operators
 ====================================================================================================================
@@ -1473,7 +1576,40 @@ What is Object.is()?
 	Object.is(NaN, 0/0);         // true
 	
 	
+How to create an empty object in js?
+	//var o = new Object()
+	//var o = {}
+	//var o = Object.create(null)
 	
+Which is efficient of creating an object?
+	//using object literal i.e. var o = {}
+	
+How I can add elements to an object after defining it?
+	//var obj = {}
+	//obj.name = "soumya"
+	
+How I can remove elements from an object?	
+	//using delete operator
+	var obj = {}
+	obj.name = "soumya"
+	delete obj.name
+	
+How I can iterate elements from an object?
+
+What is singleton objects?
+	//We create only one time..and we dont create any other object from this
+	var obj = { name : "soumya" }
+	
+What is the difference between obj.name vs obj["name"]?
+	if name is stored in a variable and if we try to use like
+	var n = name;
+	In this case we cant use like obj.n, it will be undefined always
+	
+	But we can access using obj[n] which will give "soumya"
+	
+
+How to create oe object from another object?
+	//
 ====================================================================================================================
 JSON
 ====================================================================================================================
@@ -2123,8 +2259,11 @@ What is a callback function?
 		— these are called asynchronous callbacks. 
 	A good example is the callback functions executed inside a .then() block chained onto the end of a promise 
 		after that promise fulfills or rejects.
-		
-
+	
+Why callback function are called higher order functions?
+	
+What is a pure function?
+	
 What is a closure?
 	//in javascript variables defined outside of functions can be accessed inside..
 	Because in javascript there is something called lexical scoping
@@ -2397,11 +2536,163 @@ What is IIFE?
 
 
 
+====================================================================================================================
+Inheritance
+====================================================================================================================
+What is factory pattern?
+	var peopleFactory = fucntion(name,age,state){
+		var temp = {}
+		//var temp = new Object();
+		temp.age = age;
+		temp.name = name;
+		temp.state = state;
+		
+		temp.printPerson = function(){
+			console.log(this.name+this.age+this.state);
+		}
+		return temp;
+	}
 
+	//Here this peopleFactory is a function behaves like a factory
+	//Whenever we are going to create a new person all we have to do is create like this
+		var person1 =  peopleFactory("john",23,'CA')
+		var person2 =  peopleFactory("kim",27,'SC')
 
+	person1.printPerson()
+	person2.printPerson()
+
+What is constructor pattern?
+	var peopleConstructor = function(name,age,state){
+		this.name = name;
+		this.age = age;
+		this.state=state;
+		this.printPerson = function(){
+			console.log(this.name+this.age+this.state);
+		}	
+	}
+	
+	//it is also same as factory pattern but instead of creating an object inside function and then adding key value to it..
+	  We directly use key values inside a fucntion..
+	  because functions are also behaves like objects..
+	//And instead of calling method directly we first create objects using new operator..
+	//Then usingthose objects we call the method printPerson() to print to console..
+	
+	  var  person1 = new peopleConstructor("john",23,'CA');
+	  var  person2 = new peopleConstructor("kim",27,'SC');
+	  person1.printPerson();
+	  person2.printPerson(); 
+	
+
+What is the problem with constructor pattern?
+	//the problem with constructor pattern is everytime we create a constructor object.. it will have all of the variables or functions..
+	//for example person1 will have all the properties..
+	//person2 will have all the properties..
+	...
+	//If i create 1000 objects they all will have separate copy of the function.. which is redundant..
+	//thats y prototype pattern is introduced..
+	
+	
+What is a prototype pattern?
+	var peopleProto = function(){
+	
+	}
+	peopleProto.prototype.age = 0;
+	peopleProto.prototype.name = "no name";
+	peopleProto.prototype.state = "no state";
+	peopleProto.prototype.printPerson = fucntion(){
+		console.log(this.age + this.name + this.state);
+	}
+	
+	var  person1 = new peopleProto();
+	var  person2 = new peopleProto();
+	person1.age = 23;
+	person1.name = 'john';
+	person1.city = 'CA';
+	
+	person1.printPerson();
+	console.log('age' in person1);//true
+	console.log(person1.hasOwnProperty('age')); //false
+
+	//here we have created an empty object.
+	//then we have used prototype to add properties to it.
+	//then we have used prototype to add method to it.
+	//We creating the default values for variables..and later overriding these values while creating objects..
+	//so here all the properties are not added directly to the object, it is added as prototype..
+	//It makes the object very light weight..
+	
+	
+
+What is dynamic prototype pattern?
+	var peopleDynamicProto = function(name,age,state){
+		this.name = name;
+		this.age = age;
+		this.state=state;
+		if(typeof this.printPerson !=='fucntion'){
+			peopleDynamicProto.prototype.printPerson = fucntion(){
+				console.log(this.age + this.name + this.state);
+			}
+		}	
+	}
+	
+	var  person1 = new peopleDynamicProto('john',23,'CA');
+	person1.printPerson()
+	
+What is the default and common property available to all the functions?
+	//prototype
+	
+What is prototype?
+	//This is the default and common property available to all the functions
+	//this property by default will be empty..
+	//we can add properties and methods to it..
+	
+	//And when we create objects from this function, it will inherit these properties thats defined in function x() prototype..
+	
+	var x = fucntion(j){
+		this.i = 0;
+		this.j = j;
+	}
+	x.prototype.getJ = function(){
+		return this.j;
+	}
+	var x1 = new x(1);
+	var x2 = new x(2);
+	console.log(x1.getJ());
+	console.log(x2.getJ());
+	
+	
+	**Now here every object will have its own i and j variables but  they have a shared method called getJ()
+	**x1 and x2 does not have its own method getJ()
+	**So whenever i call x1.getJ() or x2.getJ() it looks up in the prototype chain..into its parent..
+	**So it finds it and using it.
+	**Now this way the objects are much smaller
+	**You dont have to have all the methods inside object.
+	**We can use it from the parent's prototype
+	**Now when any object will call this getJ() it will search its own instance variables
+	
+What is a constructor?
+	//Every function expression is essentially a constructor
+	var x = fucntion(j){
+		this.i = 0;
+		this.j = j;
+		
+		this.getJ = function(){
+			return this.j;
+		}
+	}
+	var x1 = new x(1);
+	var x2 = new x(2);
+	console.log(x1.getJ());
+	console.log(x2.getJ());
+	
+What is master Object?
+
+What is __proto__?
 
 
 	
+What is Object?
+
+What is console.dir()
 	
 	
 	
