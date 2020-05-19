@@ -12,6 +12,49 @@ What is the difference between == and ===?
 	if("1"==1){}
 	if("1"===1){}
 	
+What is a variable?
+	//variable is to hold data
+	
+How many ways we can define a variable?
+	//let,var and const
+	
+Why let and const introduced? What is the problem with var?
+	
+What is a valid variable name?
+	//cant be a keyword
+	//cant start with a number
+	//only 2 special chars allowed $ and _
+	
+	invalid variables
+	===================
+	let let = 1;
+	let 1h = 1;
+	let #=1;
+	let $_@ =1;
+	
+	valid variables
+	===================
+	let $_ = 1;
+	let h1 = 1;
+	let show = 1;
+	
+What is symbol?
+	//primitive data type.
+	//introduced in es6
+	//creates unique values..
+	let newVal = Symbol();
+	console.log(newVal); //Symbol()
+	console.log(typeof(newVal)); //symbol
+	
+	let newVal1 = Symbol();
+	console.log(newVal === newVal1); //false
+	
+	const obj = {}
+	obj[newVal] = 1;
+	obj[newVal1] = 2;
+	console.log(obj[newVal]);
+	
+	
 What is the difference between let and const?
 	//in const once we assigned the variable once we cant reassign the variable again
 	//in let once we assigned the variable we can reassign it again 
@@ -57,7 +100,51 @@ What is the difference betwee null and undefined?
 	
 	
 What are the data types in javascript?
-
+	//primitive type - string,number,boolean,symbols
+	//non-primitve - array,objects,classes
+	
+How to make type conversion?
+	//any primitve data ype to string
+	let num=20.20
+	let numString=num.toString()
+	console.log(numString)
+	console.log(num.__proto__)//methods available in Number
+	
+	
+	let un;
+	let unString=un.toString()
+	console.log(numString)//can not read property 'toString' of undefined 
+	
+	
+	let bool=true;
+	let boolString=bool.toString()
+	console.log(numString)//"true"
+	
+	
+	//any primitve data type to number
+	let str ="hi";
+	console.log(+str);//NaN
+	str='10';
+	console.log(+str);//1
+	
+	let bool =true;
+	console.log(+bool);//1
+	
+	
+	//any primitve data type to boolean
+	let str ="";
+	console.log(Boolean(str));//false - if length of string is = 0
+	
+	let str ="ab";
+	console.log(Boolean(str));//true - if length of string is > 0
+	
+	let num =0;
+	console.log(Boolean(num));//false
+	num =20;
+	console.log(Boolean(num));//true
+	num =-20;
+	console.log(Boolean(num));//true
+	
 What is output of below code?
 	Note :- here the operation always performed from left to right..
 		If we have just 2 values one is number and another is string, it converts number to string.
@@ -92,6 +179,14 @@ What is output of below code?
 	if({}){} 	//true
 
 
+What is global scope?
+	let outer =1;
+	if(true){console.log(outer);}
+	
+What is block scope?
+What is lexical scope?
+
+What is difference betweeen context and scope?
 
 What is hoisting?
 
