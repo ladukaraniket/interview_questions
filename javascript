@@ -2738,9 +2738,55 @@ What are the limitations or problems happens because of recursion?
 	
 	
 What is throttling?
-	//
+	//Basically we are going to build a function called throttle.
+	//This is very similar to the debounce function that we looked at the last lecture.
+	//They both avoid the unnecessary action to be fired.
+	//So let's look at how it works.
+	//So imagine if you have a button and if I click on it multiple times in a quick succession 
+	then the event associated with that button would get fired multiple times and you want to avoid that.
+	//So one way of doing it is using debounce function that we looked at in last lecture.
+	//Again throttle works little different so if you build a function called throttle() and add some delay to it 
+	  let's say 10 seconds then what really happens -> on the first click the event would get fire.
+	//So this is the event being fired.
+	//And within that delay let's say 10 seconds if the user clicks on it again.
+	//Then those events won't get fired.
+	//But after that delay again if somebody clicks on it then it would get fired.
+	//Then it would wait for another 10 seconds and it would prevent the other events are being fired.
+	//So if you keep clicking on a continuously then every 10 seconds you will get like one click 
+	//compared to that if you look at the debounce function which work very differently 
+	//The debounce function it doesn't really execute anything on a first click.
+	//It basically delays the event and as soon as the user clicks on another time on button a second time 
+		it again deLay the event firing 
+	//so if you keep clicking on the same button over and over nothing would get fired until the point where you actually stop.
+	//And then there is a delay and then the last click would get fired.
+
+	//So essentially in throttle the first click gets fired 
+	//In the debounce that last click get fired after the delay.
+	//Also here if you keep clicking on the same button over and over then there will be multiple events after each delay 
+	//here if I keep clicking on it event will never fire until until I stop.
+	//So a lot of time debounce is very useful because it truly avoids a lot of unnecessary events.
+
+	//So This both functions have its own applications.
+	//So let's look at how to build the throttle function.
+
+	<button id="myid">click me</div>
+	document.getElementById('myid').addEventListener("click", throttle(() => {
+		console.log("clicked");
+	},5000))	
 	
-	
+	Now lets build our debounce function.
+	const throttle = (fn,delay)=>{
+		let last=0;
+		return function(...args){
+			const now = new Date().getTime();
+			
+			if(now-last < delay){
+				return;
+			}
+			last = now;
+			return fn(...args)
+		}
+	}
 	
 	
 What is debouncing?
