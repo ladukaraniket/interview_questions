@@ -241,7 +241,40 @@ Give a code example to show how a let variable is not hoisted and a var variable
 	undefined – "i" 
 	< ReferenceError: Cannot access uninitialized variable.
 	
-	
+====================================================================================================================
+DOM Events
+====================================================================================================================
+What is event?
+What is event.target?
+What is event bubbling?
+What is event capturing?
+What is event.stopPropagation()?
+What is event.stopImmediatePropagation()?
+What all events available in javascript?
+	//click,hover,onchange,mousehover,keyup,keydown
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ====================================================================================================================
 Expression and Operators
 ====================================================================================================================
