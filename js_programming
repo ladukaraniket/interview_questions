@@ -1,2 +1,176 @@
 var abc = function(){console.log(2);}
 console.log(abc+2);//function(){console.log(2);}2
+
+let x = {a:1,b:2};
+const entries = Object.entries(x)
+const keys = Object.values(x)
+const values = Object.values(x)
+
+Q. Reverse a string?
+    let x = "hi";
+    let y = "ih";
+    x.split("").reverse().join("") == y
+
+ Q. if(undefined){console.log("true");}else{console.log("false");}//false
+ Q. if(null){console.log("true");}else{console.log("false");}//false
+ Q. if(NaN){console.log("true");}else{console.log("false");}//false
+ Q. if(""){console.log("true");}else{console.log("false");}//false
+ Q. if(0){console.log("true");}else{console.log("false");}//false
+
+ Q. if([]){console.log("[] is true");}else{console.log("[] is false");}//true
+ Q. if({}){console.log("{} is true");}else{console.log("{} is false");}//true
+
+ Q. How can i change the below object so that i can call like obj.getA().getB()?
+    const obj = {a:1,b:2, getA(){console.log(this.a)}, getB(){console.log(this.b);}}
+    obj.getA().getB()
+  
+    obj = { a:1, b :2, getA(){ console.log(this.a);return this;}, getB(){ console.log(this.b)}}
+    
+ Q. How i can make this work without any error?
+    [1,2].print(); //1,2
+    
+    Array.prototype.print = function(){ console.log(`${this[0]}, ${this[1]}`);}
+    Array.prototype.print = function(){ console.log(`${this.join(',')}`);}
+    
+ Q. How I will make this work?
+    const a = function(x){ this.x = x; }
+    const b = function(x,y){ this.y = y; }
+    const newB = new b('x','y');
+    newB.getX()
+    newB.getY()
+    
+    
+    a = function(x){ this.x = x;  this.getX = function(){ return this.x; }}
+    b = function(x,y){ a.call(this,x); this.y = y; this.getY = function(){ return this.y; }}
+    newB = new b('x','y');
+    newB.getX()
+    newB.getY()
+    
+  Q. How to create a clone object where modifying clone object should not reflect to the originl?
+     const obj = {
+        a: {
+          b:  {
+            c:  1
+          }
+        }
+      }
+      clone.a.b.c = 2;
+      console.log(obj.a.b.c); => it should not give 2
+     
+      const clone = Object.assign({},obj); //wrong as changes to this will reflect in original -> shallow cloning
+      const clone = JSON.parse(JSON.stringify(obj)); //correct as changes to this will never reflect in original -> deep cloning
+
+  
+  Q. Output of below code
+     let a = { n:1}
+     let b = Object.assign({},a)
+     b.n = 2;
+     a.n //1
+     
+     let a = { n:{o:{p:1}}}
+     let b = Object.assign({},a)
+     b.p = 2;
+     a.p //2
+     
+Q. How i can merge two array by sorting order?
+  const a = [1,2,5,7,9]
+  const b = [2,5,7,12,100];
+  
+  const c = [1,2,2,5,5,7,7,12,100];
+  
+  c = (a.concat(b)).sort((a,b)=> a -b );
+
+     
+ Q. Output of below code?
+    const a = [1,2,5,7,9]
+    const b = [2,5,7,12,100];
+    a+b //"1,2,5,7,92,5,7,12,100" 
+    
+    
+ Q. What will be the output of below code snippet?
+    const obj = {
+      x: 1,
+      getX(){
+        const inner = function(){
+          console.log(this.x);
+        } 
+        inner()
+      }
+    }
+    obj.getX(); //undefined
+    
+    How to fix this?
+    1way
+    =====
+    const obj = {
+      x: 1,
+      getX(){
+        const that = this;
+        const inner = () => {
+          console.log(that.x);
+        } 
+        inner()
+      }
+    }
+    obj.getX(); //undefined
+    2way
+    =====
+    const obj = {
+      x: 1,
+      getX(){
+        const inner = function(){
+          console.log(that.x);
+        }.bind(this)
+        inner()
+      }
+    }
+    obj.getX(); //undefined
+    
+    3way
+    =====
+    const obj = {
+      x: 1,
+      getX(){
+        const that = this;
+        const inner = function(){
+          console.log(that.x);
+        } 
+        inner()
+      }
+    }
+    obj.getX(); //undefined
+    
+    4th
+    ====
+    const obj = {
+      x: 1,
+      getX(){
+        const that = this;
+        const inner = function(){
+          console.log(that.x);
+        } 
+        inner.call(this)
+      }
+    }
+    obj.getX(); //undefined
+    
+Q. Add the below array elements and return the sum
+   let ary = [1,2,5,7]
+    
+   ary.reduce((a,i)=>{a+i})
+     
+Q. lets create a function that shoud for below ways..
+  //add(1,2)
+  //add(1)(2)
+
+  function x(...n1){
+    function y(...n2){
+      return n1 + n2;
+    }
+  }
+
+
+
+
+
+
