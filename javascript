@@ -1,8 +1,47 @@
 What is javascript?
+
+How JavaScript differs from other programming languages?
+	//Other languages have “classical inheritance” 
+	where the software creates a copy of the behavior from parent class into the child when we extend that class. 
+	After that the parent and child classes become separate entities.
+	
+	//Behaviors and properties are copied when we create an object or instance of a class using a constructor. 
+	//At that point both are separate entities.
+	//That’s because they are not linked — it’s just a copy from one to the other.
+	//Compare that to Javascript, where the child’s behavior is just a link up to the parent class’s behavior.
+	
+What is javascript paradigm?
+	//Modern programming languages fall into two categories: 
+		1. imperative (also called procedural) 
+		2. declarative (also called functional).
+
+	//Object-oriented programming(OOP), procedural programming, parallel processing are ex of the imperative programming paradigm.
+	//Functional programming, logic programming, database processing are examples of the declarative programming paradigm.
+
+Why JavaScript is a “multi-paradigm” language?
+	//JavaScript supports both object-oriented programming with prototypal inheritance as well as functional programming.
+	//JavaScript lets us mix both types of coding in the same project.
+
+What is the difference between Object-oriented programming vs functional programming?
+	code wise if we are going to find area
+	OOP : 
+		Circle c = new Circle(5)
+		c.area()
+		
+	Functional :
+		area = area_of_circle(5);
+		
+		
+Why javascript is called dynamically typed language instead of statically typed?
+	//we can hold any type in variable declaration
+	//i.e. number,string,boolean,array,object,function etc.. unlike other languages
+	
 How many ways we can add javascript or script to a project?
 	//inline,embedded,external
+	
 Which one among the above has the highest priority?
 	//inline has highest..
+	
 How to add an external script to a file?
 	//<script src="test.js" type="text/javascript" ></script>
 	
@@ -2473,8 +2512,45 @@ What is a callback function?
 		after that promise fulfills or rejects.
 	
 Why callback function are called higher order functions?
+	Higher-order functions are functions that accept a function as an argument and return a function. 
+	Often, they are used to add to the functionality of a function.
+	
+	const withLog = (fn) => {  
+		return (...args) => {  
+			console.log(`calling ${fn.name}`);  
+			return fn(...args);  
+		};  
+	};
+	In the above example, we create a withLog higher-order function that takes a function 
+		and returns a function that logs a message before the wrapped function runs.
+
+	const add = (a, b) => a + b;  
+	const addWithLogging = withLog(add);  
+	addWithLogging(3, 4);  
+	// calling add  
 	
 What is a pure function?
+	Pure functions take some input and give a fixed output. 
+	Also, they cause no side effects in the outside world.
+	Ex:-
+	const add = (a, b) => a + b;
+
+Example of Pure Functions in JavaScript?
+	//filter(),map(),reduce(),concat(),Object.assign()
+	//All the above methods are immutable and never modifies the actual data. Hence known to be pure fucntions.
+	
+What is an impure function?
+	const SECRET = 42;  
+	const getId = (a) => SECRET * a;
+	getId is not a pure function. 
+	The reason being that it uses the global variable SECRET for computing the output. 
+	If SECRET were to change, the getId function will return a different value for the same input. 
+	Thus, it is not a pure function.
+
+Example of impure Functions in JavaScript?
+	//push(),pop(),unshift(),shift()
+	//All the above methods are mutable and always modifies the actual data. 
+	//Hence known to be impure functions.
 	
 What is a closure?
 	//in javascript variables defined outside of functions can be accessed inside..
@@ -2630,7 +2706,11 @@ Explain how let is different from var in setTimeout()?
 	
 	
 What javascript functions are called first class objects?
-
+	Functions are first-class objects in JavaScript, meaning they can be:
+		1. stored in an array, variable, or object
+		2. passed as one of the arguments to another function
+		3. returned from another function
+		
 What is a closure?
 What is private methods?
 	//closures helps us to create private methods.
