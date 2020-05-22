@@ -1,4 +1,3 @@
-
 ====================================================================================================================================
 FLEXBOX
 ====================================================================================================================================
@@ -172,4 +171,101 @@ What is align-contents?
   //flex-start,flex-end,center,space-around,space-between
   
   
+===========================================================================================================================
+CSS
+===========================================================================================================================
+What is CSS?
+	//CSS (Cascading Style Sheets) is used to style and lay out web pages 
+		 — for example, to alter the font, color, size, and spacing of your content, split it into multiple columns, 
+		 or add animations and other decorative features
+
+What is current stable version of css?	
+	//css3 ( css4 is never declared as stable)
+	
+How we can add css to our document?
+	//import extenal stylesheet or css file
+	//embedded style
+	//inline style
+	
+Among the above ways which one has highest priority? Which one will override the rest?
+	//inline has highest priority, then embedded and then external
+	
+How to add external css to HTML page?
+	//using link href
+	//<link rel="stylesheet" href="styles.css">
+	
+How to add embedded style in html page?
+	//using style tag
+	<style> </style>
+	
+How to add inline styling?
+	//by addig style attribute
+	<div style=""></div>
+	
+How we can add a class/classes to an element?
+	<div class="a b c"></div>
+
+How does CSS actually work?
+	//1. The browser loads the HTML (e.g. receives it from the network).
+	//2. It converts the HTML into a DOM (Document Object Model). 
+	     The DOM represents the document in the computer's memory. 
+        //3. The browser then fetches most of the resources that are linked to by the HTML document, 
+	     Such as embedded images and videos ... and linked CSS! 
+	     JavaScript is handled a bit later on in the process, 
+	//4. The browser parses the fetched CSS, 
+	     And sorts the different rules by their selector types into different "buckets", 
+	     e.g. element, class, ID, and so on.
+	     Based on the selectors it finds, it works out which rules should be applied to which nodes in the DOM, 
+	     And attaches style to them as required 
+	     (this intermediate step is called a render tree)
+	//5. The render tree is laid out in the structure it should appear in after the rules have been applied to it.
+	//6. The visual display of the page is shown on the screen (this stage is called painting).
+	
+What happens if a browser encounters CSS it doesn't understand?
+	//If a browser is parsing your rules, and encounters a property or value that it doesn't understand, 
+	  	it ignores it and moves on to the next declaration.
+
+What is a selector in CSS?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
