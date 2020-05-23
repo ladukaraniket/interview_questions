@@ -1,6 +1,13 @@
 What is javascript?
 
-What is truthy falsy table?
+What are the basic rules of truthy and falsy values?
+	false, zero and empty strings are all equivalent.
+	null and undefined are equivalent to themselves and each other but nothing else.
+	NaN is not equivalent to anything – including another NaN!
+	Infinity is truthy – but cannot be compared to true or false!
+	An empty array is truthy – yet comparing with true is false and comparing with false is true?!
+	
+What is truthy falsy table for ==?
 	true == true		//true
 	true == false		//false
 	true == 0		//false
@@ -113,6 +120,118 @@ What is truthy falsy table?
 	{} == {}		//false
 	
 
+What is truthy falsy table for ===?
+	true === true		//true
+	true === false		//false
+	true === 0		//false
+	true === ''		//false
+	true === null		//false
+	true === undefined	//false
+	true === NaN		//false
+	true === Infinity	//false
+	true === []		//false
+	true === {}		//false
+	
+	false === true		//false
+	false === false		//true
+	false === 0		//false
+	false === ''		//false
+	false === '0'		//false
+	false === null		//false
+	false === undefined	//false
+	false === NaN		//false
+	false === Infinity	//false
+	false === []		//false
+	false === {}		//false
+	
+	0 === true		//false
+	0 === false		//false
+	0 === 0			//true
+	0 === ''		//false
+	0 === null		//false
+	0 === undefined		//false
+	0 === NaN		//false
+	0 === Infinity		//false
+	0 === []		//false
+	0 === {}		//false
+	
+	'' === true		//false
+	'' === false		//false
+	'' === 0		//false
+	'' === ''		//true
+	'' === null		//false
+	'' === undefined	//false
+	'' === NaN		//false
+	'' === Infinity		//false
+	'' === []		//false
+	'' === {}		//false
+	
+	null === true		//false
+	null === false		//false
+	null === 0		//false
+	null === ''		//false
+	null === null		//true
+	null === undefined	//false
+	null === NaN		//false
+	null === Infinity	//false
+	null === []		//false
+	null === {}		//false
+
+	undefined === true	//false
+	undefined === false	//false
+	undefined === 0		//false
+	undefined === ''	//false
+	undefined === null	//false
+	undefined === undefined	//true
+	undefined === NaN	//false
+	undefined === Infinity	//false
+	undefined === []	//false
+	undefined === {}	//false
+	
+	NaN === true		//false
+	NaN === false		//false
+	NaN === 0		//false
+	NaN === ''		//false
+	NaN === null		//false
+	NaN === undefined	//false
+	NaN === NaN		//false
+	NaN === Infinity	//false
+	NaN === []		//false
+	NaN === {}		//false
+	
+	Infinity === true	//false
+	Infinity === false	//false
+	Infinity === 0		//false
+	Infinity === ''		//false
+	Infinity === null	//false
+	Infinity === undefined	//false
+	Infinity === NaN	//false
+	Infinity === Infinity	//true
+	Infinity === []		//false
+	Infinity === {}		//false
+	
+	[] === true		//false
+	[] === false		//true
+	[] === 0		//true
+	[] === ''		//true
+	[] === null		//false
+	[] === undefined	//false
+	[] === NaN		//false
+	[] === Infinity		//false
+	[] === []		//false
+	[] === {}		//false
+	
+	{} === true		//false
+	{} === false		//false
+	{} === 0		//false
+	{} === ''		//false
+	{} === null		//false
+	{} === undefined	//false
+	{} === NaN		//false
+	{} === Infinity		//false
+	{} === []		//false
+	{} === {}		//false
+	
 Output of below code?
 	//"" == false
 	//" " == false
@@ -214,6 +333,8 @@ Output of below code?
 	'1' == [1]	//true
 	'1,2' == [1,2]	//true
 	
+What is scope in javascript?
+What is context in javascript?
 
 	
 How JavaScript differs from other programming languages?
