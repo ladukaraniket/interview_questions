@@ -169,7 +169,8 @@ Q. lets create a function that shoud for below ways..
     }
   }
 
-
+Q. How to create an array of 1 to 100 eements inside it?
+    Array.from(Array.keys())
 
 
 
