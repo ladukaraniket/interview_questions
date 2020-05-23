@@ -1,0 +1,178 @@
+====================================================================================================================================Design Patterns in javascript
+====================================================================================================================================
+What is GOF?
+What is design pattern?
+	//design patterns are common architectural approaches
+	//popularized by the gof book - 1994
+	//translated to many languages - c#,java,c++,js
+	//universally relevant
+	
+
+What is creational pattern?
+	//builder
+	//factories
+		//abstract factory
+		//factory
+	//prototypr
+	//singleton
+	
+What is a structural pattern?
+	//adapter
+	//bridge
+	//composite
+	//decorator
+	//facade
+	//flyweight
+	//proxy
+	
+What is a behavioral pattern?
+	//chain of responsibility
+	//command
+	//interpreter
+	//iterator
+	//mediator
+	//momento
+	//observer
+	//state
+	//strategy
+	//visitor
+	
+What is SOLID design principles?
+	SOLID Design Principles: 
+		Single Responsibility Principle, 
+		Open-Closed Principle, 
+		Liskov Substitution Principle, 
+		Interface Segregation Principle,
+		Dependency Inversion Principle
+
+	
+What are solid design principles?
+	//principles of oop
+	//this whole patterns devided into 3 parts
+	//creational,structural,behavioral
+	
+	
+
+What is single responsbility principle?
+	//Its tells us that a class should have a single primary responsibility
+	//And as a consequence it should only have one reason to change.
+	//That reason being somehow related to its responsibility 
+	//In other words it's a bad idea to add more than one responsibility to a class.
+
+
+How single responsbility principle work?
+
+What is open closed principle work?
+
+What is Observer pattern?
+	//We need to be informed when certain things happen
+		objects property changes
+		object does something
+		some external event occours
+	//we want to listen to events and be notified when they occur
+	//want to unsubscribe from events if we're no longer interested
+	
+	//Observer pattern consists of 2 concepts - observer and observable
+	//An observer is an object that wishes to be informed about events happening in the system.
+	//The entity generating the events is an observable.
+	//So the observable is the generator of events
+	//observer is the consumer of events and can decide what to do with them.
+	
+	
+	
+What is decorator design pattern?
+	//Well a decorator is just something that you use to add additional functionality to a class.
+	
+	class Shape{}
+	class Circle extends Shape{
+		constructor(radius=0){
+			this.radius = radius;
+		}
+		resize(factor){
+			 this.radius *= factor;
+		}
+		toString(){
+			return `A circle og radius ${this.radius}`
+		}
+	}
+
+
+	Later point of time if we decide to add color to the particular shape..So the question is how do you do this.
+	Ok so basically we are going to modify the base Shape class..this is the intrusive way..
+	
+	class Shape{
+		cnstructor(color){
+			this.color = color;
+		}
+	}
+	
+
+	And now the problem is how do you get the circle to actually print information about this color inside of Color class toString()
+	It's toString implementation because you want to print here that we have a red circle of radius so and so 
+	but unfortunately you are unable to do it without also modifying the circle class.
+
+	So eventually you end up modifying basically the entire inheritance hierarchy and that's certainly possible
+	but remember we have this thing called the open closed principle 
+	and the open closed principle basically states that classes should be open for extension 
+	so you should be able to extend them but you should not modify them 
+	they should be closed for modification 
+	so modifying either the base class or the inherited class is might not be the best idea.
+
+
+	All you have to do is you have to build a decorator 
+	so a decorator is just a class which wraps the original class and adds additional information or functionality on the side.
+	
+	class ColoredShape extends Shape{
+		constructor(shape,color){
+			super();
+			this.shape = shape;
+			this.color = color;
+			
+		}
+		toString(){
+			return `${this.shape.toString()}` + `has the color ${this.color}`;
+		}
+	}
+
+	let circle = new Circle(2);
+	console.log(circle.toString()); //A circle of radius 2
+	
+	let redCircle = new ColoredShape(circle,'red');
+	console.log(redCircle.toString()); //A circle of radius 2 has the color red
+	
+
+	Now suppose we have to show transparency how to do it?
+	lets extend from Shape class again..
+	
+	class TransParentShape extends Shape{
+		constructor(shape,transparency){
+			super();
+			this.shape = shape;
+			this.transparency = transparency;
+			
+		}
+		toString(){
+			return `${this.shape.toString()}` + `has the color ${this.transparency * 100.0}% transparency`;
+		}
+	}
+	
+	let redHalfCircle = new TransParentShape(redCircle,0.5);
+	console.log(redHalfCircle.toString()); //A circle of radius 2 has the color red has 50% transparency
+	
+
+What is iterator design pattern?
+	//iteration is a core functionality of various ds
+	//an iterator is a class that facilitates the traversal.
+		//keeps reference to the current element
+		//knows how to move to a different element
+		//knows when it's done and there are elements to move to
+	//js support this through 
+		//Symbol.iterator member that returns an iterator object with a function called next() 
+		//next() returns an object containing 
+				the value being iterated
+				the done flag indicating whether iteration is finished
+				
+	//an iterator object can also be made iterable
+	
+	
+
