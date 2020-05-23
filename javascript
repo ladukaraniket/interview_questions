@@ -1,115 +1,116 @@
 What is javascript?
 
 What is truthy falsy table?
-	true == true
-	true == false
-	true == 0
-	true == ''
-	true == null
-	true == undefined
-	true == NaN
-	true == Infinity
-	true == []
-	true == {}
+	true == true		//true
+	true == false		//false
+	true == 0		//false
+	true == ''		//false
+	true == null		//false
+	true == undefined	//false
+	true == NaN		//false
+	true == Infinity	//false
+	true == []		//false
+	true == {}		//false
 	
-	false == true
-	false == false
-	false == 0
-	false == ''
-	false == null
-	false == undefined
-	false == NaN
-	false == Infinity
-	false == []
-	false == {}
+	false == true		//false
+	false == false		//true
+	false == 0		//true
+	false == ''		//true
+	false == '0'		//true
+	false == null		//false
+	false == undefined	//false
+	false == NaN		//false
+	false == Infinity	//false
+	false == []		//true
+	false == {}		//false
 	
-	0 == true
-	0 == false
-	0 == 0
-	0 == ''
-	0 == null
-	0 == undefined
-	0 == NaN
-	0 == Infinity
-	0 == []
-	0 == {}
+	0 == true		//false
+	0 == false		//true
+	0 == 0			//true
+	0 == ''			//true
+	0 == null		//false
+	0 == undefined		//false
+	0 == NaN		//false
+	0 == Infinity		//false
+	0 == []			//true
+	0 == {}			//false
 	
-	'' == true
-	'' == false
-	'' == 0
-	'' == ''
-	'' == null
-	'' == undefined
-	'' == NaN
-	'' == Infinity
-	'' == []
-	'' == {}
+	'' == true		//false
+	'' == false		//true
+	'' == 0			//true
+	'' == ''		//true
+	'' == null		//false
+	'' == undefined		//false
+	'' == NaN		//false
+	'' == Infinity		//false
+	'' == []		//true
+	'' == {}		//false
 	
-	null == true
-	null == false
-	null == 0
-	null == ''
-	null == null
-	null == undefined
-	null == NaN
-	null == Infinity
-	null == []
-	null == {}
+	null == true		//false
+	null == false		//false
+	null == 0		//false
+	null == ''		//false
+	null == null		//true
+	null == undefined	//true
+	null == NaN		//false
+	null == Infinity	//false
+	null == []		//false
+	null == {}		//false
 
-	undefined == true
-	undefined == false
-	undefined == 0
-	undefined == ''
-	undefined == null
-	undefined == undefined
-	undefined == NaN
-	undefined == Infinity
-	undefined == []
-	undefined == {}
+	undefined == true	//false
+	undefined == false	//false
+	undefined == 0		//false
+	undefined == ''		//false
+	undefined == null	//true
+	undefined == undefined	//true
+	undefined == NaN	//false
+	undefined == Infinity	//false
+	undefined == []		//false
+	undefined == {}		//false
 	
-	NaN == true
-	NaN == false
-	NaN == 0
-	NaN == ''
-	NaN == null
-	NaN == undefined
-	NaN == NaN
-	NaN == Infinity
-	NaN == []
-	NaN == {}
+	NaN == true		//false
+	NaN == false		//false
+	NaN == 0		//false
+	NaN == ''		//false
+	NaN == null		//false
+	NaN == undefined	//false
+	NaN == NaN		//false
+	NaN == Infinity		//false
+	NaN == []		//false
+	NaN == {}		//false
 	
-	Infinity == true
-	Infinity == false
-	Infinity == 0
-	Infinity == ''
-	Infinity == null
-	Infinity == undefined
-	Infinity == NaN
-	Infinity == Infinity
-	Infinity == []
-	Infinity == {}
+	Infinity == true	//false
+	Infinity == false	//false
+	Infinity == 0		//false
+	Infinity == ''		//false
+	Infinity == null	//false
+	Infinity == undefined	//false
+	Infinity == NaN		//false
+	Infinity == Infinity	//true
+	Infinity == []		//false
+	Infinity == {}		//false
 	
-	[] == true
-	[] == false
-	[] == 0
-	[] == ''
-	[] == null
-	[] == undefined
-	[] == NaN
-	[] == Infinity
-	[] == []
-	[] == {}
+	[] == true		//false
+	[] == false		//true
+	[] == 0			//true
+	[] == ''		//true
+	[] == null		//false
+	[] == undefined		//false
+	[] == NaN		//false
+	[] == Infinity		//false
+	[] == []		//true
+	[] == {}		//false
 	
-	{} == true
-	{} == false
-	{} == 0
-	{} == ''
-	{} == null
-	{} == undefined
-	{} == NaN
-	{} == Infinity
-	{} == []
-	{} == {}
+	{} == true		//false
+	{} == false		//false
+	{} == 0			//false
+	{} == ''		//false
+	{} == null		//false
+	{} == undefined		//false
+	{} == NaN		//false
+	{} == Infinity		//false
+	{} == []		//false
+	{} == {}		//false
 	
 
 Output of below code?
