@@ -1,5 +1,220 @@
 What is javascript?
 
+What is truthy falsy table?
+	true == true
+	true == false
+	true == 0
+	true == ''
+	true == null
+	true == undefined
+	true == NaN
+	true == Infinity
+	true == []
+	true == {}
+	
+	false == true
+	false == false
+	false == 0
+	false == ''
+	false == null
+	false == undefined
+	false == NaN
+	false == Infinity
+	false == []
+	false == {}
+	
+	0 == true
+	0 == false
+	0 == 0
+	0 == ''
+	0 == null
+	0 == undefined
+	0 == NaN
+	0 == Infinity
+	0 == []
+	0 == {}
+	
+	'' == true
+	'' == false
+	'' == 0
+	'' == ''
+	'' == null
+	'' == undefined
+	'' == NaN
+	'' == Infinity
+	'' == []
+	'' == {}
+	
+	null == true
+	null == false
+	null == 0
+	null == ''
+	null == null
+	null == undefined
+	null == NaN
+	null == Infinity
+	null == []
+	null == {}
+
+	undefined == true
+	undefined == false
+	undefined == 0
+	undefined == ''
+	undefined == null
+	undefined == undefined
+	undefined == NaN
+	undefined == Infinity
+	undefined == []
+	undefined == {}
+	
+	NaN == true
+	NaN == false
+	NaN == 0
+	NaN == ''
+	NaN == null
+	NaN == undefined
+	NaN == NaN
+	NaN == Infinity
+	NaN == []
+	NaN == {}
+	
+	Infinity == true
+	Infinity == false
+	Infinity == 0
+	Infinity == ''
+	Infinity == null
+	Infinity == undefined
+	Infinity == NaN
+	Infinity == Infinity
+	Infinity == []
+	Infinity == {}
+	
+	[] == true
+	[] == false
+	[] == 0
+	[] == ''
+	[] == null
+	[] == undefined
+	[] == NaN
+	[] == Infinity
+	[] == []
+	[] == {}
+	
+	{} == true
+	{} == false
+	{} == 0
+	{} == ''
+	{} == null
+	{} == undefined
+	{} == NaN
+	{} == Infinity
+	{} == []
+	{} == {}
+	
+
+Output of below code?
+	//"" == false
+	//" " == false
+	//0 == false
+	//"0" == false
+	//null == false
+	//undefined == false
+	//NaN == false
+	
+	
+	//"1" == false
+	//null==undefined
+	//null === undefined
+	
+	null == false		//false
+	null == true		//false
+	undefined == false
+
+	
+	
+	!0		//true
+	!false		//true
+	!null   	//true
+	!undefined   	//true
+	!""		//true
+	!NaN		//true
+	
+	!" "		//false
+	!-1		//false
+	!+1		//false
+	!Infinity	//false
+	!-Infinity	//false
+	!{}		//false
+	![]		//false
+	
+	
+List of falsy values in javascript?
+	false
+	null
+	undefined
+	0
+	NaN
+	'', "", ``(Empty template string)
+	document.all
+	0n: BigInt
+	-0
+
+	
+Output of below?
+	null()		//TypeError: null is not a function. (In 'null()', 'null' is null)
+	undefined()	//TypeError: undefined is not a function. (In 'undefined()', 'undefined' is undefined)
+	Object()	//{}
+	Array()		//[]
+	Function()	//function anonymous(){}
+	function()	//SyntaxError: Function statements must have a name.
+	
+Output of below?
+	var arr = [1,2,3,4,5];
+	var [a,...r] = arr;
+	console.log(a)//1
+	console.log(r)//[2,3,4,5]
+	console.log(arr)//[1,2,3,4,5] => no change
+
+	var [a,,...r] = arr;
+	console.log(a)//1
+	console.log(r)//[3,4,5]
+	console.log(arr)//[1,2,3,4,5] => no change
+	
+	var [a,,,,,...r] = arr;
+	console.log(a)//1
+	console.log(r)//[]
+	console.log(arr)//[1,2,3,4,5] => no change
+	
+	var [a,...r1,...r2] = arr; 
+	console.log(a)
+	console.log(r)
+	console.log(arr);
+	
+	Error on line -> var [a,...r1,...r2] = arr; 
+	SyntaxError: Unexpected token ','. Expected a closing ']' following a rest element destructuring pattern.
+	
+	So below are invalid ways..
+	var [a,...r1,b] = arr; 
+	var [a,...r1,...r2] = arr; 
+
+Output of below?
+	var obj = {a:1,b:2,c:3,d:4,e:5}
+	var {a,...rem}=obj
+	console.log(a)//1
+	console.log(rem)//{b: 2, c: 3, d: 4, e: 5}
+	console.log(obj)//{a: 1, b: 2, c: 3, d: 4, e: 5} => no change
+
+	var {a,,...rem}=obj;
+	SyntaxError: Unexpected token ','. Expected a property name.
+	
+Output of below code?
+	1 == '1'	//true
+	1 == [1]	//true
+	'1' == [1]	//true
+	'1,2' == [1,2]	//true
+	
+
+	
 How JavaScript differs from other programming languages?
 	//Other languages have “classical inheritance” 
 	where the software creates a copy of the behavior from parent class into the child when we extend that class. 
@@ -1303,13 +1518,22 @@ Finding if an element exists in the array or not and adding to the array if not 
 Object
 ====================================================================================================================
 
-What is javascriipt object?
+What is javascript object?
 How many ways we can create an object in javascript?
+Can we modify a const object?
+	const obj = {a:1}
+	obj.a = 2;
+	console.log(obj);//{a:2}
+	
 
 What is Object.assign()?
 	//The Object.assign() method copies all enumerable own properties from one or more source objects to a target object.
 	//It returns the target object.
-
+	//it does shallow cloning..while cloning from parent. 
+	//later if we modify any property in parent obj(2nd level down towards innermost child) it wont reflect in cloned object.
+	//only first level nested object modification will be visible..
+	
+	
 	Object.assign(target, ...sources)
 	
 	const target = { a: 1, b: 2 };
