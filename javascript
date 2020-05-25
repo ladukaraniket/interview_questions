@@ -1,5 +1,86 @@
 What is javascript?
 
+What is scope?
+	 scope has two levels: global scope and local scope. 
+	 Global scope refers to variables that are accessible anywhere 
+	 	because they are declared outside of any individual functions or methods 
+		— usually at the top of the file. 
+	They exist in the global space, ready to be called upon at any time. 
+	The first example below concerns global scope.
+
+	Example of a globally scoped variable
+	=====================================
+	let dog = "good dog";
+	console.log('1st dog', dog);//"good dog"
+	
+	function showScopeExample(){
+		let dog = "bad dog";
+	}
+	
+	showScopeExample();
+	console.log('2nd dog', dog);//"good dog"
+
+	Local scope refers to variables that are accessible within the boundaries of their function. 
+	In this example, we have our initial declaration of the variable dog at the top of our file, 
+		which is assigned to the string of “goodBoy.” 
+	Immediately below, we console.log the dog variable.
+	As expected, this first console.log prints ‘goodBoy,’ as seen on the right side of the image. 
+	Then, we have a function of showScopeExample(), which reassigns our dog variable to the string of “badDog.”
+	
+	This function is immediately invoked, but when we console.log “dog” for the second after function call, 
+		it still prints as “goodBoy.” 
+	Even though the second console.log occurs after we reassign the variable inside of the function, 
+		the dog variable is not currently capable of returning as “badDog.” 
+	This is by design.
+	
+	Our re-declaration of dog inside of showScopeExample() is locally scoped. 
+	The easiest way to know this is to look at its location. 
+	The re-declaration lies in between opening and closing curly brackets, which act as barriers to the relevancy of these variables.
+	
+	
+What is context?
+	//Context in JavaScript is another subject of confusion. 
+	//It refers primarily to the use of the keyword this. The value of this depends on where it is being invoked.
+	//Invoking this in the global space will return the entire window object. 
+	//This is because the window object is the starting point of all the code we write.
+		console.log(this); //window
+		
+	//The first rule of this is that by default, it refers to the window object.
+	
+	//But what happens if we invoke this somewhere other than the global context? 
+	//If we invoke this in the context of a new object, it will return that object, just as it returned the entire window object
+	
+	
+	const newCotextObj = {
+		invokeThisInNewContext(){return this;},
+		secondFunctioInNewContext(){ return "I exist in this context too!" }
+	}
+	
+	newCotextObj.invokeThisInNewContext()
+	//{invokeThisInNewContext: ƒ, secondFunctioInNewContext: ƒ}
+	
+	In the example above, we’ve created a new object which we’ve named newContextObj. 
+	When we invoke the method invokeThisInNewContext() it returns the entire newContextObj.
+	This is the same as when it returned the window object in our first example. 
+	The only difference is that the window object is a very large and complex object, 
+		and our newContextObj is very small and simple. 
+	The second rule of this is that when it is invoked in the context of an object, this will refer to that object.
+	
+	
+Drawback of arrow functions?
+	//Arrow functions can’t run with new
+	//arrow functions can’t be used as constructors. They can’t be called with new.
+	//Do not have arguments
+	//They also don’t have super, but we didn’t study it yet.
+	
+Arrow functions VS bind?
+	//There’s a subtle difference between an arrow function => and a regular function called with .bind(this):
+	//.bind(this) creates a “bound version” of the function.
+	//The arrow => doesn’t create any binding. 
+	//The function simply doesn’t have this. 
+	//The lookup of this is made exactly the same way as a regular variable search: in the outer lexical environment.
+
+
 What are the basic rules of truthy and falsy values?
 	false, zero and empty strings are all equivalent.
 	null and undefined are equivalent to themselves and each other but nothing else.
