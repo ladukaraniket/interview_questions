@@ -414,6 +414,9 @@ Output of below code?
 	'1' == [1]	//true
 	'1,2' == [1,2]	//true
 	
+	(function(){}).constructor === Function //true
+	
+	
 What is scope in javascript?
 What is context in javascript?
 
@@ -704,12 +707,46 @@ DOM Events
 What is event?
 What is event.target?
 What is event bubbling?
+	//When an event happens on an element, it first runs the handlers on it, then on its parent, 
+	then all the way up on other ancestors.
+	//Almost all events bubble. except few like focus,blur,load event dont bubble
+	
+	Let’s say we have 3 nested elements FORM > DIV > P with a handler on each of them:
+	<form onclick="alert('form')">FORM
+  		<div onclick="alert('div')">DIV
+    			<p onclick="alert('p')">P</p>
+ 	 	</div>
+	</form>
+	
+	
+How to stop bubbling?
+	//A bubbling event goes from the target element straight up. 
+	//Normally it goes upwards till <html>, and then to document object, and some events even reach window, 
+	calling all handlers on the path.
+	//But any handler may decide that the event has been fully processed and stop the bubbling.
+	//The method for it is event.stopPropagation().
+	
+	For instance, here body.onclick doesn’t work if you click on <button>:
+	
+	<body onclick="alert(`the bubbling doesn't reach here`)">
+  		<button onclick="event.stopPropagation()">Click me</button>
+	</body>
+	
 What is event capturing?
 What is event.stopPropagation()?
 What is event.stopImmediatePropagation()?
+	//If an element has multiple event handlers on a single event, then even if one of them stops the bubbling, 
+	the other ones still execute.
+	//
+	
 What all events available in javascript?
 	//click,hover,onchange,mousehover,keyup,keydown
 
+
+What is useCapture?
+	//The capturing and bubbling states are known by the useCapture parameter of addEventListener method
+		eventTarget.addEventListener(type,listener,[,useCapture]);
+	//By Default useCapture is false. It means it is in the bubbling phase.
 
 
 
@@ -2871,6 +2908,21 @@ What is difference between function and method?
 	//method we can say is specific to a class or an object..
 	//function when we use it outside using function keyword..
 	
+How many ways we can declare a js fucntion?
+	//there are 6 ways.
+	//1. A regular function e.g. function show(){}
+	//2. Function Expression e.g. var show = function(){}
+	//3. Shorthand method definition 
+		e.g. var obj = { name : "soumya", show(a,b){console.log(a+b);} }
+		e.g. var obj = { name : "soumya", ["show"](a,b){console.log(a+b);} } 
+		obj["show"](2,3)
+		obj.show(2,3)
+
+	//4. Arrow Function e.g. var show =() =>{}
+	//5. Generator Function e.g. function* show(){}
+	//6. using new Function e.g. var show = new Function(a, b, 'return a + b');
+
+	
 How many ways we can execute a function?
 	//fnShow()
 	//fnShow.call()
@@ -2881,7 +2933,7 @@ What is difference between call() and apply()?
 	//call() is to call a function with comma separated arguments.
 		funname.call(arg1,arg2,..,argn)
 	//apply() is to call a function with all arguments passed as an array.
-		funname.call([arg1,arg2,..,argn)
+		funname.apply([arg1,arg2,..,argn)
 
 What is bind()?
 	//Used to keep the context of “this” within another function
@@ -2889,14 +2941,58 @@ What is bind()?
 	
 
 What is function declaration?
+	The function declaration (function statement) defines a function with the specified parameters.
+	Syntax :-
+	=========
+	function name([param[, param,[..., param]]]) {
+   		[statements]
+	}
+	
+	Example
+	=========
+	function calcRectArea(width, height) {
+  		return width * height;
+	}
+	console.log(calcRectArea(5, 6));
+	// expected output: 30
+	
+	
 What is function expression?
 	 A function expression can be stored in a variable: var x = function (a, b) {return a * b};
 	 After a function expression has been stored in a variable, the variable can be used as a function. ...
 	 They are always invoked (called) using the variable name.
 	 
 What is the difference between a function declaration and a function expression?
-	//function declaration is not hoisted where as a function expression is hoisted always.
+	//function declaration is hoisted where as a function expression is never hoisted.
 	
+	doStuff();
+	function doStuff() {}; //no error
+	
+	doStuff();
+	const doStuff = () => {}; //error
+	
+Advantages of function expression over function declaration?
+	There are some benefits of function expressions over statements, for example they are anonymous functions, 
+	they can be used as closures, as arguments to other functions and as IIFEs.
+	
+Do Function Expressions have any drawbacks?
+	//Typically functions created by Function Expressions are unnamed. 
+	//For instance the following function is anonymous, today is just a reference to an unnamed function:
+	
+	var today = function() {return new Date()}
+	
+	//Does this really matter? 
+	//Mostly it doesn’t, but as Nick Fitzgerald has pointed out debugging with anonymous functions can be frustrating. 
+	//He suggests using Named Function Expressions (NFEs) as a workaround:	
+
+	var today = function today() {return new Date()}
+
+What is a named function expression?
+	var a = function bar() {
+    		return 3;
+	}
+ 
+ 
 What is anonymous function?
 	//A function that does not have a name..
 	
@@ -2915,6 +3011,7 @@ What is the difference between a normal function and arrow function?
 
 
 Is it mandatory to have a return statement?//No
+
 If there is no return statement then what does a fucntion return?//undefined
 
 
@@ -2984,7 +3081,6 @@ What is a closure?
 	Because in javascript there is something called lexical scoping
 	Which means inner variables are not accessible outside but outer variables can be accessed iside..
 	
-	
 	var addTo = function(passed){
 		var inner = 2;
 		return passed + inner;
@@ -3004,8 +3100,7 @@ What is a closure?
 	
 What is lexical scoping?
 	//the variables we have defined in parent or upper scope is by default or automatically available in inner scope...
-	//We dont have to pass it..
-	
+	//We dont have to pass it..	
 	
 	Example1
 	=========
