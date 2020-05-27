@@ -4,6 +4,14 @@
 Q. What is react?
 Q. What is SPA?
 Q. Is React is SPA?
+Q. What is one way and 2 way data binding?
+	//In one-way data binding information flows in only one direction, 
+	and is when the information is displayed, but not updated.
+	//In two-way data binding information flows in both directions, 
+	and is used in situations where the information needs to be updated.
+	
+Q. On what basis we will decide which technology to use - react or angular for a project?
+
 Q. What is difference between React and Angular?
 Q. What are the features of React?
 Q. What is advantages of React?
@@ -111,6 +119,7 @@ Q. When we need to call constructor(props){super(props); }?
 Q. Is constructor() is mandatory for a class component?//no
 
 Q. Why we need to bind class methods within constructor?
+	//because this is only available to render() and constructor()
 
 Q. How many ways we can bind method to this within a class?
 	//inside constructor
