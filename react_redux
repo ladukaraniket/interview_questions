@@ -3,12 +3,58 @@
 
 Q. What is react?
 Q. What is SPA?
+	//A single-page application is an app that works inside a browser and does not require page reloading during use. 
+	//You are using this type of applications every day. 
+	//These are, for instance: Gmail, Google Maps, Facebook or GitHub.
+	
+Q. Pros of the Single-Page Application:
+	//SPA is fast, as most resources (HTML+CSS+Scripts) are only loaded once throughout the lifespan of application. 
+	Only data is transmitted back and forth.
+	//Frontend and backend development are not tightly coupled.
+	//SPA can cache any local storage effectively. 
+	An application sends only one request, store all data, then it can use this data and works even offline.
+	
+	
 Q. Is React is SPA?
+
 Q. What is one way and 2 way data binding?
 	//In one-way data binding information flows in only one direction, 
 	and is when the information is displayed, but not updated.
 	//In two-way data binding information flows in both directions, 
 	and is used in situations where the information needs to be updated.
+	
+	Two data binding means
+	//The data we changed in the view has updated the state.
+	//The data in the state has updated the view.
+	
+	Let’s implement the two way binding in react.
+
+	class UserInput extends React.Component{
+  		state = {
+      			name:"reactgo"
+  		}
+		handleChange = (e) =>{
+    			this.setState({
+        			name: e.target.value
+    			})
+  		}
+		render(){
+    			return(
+      				<div>
+       				<h1>{this.state.name}</h1>
+       				<input type="text" onChange={this.handleChange}
+         				value={this.state.name} />
+      				</div>
+      			)
+   		}
+	}
+
+	In the above code, we have attached an onChange event handler to the input element 
+	and also value attribute is connected to the this.state.name.
+	so that the value attribute is always synced with this.state.name property.
+	Whenever the user changes an input in the view it triggers the onChange event handler then it calls the this.setState method 
+	and updates the this.state.name property value at final the UserInput component is re-rendered with the updated changes.
+	This is also called controlled component because the value of an input element is controlled by the react.	
 	
 Q. On what basis we will decide which technology to use - react or angular for a project?
 
@@ -275,6 +321,9 @@ Q. Difference between HashRouter and BrowserRouter?
 Q. We have to wrap all Route configuration along with the anchors or all Route configuration along with the ul li inside a single wrapper div. Is it true or false?
 	//true
 Q. What is the difference between HashRouter and BrowserRouter?
+Q. What is switch? How it is different from Router?
+	//
+Q. What is 
 
 Q. What is the difference between a class state variable and a function state variable(hooks)?
 	//we always have to create an object in class state variable..
