@@ -1,1 +1,47 @@
+What is HTML?   
+  //it is a markup language, not a programming language
 
+Is HTML technically a programming language?//no
+
+How do we represent an HTML element?
+  //<tagname>content</tagname>
+
+The head element may contain?
+  //The website's title, css styles, information for search engines and more
+  
+How many different heading (such as h1) elements are there?
+  //6
+  
+What is an attribute?
+  //additional information about an element
+
+For bold text, you use? //<strong>text</strong>
+
+What is the attribute for indicating the image path in an <img> element?  //src
+
+What is an external link?
+  //A link to a website that is not part of our project
+
+What do we have to include into the opening tag of a link that should open in a new tab?
+  //target="_blank"
+  
+  
+
+
+
+
+
+ 
+
+What is HTML5?
+
+What is doctype?
+  //very first line in a HTML page
+  
+What all elements introduced in HTML5?
+
+What are semantic elements?
+What is the exact use of semantic elements??Why should I care?
+  //There are three main reasons it’s important that your site is readable by both humans and computers: 
+    SEO, accessibility, and maintenance.
+    
