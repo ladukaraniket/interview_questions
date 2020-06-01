@@ -226,12 +226,143 @@ What happens if a browser encounters CSS it doesn't understand?
 	  	it ignores it and moves on to the next declaration.
 
 What is a selector in CSS?
+	//CSS selectors are used to "find" (or select) the HTML elements you want to style.
+
+How many ways we can devide the css selectors?
+	//We can divide CSS selectors into five categories:
+	1. Simple selectors (select elements based on name, id, class)
+	2. Combinator selectors (select elements based on a specific relationship between them)
+	3. Pseudo-class selectors (select elements based on a certain state)
+	4. Pseudo-elements selectors (select and style a part of an element)
+	5. Attribute selectors (select elements based on an attribute or attribute value)
+
+
+What is CSS Simple selectors?
+	//.class		.intro			Selects all elements with class="intro"
+	//#id			#firstname		Selects the element with id="firstname"
+	//*			*			Selects all elements
+	//element		p			Selects all <p> elements
+	//element,element,..	div, p			Selects all <div> elements and all <p> elements
 
 
 
+What is CSS Combinator selectors?
+	A CSS selector can contain more than one simple selector. Between the simple selectors, we can include a combinator.
+	There are four different combinators in CSS:
+
+	1. descendant selector (space)
+		//The descendant selector matches all elements that are descendants of a specified element.
+		//The following example selects all <p> elements inside <div> elements: 
+		div p { background-color: yellow; } => This will select the 3 paragraphs within div
+		
+		<div>
+  			<p>Paragraph 1 in the div.</p>
+  			<p>Paragraph 2 in the div.</p>
+  			<section><p>Paragraph 3 in the div.</p></section>
+		</div>
+		<p>Paragraph 4. Not in a div.</p>
+		<p>Paragraph 5. Not in a div.</p>
+		
+	2. child selector (>)
+		//The child selector selects all elements that are the children of a specified element.
+		//The following example selects all <p> elements that are children of a <div> element:
+		div > p { background-color: yellow; } => This will select the 3 paragraphs within div which are direct children
+
+		<div>
+  			<p>Paragraph 1 in the div.</p>
+  			<p>Paragraph 2 in the div.</p>
+  			<section>
+				<p>Paragraph 3 in the div.</p> <!-- not Child but Descendant -->
+			</section> 
+  			<p>Paragraph 4 in the div.</p>
+		</div>
+		<p>Paragraph 5. Not in a div.</p>
+		<p>Paragraph 6. Not in a div.</p>
+		
+	3. adjacent sibling selector (+)
+		//The adjacent sibling selector selects all elements that are the adjacent siblings of a specified element.
+		//Sibling elements must have the same parent element, and "adjacent" means "immediately following".
+		//The following example selects all <p> elements that are placed immediately after <div> elements:
+	
+		div + p { background-color: yellow; } => This will select the 1st paragraph after div which is sibling
+		div + * { background-color: yellow; } => This will select first whatever element type available after div
+									(not necessarily p)
+
+		<div>
+  			<p>Paragraph 1 in the div.</p>
+  			<p>Paragraph 2 in the div.</p>
+		</div>
+		<p>Paragraph 3. Not in a div.</p>
+		<p>Paragraph 4. Not in a div.</p>
+
+	4. general sibling selector (~)
+		//The general sibling selector selects all elements that are siblings of a specified element.
+		//The following example selects all <p> elements that are siblings of <div> elements
+		
+		div ~ p { background-color: yellow; } => selects paragraph 3 and paragraph 4.
+		
+		<p>Paragraph 1.</p>
+		<div>
+  			<p>Paragraph 2.</p>
+		</div>
+		<p>Paragraph 3.</p>
+		<code>Some code.</code>
+		<p>Paragraph 4.</p>
+		
+What is the difference between div p and div > p?
+	div p 	=> all the direct or indirect children of div (i.e. checks for multi level down)
+	div > p => all the direct children of div (i.e. one level down)
+		
+What is the difference between div + p and div ~ p?
+	div + p => just the next sibling (must be direct child of same parent)
+	div ~ p => all the siblings (must be direct children of same parent)
+		
+What is CSS Pseudo classes selectors?
+	//A pseudo-class is used to define a special state of an element.
+	//For example, it can be used to:
+		Style an element when a user mouses over it
+		Style visited and unvisited links differently
+		Style an element when it gets focus
+	//Syntax is : 
+	selector:pseudo-class {	property: value; }
+
+	//Example
+		a:hover { }
+		a:link { }
+		a:visited { }
+		a:active { }
+
+	//Note: a:hover MUST come after a:link and a:visited in the CSS definition in order to be effective! 
+		a:active MUST come after a:hover in the CSS definition in order to be effective! 
+		Pseudo-class names are not case-sensitive.
+		
+	//:first-child
+	//:first-of-type
+	//:last-child
+	//:last-of-type
+	//:nth-child(n)
+	//:nth-of-type(n)
+	
+	
+What is Pseudo element selectors?
+	//A CSS pseudo-element is used to style specified parts of an element.
+	//For example, it can be used to:
+		//Style the first letter, or line, of an element
+		//Insert content before, or after, the content of an element
+		
+	::after		p::after	Insert content after every <p> element
+	::before	p::before	Insert content before every <p> element
+	::first-letter	p::first-letter	Selects the first letter of every <p> element
+	::first-line	p::first-line	Selects the first line of every <p> element
+	::selection	p::selection	Selects the portion of an element that is selected by a user
 
 
-
+What is CSS Simple selectors?
+	//.class		.intro			Selects all elements with class="intro"
+	//#id			#firstname		Selects the element with id="firstname"
+	//*			*			Selects all elements
+	//element		p			Selects all <p> elements
+	//element,element,..	div, p			Selects all <div> elements and all <p> elements
 
 
 
