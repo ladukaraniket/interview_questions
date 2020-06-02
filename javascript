@@ -2987,15 +2987,41 @@ Do Function Expressions have any drawbacks?
 
 	var today = function today() {return new Date()}
 
+Do javascript supports function overloading?
+	//There is no real function overloading in JavaScript since it allows to pass any number of parameters of any type. 
+	//You have to check inside the function how many arguments have been passed and what type they are. 
+	//The correct answer is THERE IS NO OVERLOADING IN JAVASCRIPT.
+	
+	function funcONE(x,y) { return x*y; }
+	function funcONE(z) { return z; }
+	
+	The above will not show an error, but you won't get desired results. On calling,
+	// prints 5
+	funcONE(5);
+
+	// prints 5, not 30
+	funcONE(5,6);
+
+	JavaScript does not support function overloading natively. 
+	If we will add functions with the same name and different arguments, it considers the last defined function.
+	
+Do javascript supports function overriding?
+	// JavaScript does support the concept of method overriding. 
+	//And it does it in very strange ways. 
+	//After all, it is the most misunderstood language in the programming world. 
+	//JavaScript supports overriding, but not overloading.
+	
+	
 What is a named function expression?
 	var a = function bar() {
     		return 3;
 	}
  
- 
 What is anonymous function?
 	//A function that does not have a name..
 	
+What is advantages of anonymous function?
+
 What is drawback of anonymous function?
 
 What is arrow function?
@@ -3006,14 +3032,16 @@ What is arrow function?
 	4. They also don’t have super, but we didn’t study it yet. We will on the chapter Class inheritance
 	
 What is the difference between a normal function and arrow function?
+	//curly braces are not mandatory for a single return statement or a single statement
+	//for zero or multiple arguments we have to use parenthesis, for one argument we can skip
 	//Unlike regular functions, arrow functions do not have their own this.
 	//Arguments objects are not available in arrow functions, but are available in regular functions. 
-
+	//We cant use new operator to instantiate object using arrow function
+	
 
 Is it mandatory to have a return statement?//No
 
 If there is no return statement then what does a fucntion return?//undefined
-
 
 What is a callback function?
 	A callback function is a function passed into another function as an argument,
@@ -3541,6 +3569,49 @@ What is debouncing?
 ====================================================================================================================
 Inheritance
 ====================================================================================================================
+How to achieve inheritance in ES5?
+	function Person(fName, lName) {
+  		this.firstName = fName;
+  		this.lastName = lName;
+	}
+
+	Person.prototype.getFullName = function () {
+  		return this.firstName + ' ' + this.lastName;
+	}
+
+	function Employee(fName, lName, eId) {
+  		Person.call(this, fName, lName);
+  		this.empId = eId;
+	}
+	Employee.prototype = Object.create(Person.prototype);
+
+How to create a static method in es5?
+	function MyClass() {
+  		this.myAttribute = "foo";
+	}
+	MyClass.prototype.myMethod = function () { return "bar"; };
+	MyClass.myStaticMethod = function () { return "baz"; };
+	MyClass.myStaticMethod;
+
+
+How to create private variables in js?
+	In its current state, there is no “direct” way to create a private variable in JavaScript. 
+	In other languages, you can use the private keyword
+
+	// Define "a" in global scope
+	var a = 123;
+
+	// Define "b" in function scope
+	(function() {
+  		console.log(b); //=> Returns "undefined" instead of an error due to hoisting.
+  		var b = 456;
+	})();
+
+	console.log(a); // => 123
+	console.log(b); // Throws "ReferenceError" exception, because "b" cannot be accessed from outside the function scope.
+
+
+
 What is factory pattern?
 	var peopleFactory = fucntion(name,age,state){
 		var temp = {}
@@ -3549,7 +3620,7 @@ What is factory pattern?
 		temp.name = name;
 		temp.state = state;
 		
-		temp.printPerson = function(){
+		temp.printPerson = private variables in js
 			console.log(this.name+this.age+this.state);
 		}
 		return temp;
