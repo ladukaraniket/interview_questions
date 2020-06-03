@@ -1,0 +1,25 @@
+create-react-app hackernews
+cd hackernews
+git init
+heroku login (another terminal from project folder)
+heroku create hackernews-ssurajita --buildpack https://github.com/ssurajita/hackernews.git
+
+Creating ⬢ hackernews-ssurajita... done
+Setting buildpack to https://github.com/ssurajita/hackernews.git... done
+https://hackernews-ssurajita.herokuapp.com/ | https://git.heroku.com/hackernews-ssurajita.git
+
+git add .
+git commit -m "start with create-react-app"
+git remote add origin https://github.com/ssurajita/hackernews.git
+git push -u origin master
+
+heroku buildpacks:clear
+heroku buildpacks:set mars/create-react-app
+
+
+git push heroku master
+//it will give the deploy url , open that in browser
+
+
+heroku logs --tail
+heroku access
