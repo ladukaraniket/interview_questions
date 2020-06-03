@@ -1749,7 +1749,18 @@ Finding if an element exists in the array or not and adding to the array if not 
 
 
 
+arr = [2,3,,4,undefined,,6,,]
+//[2, 3, empty, 4, undefined, empty, 6, empty]
+arr.forEach((v)=>{console.log(v)}) //2 3 4 undefined 6 and returns undefined
 
+
+const array2 = ['a',,null,undeined,'', 'b', 'c'];
+const iterator2 = array2.keys();
+for (const key of iterator2) {
+	 console.log(key);
+}	
+VM603:1 Uncaught ReferenceError: undefined is not defined
+    at <anonymous>:1:27
 
 
 
@@ -2325,6 +2336,83 @@ What is the difference between below 2 ways while creating objects?
 
 How to create one object from another object?
 	//
+	
+Can we ensure that the insertion order is saved in case of objects?
+	//if keys are numbers then it will always printed in a sorted manner 
+	//if keys are strings then it will be printed exactly in the same order
+	
+	let codes = {
+  		"49": "Germany",
+  		"41": "Switzerland",
+  		"44": "Great Britain",
+  		"first": "soumya", "last":"surajita",
+  		"1": "USA"
+	};
+	codes
+	//{1: "USA", 41: "Switzerland", 44: "Great Britain", 49: "Germany", first: "soumya", last: "surajita"}
+	
+	for (let code in codes) {
+  		console.log(code); // 1, 41, 44, 49 , first, last
+	}
+	
+How we can make sure the insertion order is always saved while priniting an object even if we have integer keys?
+	//Use plus operator before number keys start
+	//let codes = {
+  		"+49": "Germany",
+  		"+41": "Switzerland",
+  		"+44": "Great Britain",
+  		"first": "soumya", "last":"surajita",
+  		"+1": "USA"
+	};
+	codes
+	{+49: "Germany", +41: "Switzerland", +44: "Great Britain", first: "soumya", last: "surajita", +1: "USA"}
+	
+	
+Can we declare an object with keys like null or undefined?
+	//yes we can
+	//As we already know, a variable cannot have a name equal to one of language-reserved words like “for”, “let”, “return” etc.
+	//But for an object property, there’s no such restriction:
+	
+	let obj = { null :1}
+	obj.null
+	
+	let obj = { undefined :1}
+	obj.undefined
+
+	let obj = {
+  		for: 1,
+  		let: 2,
+  		return: 3
+	};
+	
+What is the output of below?
+	let obj = {
+  		0: "test" // same as "0": "test"
+	};
+	// both alerts access the same property (the number 0 is converted to string "0")
+	alert( obj["0"] ); // test
+	alert( obj[0] ); // test (same property)
+
+	let obj = {};
+	obj.__proto__ = 5; // assign a number
+	alert(obj.__proto__); // [object Object] - the value is an object, didn't work as intended
+	
+	o.prototype=6;
+	console.log(o.prototype); //6
+	console.log(o); //{prototype: 6}
+	
+	
+How to print the incremental count on each time u instantiate an object using new?
+	var obj1 = new Object({cnt :0}) 
+ 	var obj2 = new Object(obj1)
+	Object.create({b:6})
+	//obj1.cnt = 5 {cnt:5}
+	//obj2.cnt {cnt:5}
+	
+	
+Why objects are called associative arrays?
+
+
 ====================================================================================================================
 JSON
 ====================================================================================================================
@@ -3511,19 +3599,75 @@ What is debouncing?
 	//Then last click event gets triggered after 2 seconds..
 	
 	
+Q. Suppose we have a constructor function and we dont call it using new operator. Then what will be the output?
+	function show(name){ this.name = name; this.greet = function(){ return this.name}}
+	var a = new show("s");
+	a //show {name: "s", greet: ƒ}
+	a.greet()//s
+	
+	var a = show("s");
+	a//undefined
+	a.greet()//undefined
+	
+	
+Q. What happens when we use in above question new show() or show()?
+	//when we use -> var a = new show()
+	function show(name){ 
+		this = {};
+		this.name = name; 
+		this.greet = function(){ 
+			return this.name
+		}
+		return this;
+	}
 
+Q. Why class structure is called syntactical sugar for prototype constructor fucntion?
+	//Because class internally uses the prototype constructor fucntion only.
+	//class constructor() content is same as the whole function body
+	
 
+Q. Prototype objects are fallback objects. What is the meaning?
+	//When we search for a property or a method in an object, 
+	and it is not available then it is searched in it's prototype object 
+	and if it is not available in prototype object also then it is searched in prototype object's prototype 
+	(prototype chaining till the root or end of the chain __proto__ )
+	
+	function Person(){ 
+		this.name = "soumya";
+		this.age = 28;
+		this.loc = "Bangalore";
+	}
+	var person = new Person();
+	console.log(person)
+	//{ 
+		this.name : "soumya",
+		this.age : 28,
+		this.loc : "Bangalore",
+		__proto__ : {
+			constructor : f Person(),
+			__proto__ : {
+				constructor : f Object()
+				toString : f toString(),
+				....
+				...
+			}
+		}
+	}
 
+	//Suppose we are trying for person.breathe() function it is checked in the object person first,
+	//If not found it is searched inside person.__proto__
+	//If still not found it is searched again in person.__proto__.__proto__
+	//This continues when it reaches or points to Object in js.
+		i.e. __proto__ constructor should point to f Object()
+		
+	person.__proto__ === Person.prototype //true
 
-
-
-
-
-
-
-
-
-
+Q. __proto__ ?
+	//is present in every object in js
+	//no matter how we have created it
+	//constructor function, new Objects, Object literals, arrays etc
+	
+	
 
 
 
@@ -3786,7 +3930,27 @@ What is __proto__?
 	
 	
 What is the difference between prototype and __proto__?
-
+	In reality, the only true difference between prototype and __proto__ is that 
+	the prototype is a property of a class constructor, while the __proto__ is a property of a class instance. 
+	
+	__proto__
+	============
+	//is present in every object in javascript
+	//no matter how we have created it
+	//constructor function, new Objects, Object literals, arrays etc
+	
+	prototype
+	============
+	//prototype sounds similar but does something totally different.
+	//prototype does not exist on every object
+	//it exists on function objects because javascript is a prototype based language
+	//We use constructor functions to build the objects 
+		and whatever we have set here - on prototype will be assigned as a prototype 
+		to any object that is built on based of this constructor function.
+		
+	//exists for all the objects which is created using new operator 
+	
+	
 What is console.dir()
 	
 	
