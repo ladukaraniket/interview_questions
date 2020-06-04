@@ -3027,6 +3027,37 @@ What is bind()?
 	//Used to keep the context of “this” within another function
 	//returns a new function which is actually takes care of the original function binding with this...
 	
+How many ways we can call a bind() method?
+	//fn.bind(this,a1,a2)()
+	//fn.bind(this,a1)(a2)
+	//fn.bind(this)(a1,a2)
+	
+	Example
+	o = {n:10;}
+	function f(a,b){
+		return this.n + a + b;
+	}
+
+	f.bind(o)(10,20);
+	f.bind(o,10)(20);
+	f.bind(o,10,20)();
+
+	
+	
+How can we write our own custom bind() method?
+	Function.prototype.mybind = function(...outer){
+		var originalFn = this;
+		var currObj = outer[0];
+		var outerArgs = outer.slice(1);//2nd element to end...
+		return function(...inner){
+			originalFn.apply(currObj, [...outerArgs,...inner])
+		}
+	}
+	
+	f.mybind(o,10,20)() //35
+	f.mybind(o,10)(20) //35
+	f.mybind(o)(10,20) //35
+
 
 What is function declaration?
 	The function declaration (function statement) defines a function with the specified parameters.
