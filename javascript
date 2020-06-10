@@ -1,5 +1,33 @@
 What is javascript?
-
+	//JS is a dynamic, weakly typed programming language which is compiled at runtime.
+	//It can be executed as a part of a webpage in a browser or directly on any machine(host environment)
+	//JS was created to make webpages more dynamic. (e.g. change content on a page directly from inside of browser).
+	//Originally it was called LiveScript but due to the popularity of java,it was renamed to javascript
+	//javascript is totally independednt from java and has nothing common in java
+	//Dynamic means that code is not pre-compiled but instead evaluated, compiled and executed at runtime (e.g. when the browser executes the script).
+	//Weakly typed means we dont define that some variable has to hold a certain value(ex.number)
+		Data types are assumed automatically (i.e. assigned to variables)
+	
+	
+How does webpages work?
+	//You are the user visiting the webpage
+	//When you do visit a webpage you use browser for that..
+	//You use your client a laptop or computer where you have the browser installed in it..
+	//To be precise a request is sent to the server from browser..
+	//And then response is sent back from server back to browser..or client
+	
+	
+How js code in our browser executed or executed on any environment?
+	//v8(chrome)
+	//spiderMonkey(firefox)
+	//they parse the js and compile it to machine code which is faster to execute 
+	//the machine code is executed on a single thread
+		
+JS runs on host environment means?
+	//browser-side
+	//server-side
+	
+	
 What is scope?
 	 scope has two levels: global scope and local scope. 
 	 Global scope refers to variables that are accessible anywhere 
