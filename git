@@ -146,7 +146,7 @@ How .git folder works after a commit?
   Untracked files:
     (use "git add <file>..." to include in what will be committed)
       .DS_Store
-	    README.md
+       README.md
   nothing added to commit but untracked files present (use "git add" to track)
   
   ** This is because we have deleted the .git repository.
@@ -154,9 +154,214 @@ How .git folder works after a commit?
     Now we have a brand new git repository hence these files showing as untracked.
     This version of the git repository has no prior knowledge of the README.md or .DS_STORE file.
     
+  Now lets create another file - LICENSE.md
+  //cd demo
+  //cat license.md
+  Add below text to file
+  # LICENSE
+  ## Apache 2.0
+
+  //git status
+  On branch master
+  No commits yet
+  Untracked files:
+    (use "git add <file>..." to include in what will be committed)
+      .DS_Store
+      LICENSE.md
+      README.md
+  nothing added to commit but untracked files present (use "git add" to track)
   
-  
-  
-  
-  
-  
+  //Add all files together
+  //git add .
+  //git status
+  On branch master
+  No commits yet
+  Changes to be committed:
+  	(use "git rm --cached <file>..." to unstage)
+		new file:   .DS_Store
+		new file:   LICENSE.md
+		new file:   README.md
+
+
+What is the difference between git add filename vs git add . ?
+
+How to write a commit message in a code editor that we already setup?
+	//git commit (and hit enter)
+	//It should open up commit window where we can type multiline
+	
+How to get the commit history with log?
+	//git status
+	On branch master
+	nothing to commit, working tree clean
+	
+	Since we just performed a commit we do not have anything new to commit. working directory is clean now.
+	
+	//git log
+	commit 53c4589d5bdd4fde08db657b6a724a55d0b54ae9 (HEAD -> master)
+	Author: soumyasurajita <ssurajita111@gmail.com>
+	Date:   Sun Jun 14 00:26:17 2020 +0530
+    	all files - license.md,readme.md,ds_store
+
+	** gitlog will show the commit history - information about all past commits.
+	Here we have only one because we have committed only once with new .git repo
+	
+	//git show
+	commit 53c4589d5bdd4fde08db657b6a724a55d0b54ae9 (HEAD -> master)
+	Author: soumyasurajita <ssurajita111@gmail.com>
+	Date:   Sun Jun 14 00:26:17 2020 +0530
+    	all files - license.md,readme.md,ds_store
+	diff --git a/.DS_Store b/.DS_Store
+	new file mode 100644
+	index 0000000..bcdcacf
+	Binary files /dev/null and b/.DS_Store differ
+	diff --git a/LICENSE.md b/LICENSE.md
+	new file mode 100644
+	index 0000000..aac77e3
+	--- /dev/null
+	+++ b/LICENSE.md
+	@@ -0,0 +1,3 @@
+	+# LICENSE
+	+
+	+## Apache 2.0
+	diff --git a/README.md b/README.md
+	new file mode 100644
+	index 0000000..4f16a62
+	--- /dev/null
+
+
+What is differences between git show and git log?
+	//git log shows all commits
+	//git show shows last commit with the differences
+	
+	
+What is express commit?
+	//Any tracked or untracked files we need to push it to staging area and then we need to do commit.
+	//If we do both together using one command then it is known to be express commit.
+	
+	//if we do not add new or modified files to staging area then our commit wont happen.
+	//It will give below error
+	Changes not staged for commit:
+	modified:   README.md
+	
+
+	//modify README.md. Add ## Heading 2
+	# Demo Project
+	This is a simple README file
+	## Heading 2
+	//git status
+	On branch master
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+
+	//git ls-files
+	.DS_Store
+	LICENSE.md
+	README.md
+	
+	//express commit ex below
+	//git commit -am "Updating README" 
+	[master 4162d07] Updating README
+ 	1 file changed, 2 insertions(+)
+
+
+What do you understand by tracked and untracked files?
+	//tracked files are those which have git history means atleast committed once and then modified again
+		e.g all modified files are tracked files
+	//untracked files arenewly created files - no mapping to git repo happened yet
+	
+What is git ls-files?
+	//this is going to list down only tracked files.
+	
+If a file is in staging area ready to commit, how we can move it back to working directory or unstage it?
+	//modify README.md. Add -> Doing something that should be backed out.
+	# Demo Project
+	This is a simple README file
+	## Heading 2
+	Doing something that should be backed out.
+	
+	//git status
+	On branch master
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+	
+	//git add .
+	//git status
+	On branch master
+	Changes to be committed:
+  		(use "git reset HEAD <file>..." to unstage)
+			modified:   README.md
+
+	**But here if i determine that I really dont need those changes then we can use below command
+	//git reset HEAD README.md
+	Unstaged changes after reset:
+	M	README.md
+
+	But if we open the README.md file the added text will still be available.But it is just unstaged.
+	Lets run git status again.
+	
+	//git status => it will show that file is modified and not staged for commit.
+	On branch master
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+	
+	** But in order to revert back the changes completely we have to use below command
+	//git checkout -- README.md
+	//git status
+	On branch master
+	nothing to commit, working tree clean
+
+Git log options to get the information of git history in different format?
+	//git log --oneline --graph --decorate --all
+	--oneline - to show in single line
+	--graph - asterick based graph or sequence it will be shown
+	--decorate - this tell us which commits are part of which branches
+	--all - provide history of all branches available in this repository
+	
+How to create a git alias?
+	//a new command to shorten a bigger command 
+	//The syntax is 
+	//git config --global alias.hist "log --oneline --graph --decorate --all"
+	//To check all the config list
+	//git config --global --list 
+	user.name=soumyasurajita
+	user.email=ssurajita111@gmail.com
+	diff.tool=p4merge
+	difftool.p4merge.path=/Applications/p4merge.app/Contents/MacOS/p4merge
+	difftool.prompt=false
+	merge.tool=p4merge
+	mergetool.p4merge.path=/Applications/p4merge.app/Contents/MacOS/p4merge
+	mergetool.prompt=false
+	alias.hist=log --oneline --graph --decorate --all
+
+	//git hist
+	* 4162d07 (HEAD -> master) Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
