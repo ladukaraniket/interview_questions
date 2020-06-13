@@ -1,1 +1,162 @@
+What is GIT?
+  //GIT is decentralized and distributed version control system
+  //Free and opensource
+  //Huge Community
+  //Wide adoption and Integration
+  
+ What is a repository?
+  //Within Git, the collection of version controlled files being managed,
+  and their history, is considered the repository.
+  //collection of files managed by GIT
+  //history(all of it)
+  //working directory/workspace
+  //hidden .git folder
 
+What is GIT commit?
+  //Git works by saving the current state of all of its files it manages into a snapshot called commits
+  //snapshots are commits
+  //one or more file changes
+  //It is important to note that git versions files not folders.
+  //As you make changes commits are saved onto the timeline, known as a branch.
+  //A git repo will normally have atleast one branch. And that is called master branch.
+  
+What is GitHub?
+  //Most popular Git Hosting Platform
+  
+How to install GIT?
+  //windows
+  
+  //mac
+  git version
+  git config --global user.name "Your Name"
+  git config --global user.email "your.email@your-place.com"
+  git config core.editor "mate -w"
+  git config --global -e
+
+  Configure P4Merge as Diff Tool in Git:
+  git config --global diff.tool p4merge
+  git config --global difftool.p4merge.path "/Applications/p4merge.app/Contents/MacOS/p4merge"
+  git config --global difftool.prompt false
+  
+  Configure P4Merge as Merge Tool in Git:
+  git config --global merge.tool p4merge
+  git config --global mergetool.p4merge.path "/Applications/p4merge.app/Contents/MacOS/p4merge"
+  git config --global mergetool.prompt false
+  
+ How to create a new git repository locally?
+    mkdir projects
+    cd projects
+    git init demo
+    Initialized empty Git repository in /Users/soumyasurajita/Desktop/git/projects/demo/.git/
+    cd demo
+    ls -al
+    //we will see only .git folder
+    
+ What are the local git states?
+    //It has 3 states
+    1.working directory 
+      //Working directory contains all the files and folders for your application.
+       which may or may not be managed by git.
+    2.staging area
+      //used to prepare for next commit.
+      //Files are moved form the modified working directory to git staging area and finally committed to git repository.
+    3.repository(.git folder)
+      //git repository or commit history contains all the committed or saved changes to the git repository
+      //Anything here is a part of git history
+      
+First commit in git?
+  //cd demo
+  //cat README.md
+  //Add below content to file and save it.
+  # Demo Project
+  This is a simple README file
+  //ls
+  README.md
+  //git status
+  On branch master
+  No commits yet
+  Untracked files:
+    (use "git add <file>..." to include in what will be committed)
+    .DS_Store
+	  README.md
+  nothing added to commit but untracked files present (use "git add" to track)
+  //git add README.md 
+  //git status
+  On branch master
+  No commits yet
+  Changes to be committed:
+    (use "git rm --cached <file>..." to unstage)
+      new file:   README.md
+  Untracked files:
+    (use "git add <file>..." to include in what will be committed)
+	    .DS_Store
+  //git add .DS_Store
+  git status
+  On branch master
+  No commits yet
+  Changes to be committed:
+    (use "git rm --cached <file>..." to unstage)
+      new file:   .DS_Store
+	    new file:   README.md
+
+  //git commit -m "First file in demo repo"
+  [master (root-commit) 7f31fb7] First file in demo repo
+  2 files changed, 3 insertions(+)
+  create mode 100644 .DS_Store
+  create mode 100644 README.md
+
+  //It will give a commit id 
+  //git status
+  On branch master
+  nothing to commit, working tree clean
+
+How .git folder works after a commit?
+  .git folder will keep the history of changes.
+  We are not supposed to modify this .git folder.
+  We should be very careful dealing with it.
+  
+  If we delete .git folder from our demo project lets see what happens.
+  //rm -rf .git
+  //git status
+  fatal: not a git repository (or any of the parent directories): .git
+  
+  We can get .git folder back by using below git init command again.
+  //cd demo
+  //ls -al
+  total 24
+  drwxr-xr-x  4 soumyasurajita  staff   128 Jun 14 00:06 .
+  drwxr-xr-x  3 soumyasurajita  staff    96 Jun 13 23:25 ..
+  -rw-r--r--@ 1 soumyasurajita  staff  6148 Jun 13 23:43 .DS_Store
+  -rw-r--r--  1 soumyasurajita  staff    45 Jun 13 23:53 README.md
+  //git init .
+  Initialized empty Git repository in /Users/soumyasurajita/Desktop/git/projects/demo/.git/
+  //Now lets do ls -al again. We should see the .git folder again.
+  ls -al
+  total 24
+  drwxr-xr-x  5 soumyasurajita  staff   160 Jun 14 00:09 .
+  drwxr-xr-x  3 soumyasurajita  staff    96 Jun 13 23:25 ..
+  -rw-r--r--@ 1 soumyasurajita  staff  6148 Jun 13 23:43 .DS_Store
+  drwxr-xr-x  9 soumyasurajita  staff   288 Jun 14 00:09 .git
+  -rw-r--r--  1 soumyasurajita  staff    45 Jun 13 23:53 README.md
+
+  
+  //git status
+  On branch master
+  No commits yet
+  Untracked files:
+    (use "git add <file>..." to include in what will be committed)
+      .DS_Store
+	    README.md
+  nothing added to commit but untracked files present (use "git add" to track)
+  
+  ** This is because we have deleted the .git repository.
+    These particular files were being tracked by previous git repository.
+    Now we have a brand new git repository hence these files showing as untracked.
+    This version of the git repository has no prior knowledge of the README.md or .DS_STORE file.
+    
+  
+  
+  
+  
+  
+  
