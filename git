@@ -1493,20 +1493,386 @@ How to setup ssh key ?
 		and we have just confirmed that.
 	
 
+How to create a remote repo and then clone it to local?
+	//lets create a new repositry called my-website
+	//check (tick) Initialize this repository with a README
+	//Add .gitignore: Node
+	//Add a license: Apache license 2.0
+	
+	//you'll notice this time, is instead of landing on a page with instructions on how to link 
+		your repository to GitHub, GitHub goes directly to the repository's main page.
+	//And, that's because we initialized our repository with a handful of files, 
+	which means that GitHub was able to create an initial branch called master
+	in order to add the initial commit, which has our initial set of files.
+
+	//Now click on clone or download. 
+	//click on Use SSH and copy the URL
+	git@github.com:ssurajita/my-website.git
+	
+	Now lets go back to our terminal
+	
+	pwd
+	/Users/soumyasurajita/Desktop/git/projects/demo
+	cd ..
+	git clone git@github.com:ssurajita/my-website.git
+	Cloning into 'my-website'...
+	Warning: Permanently added the RSA host key for IP address '13.234.210.38' to the list of known hosts.
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	remote: Enumerating objects: 5, done.
+	remote: Counting objects: 100% (5/5), done.
+	remote: Compressing objects: 100% (4/4), done.
+	remote: Total 5 (delta 0), reused 0 (delta 0), pack-reused 0
+	Receiving objects: 100% (5/5), 5.29 KiB | 774.00 KiB/s, done.
+
+	//pwd
+	/Users/soumyasurajita/Desktop/git/projects
+	//ls
+	demo		my-website
+
+	//cd my-website
+	// ls -al
+	total 40
+	drwxr-xr-x   6 soumyasurajita  staff    192 Jun 14 17:41 .
+	drwxr-xr-x   4 soumyasurajita  staff    128 Jun 14 17:40 ..
+	drwxr-xr-x  12 soumyasurajita  staff    384 Jun 14 17:41 .git
+	-rw-r--r--   1 soumyasurajita  staff   1610 Jun 14 17:41 .gitignore
+	-rw-r--r--   1 soumyasurajita  staff  11357 Jun 14 17:41 LICENSE
+	-rw-r--r--   1 soumyasurajita  staff     12 Jun 14 17:41 README.md
+
+	//cd ..
+	//ls -l
+	total 0
+	drwxr-xr-x  8 soumyasurajita  staff  256 Jun 14 16:38 demo
+	drwxr-xr-x  6 soumyasurajita  staff  192 Jun 14 17:41 my-website
+	
+	//rm -rf my-website
+	//ls -l
+	total 0
+	drwxr-xr-x  8 soumyasurajita  staff  256 Jun 14 16:38 demo
+	
+	//git clone git@github.com:ssurajita/my-website.git website
+	Cloning into 'website'...
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	remote: Enumerating objects: 5, done.
+	remote: Counting objects: 100% (5/5), done.
+	remote: Compressing objects: 100% (4/4), done.
+	remote: Total 5 (delta 0), reused 0 (delta 0), pack-reused 0
+	Receiving objects: 100% (5/5), 5.29 KiB | 5.29 MiB/s, done.
+
+	// ls -l
+	total 0
+	drwxr-xr-x  8 soumyasurajita  staff  256 Jun 14 16:38 demo
+	drwxr-xr-x  6 soumyasurajita  staff  192 Jun 14 18:12 website
+
+	//cd website
+	//ls -l
+	total 32
+	-rw-r--r--  1 soumyasurajita  staff  11357 Jun 14 18:12 LICENSE
+	-rw-r--r--  1 soumyasurajita  staff     12 Jun 14 18:12 README.md
+
+	Since I have a repository named website,
+	I figured I would add a bunch of files that are website related.
+	To do that, I'm going to go over to my browser, and go to "initializr.com";
+	This website provides a quick and easy way to jump-start a website;
+	it has several possible ways of getting started. I'm going to choose "Bootstrap".
+	
+	http://www.initializr.com/
+	Click on bootstrap
+	Click on Download it
+	Now once it is downloaded go to the Downloads folder and unzip it.
+	
+	So, underneath my "Downloads" folder, we have our "initializr" folder,
+	with all the various contents of that folder.
+	I'm going to bring all those contents into my website repository.
+	To copy over all the files, the command syntax is "cp -R" for recursive;
+
+	//cp -R ~/Downloads/initializr/* .
+	//ls -l
+	total 88
+	-rw-r--r--  1 soumyasurajita  staff  11357 Jun 14 18:12 LICENSE
+	-rw-r--r--  1 soumyasurajita  staff     12 Jun 14 18:12 README.md
+	-rwxr-xr-x@ 1 soumyasurajita  staff   3959 Jun 14 18:49 apple-touch-icon.png
+	-rwxr-xr-x@ 1 soumyasurajita  staff    416 Jun 14 18:49 browserconfig.xml
+	drwxr-xr-x@ 9 soumyasurajita  staff    288 Jun 14 18:49 css
+	-rwxr-xr-x@ 1 soumyasurajita  staff    766 Jun 14 18:49 favicon.ico
+	drwxr-xr-x@ 6 soumyasurajita  staff    192 Jun 14 18:49 fonts
+	drwxr-xr-x@ 2 soumyasurajita  staff     64 Jun 14 18:49 img
+	-rwxr-xr-x@ 1 soumyasurajita  staff   5283 Jun 14 18:49 index.html
+	drwxr-xr-x@ 4 soumyasurajita  staff    128 Jun 14 18:49 js
+	-rwxr-xr-x@ 1 soumyasurajita  staff   1854 Jun 14 18:49 tile-wide.png
+	-rwxr-xr-x@ 1 soumyasurajita  staff   3482 Jun 14 18:49 tile.png
+	
+	
+	//git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	Untracked files:
+  		(use "git add <file>..." to include in what will be committed)
+			apple-touch-icon.png
+			browserconfig.xml
+			css/
+			favicon.ico
+			fonts/
+			index.html
+			js/
+			tile-wide.png
+			tile.png
+	nothing added to commit but untracked files present (use "git add" to track)
+	
+	That first path is the source location, and then the dot is the destination,
+	which represents the current folder. Once you've done that, verify and then press enter.
+	If we do a "git status", you can see that Git notices all these files as untracked.
+	To add them to the index, and to allow Git to start tracking these files,
+	let's use the "git add" command.
+
+	//git add .
+	//git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	Changes to be committed:
+  		(use "git reset HEAD <file>..." to unstage)
+			new file:   apple-touch-icon.png
+			new file:   browserconfig.xml
+			new file:   css/bootstrap-theme.css
+			new file:   css/bootstrap-theme.css.map
+			new file:   css/bootstrap-theme.min.css
+			new file:   css/bootstrap.css
+			new file:   css/bootstrap.css.map
+			new file:   css/bootstrap.min.css
+			new file:   css/main.css
+			new file:   favicon.ico
+			new file:   fonts/glyphicons-halflings-regular.eot
+			new file:   fonts/glyphicons-halflings-regular.svg
+			new file:   fonts/glyphicons-halflings-regular.ttf
+			new file:   fonts/glyphicons-halflings-regular.woff
+			new file:   index.html
+			new file:   js/main.js
+			new file:   js/vendor/bootstrap.js
+			new file:   js/vendor/bootstrap.min.js
+			new file:   js/vendor/jquery-1.11.2.min.js
+			new file:   js/vendor/modernizr-2.8.3-respond-1.4.2.min.js
+			new file:   js/vendor/npm.js
+			new file:   tile-wide.png
+			new file:   tile.png
+
+	//git commit -m "Adding initial website files"
+	[master 6025993] Adding initial website files
+ 	23 files changed, 9539 insertions(+)
+	create mode 100755 apple-touch-icon.png
+ 	create mode 100755 browserconfig.xml
+ 	create mode 100755 css/bootstrap-theme.css
+ 	create mode 100755 css/bootstrap-theme.css.map
+ 	create mode 100755 css/bootstrap-theme.min.css
+ 	create mode 100755 css/bootstrap.css
+ 	create mode 100755 css/bootstrap.css.map
+ 	create mode 100755 css/bootstrap.min.css
+ 	create mode 100755 css/main.css
+ 	create mode 100755 favicon.ico
+ 	create mode 100755 fonts/glyphicons-halflings-regular.eot
+ 	create mode 100755 fonts/glyphicons-halflings-regular.svg
+ 	create mode 100755 fonts/glyphicons-halflings-regular.ttf
+ 	create mode 100755 fonts/glyphicons-halflings-regular.woff
+ 	create mode 100755 index.html
+ 	create mode 100755 js/main.js
+ 	create mode 100755 js/vendor/bootstrap.js
+ 	create mode 100755 js/vendor/bootstrap.min.js
+ 	create mode 100755 js/vendor/jquery-1.11.2.min.js
+ 	create mode 100755 js/vendor/modernizr-2.8.3-respond-1.4.2.min.js
+ 	create mode 100755 js/vendor/npm.js
+ 	create mode 100755 tile-wide.png
+	create mode 100755 tile.png
+
+	//git push origin master
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': *********
+	Enumerating objects: 30, done.
+	Counting objects: 100% (30/30), done.
+	Delta compression using up to 4 threads
+	Compressing objects: 100% (28/28), done.
+	Writing objects: 100% (29/29), 273.94 KiB | 2.36 MiB/s, done.
+	Total 29 (delta 3), reused 0 (delta 0)
+	remote: Resolving deltas: 100% (3/3), done.
+	To github.com:ssurajita/my-website.git
+   	cca01ae..6025993  master -> master
+
+	Now if i go to my repository in github my-website i should see all these files i pushed is available in my github 
+	
+	***git push <remote> <local>
+
+	git config --global push.default simple
+
+What is fetch and pull?
+	//lets edit index.html in Github my-website repo
+	<title>My Website</title>
+	Commit Changes : Providing title on index.html
+	Leave the description blank and then click on commit changes
+	
+	Now we have our changes available on remote repo. But our local master repo for this is still unaware of changes
+	//git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	nothing to commit, working tree clean
+
+	Lets go ahead and modify our file - README.md on local repo - adding "This is really awesome website"
+	# my-website
+	This is really awesome website
+
+	//git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+
+	//git commit -am "Updating README"
+	[master bf688cf] Updating README
+ 	1 file changed, 3 insertions(+), 1 deletion(-)
+
+	//git status
+	On branch master
+	Your branch is ahead of 'origin/master' by 1 commit.
+  		(use "git push" to publish your local commits)
+	nothing to commit, working tree clean
+
+	Git tells me that I'm "ahead of 'origin/master' by 1 commit.";
+	however, we know that we made a commit on GitHub directly.
+	Let's try pushing up our change: "git push". When we try to push this time,
+	GitHub rejected our attempt to push up; it's telling us to "fetch" first.
+
+	git push
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	To github.com:ssurajita/my-website.git
+ 	! [rejected]        master -> master (fetch first)
+	error: failed to push some refs to 'git@github.com:ssurajita/my-website.git'
+	hint: Updates were rejected because the remote contains work that you do
+	hint: not have locally. This is usually caused by another repository pushing
+	hint: to the same ref. You may want to first integrate the remote changes
+	hint: (e.g., 'git pull ...') before pushing again.
+	hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+	One thing to keep in mind, is although we've been using the term "pull",
+	a "pull" is really two commands in one; it is a "fetch" and it is also a "merge".
+
+	Git will first fetch all the updates from the remote repository,
+	and then it will merge those changes into our current repository.
+	Obviously, there's opportunity for this to fail in the form of a merge conflict,
+	but often times those merges go in automatically, or as a fast-forward.
+	Well, let's say that we're not sure; so we could either do a fetch or a pull in this scenario.
+	If we did the pull, we would automatically integrate any changes that are out on GitHub;
+	however, that can be a destructive command
+	if you have changes that are not compatible with what's currently on GitHub.
+	So, one way to alleviate that is just to do a "fetch"; fetches are non-destructive.
+	"git fetch"; Git will now go out to our remote repository
+	and update all of its local information based on what's changed out on GitHub.
+
+	//git fetch
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	remote: Enumerating objects: 5, done.
+	remote: Counting objects: 100% (5/5), done.
+	remote: Compressing objects: 100% (3/3), done.
+	remote: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+	Unpacking objects: 100% (3/3), done.
+	From github.com:ssurajita/my-website
+   	6025993..c670968  master     -> origin/master
 
 
+	//git status
+	On branch master
+	Your branch and 'origin/master' have diverged,
+	and have 1 and 1 different commits each, respectively.
+  		(use "git pull" to merge the remote branch into yours)
+			nothing to commit, working tree clean
 
 
+	it recommends that we use "git pull" to automatically merge our remote branch.
+	Technically, we could do this with the "git merge" command as well,
+	but just like the advice given, I often find that just doing a "git pull" is a lot simpler.
 
+	//git pull
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	Merge made by the 'recursive' strategy.
+ 	index.html | 2 +-
+ 	1 file changed, 1 insertion(+), 1 deletion(-)
+	
+	we just merged down everything from GitHub.
+	GitHub is still unaware of our changes, so we need to push up what we have.
+	Type "git push". Great, now that we have pulled down all our changes there are no conflicts 
+		between GitHub and our local repo.
 
+	//git push
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	Enumerating objects: 9, done.
+	Counting objects: 100% (8/8), done.
+	Delta compression using up to 4 threads
+	Compressing objects: 100% (4/4), done.
+	Writing objects: 100% (5/5), 584 bytes | 292.00 KiB/s, done.
+	Total 5 (delta 2), reused 0 (delta 0)
+	remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+	To github.com:ssurajita/my-website.git
+   	c670968..7d25ff3  master -> master
 
+	** Doing a pull, or a fetch, prior to any pushes is a best practice, 
+	and a necessity if you are sharing your repository with others.
 
+	** for all remote github repo we can see the branches selected, commits, releases, contributors
+	** Bydefault github repo always searches for README.md and shows it as default file.
+	** change repository name in github
+	
+	
+Updating repository and remote references?
+	//git remote -v
+	origin	git@github.com:ssurajita/my-website.git (fetch)
+	origin	git@github.com:ssurajita/my-website.git (push)
+	
+	//git remote set-url origin git@github.com:ssurajita/website.git
+	//git remote -v
+	origin	git@github.com:ssurajita/website.git (fetch)
+	origin	git@github.com:ssurajita/website.git (push)
+	
+	//git remote show origin
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	* remote origin
+  	Fetch URL: git@github.com:ssurajita/website.git
+  	Push  URL: git@github.com:ssurajita/website.git
+  	HEAD branch: master
+  	Remote branch:
+    		master tracked
+  	Local branch configured for 'git pull':
+    		master merges with remote master
+  	Local ref configured for 'git push':
+    		master pushes to master (up to date)
 
-
-
-
-
-
-
-
-
+	
+Viewing and editing files on github?
+	//we can edit any file directly on github using edit icon
+	//creating new file on github => Create newfile
+	I'm going to name this file "lipsum.txt". I'm going to go to "lipsum.com",
+	then copy a paragraph of lorem ipsum; copy, and then paste.
+	Before we save the file, we can preview it; let's give it some reasonable breaks.
+	There we go; that looks decent. Like before, once we are done
+	let's scroll all the way down to the bottom of the page, and put in our commit message:
+	"Create new file -- filler text". 
+	This time I'm going to decide to create a new branch,
+	since creating stuff really should be on a feature branch.
+	I'm going to name my branch "feature-lipsum",
+	then I'm going to click on "Propose new file". 
+	
+	Going this way around, we are effectively creating a pull request back into our master branch.
+	In addition to the commit message we had before, we also have a pull request commit message and a comment to go along with it.
+	So here I'm writing in Markdown syntax. I can preview it;
+	you can see I have a heading and then two bullets.
+	Once I'm happy with this commit message and the corresponding comment,
+	I'm going to click on create pull request.
+	Since I'm the only contributor to this repository, I'm going to accept my own pull request.
+	So, I'm going to click on the green "Merge pull request".
+	I will have an opportunity to modify this message prior to going in,
+	I'm going to just leave it as is, and click on confirm merge.
+	Once I've done that, I have the opportunity to delete the branch, so I will do so.
+	Now that we've done that, let's click on "website".
+	Great, now we have our "lipsum.txt" file.
+	If we click on it, you can see that we have our five lines of lorem Ipsum.
+	
+	
+	
+	
