@@ -1859,7 +1859,8 @@ Viewing and editing files on github?
 	then I'm going to click on "Propose new file". 
 	
 	Going this way around, we are effectively creating a pull request back into our master branch.
-	In addition to the commit message we had before, we also have a pull request commit message and a comment to go along with it.
+	In addition to the commit message we had before, we also have a pull request commit message 
+		and a comment to go along with it.
 	So here I'm writing in Markdown syntax. I can preview it;
 	you can see I have a heading and then two bullets.
 	Once I'm happy with this commit message and the corresponding comment,
@@ -1873,6 +1874,9 @@ Viewing and editing files on github?
 	Great, now we have our "lipsum.txt" file.
 	If we click on it, you can see that we have our five lines of lorem Ipsum.
 	
+	
+	//We can also directly create a file on master branch
+	//renaming and deleting files on github
 	
 	
 	
