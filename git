@@ -556,7 +556,7 @@ How to get the differences between differnt commit points?
 	
 	//git difftool 4162d07 HEAD
 
-How to getthe difference between something modified in the current directory with the latest commit?
+How to get the difference between something modified in the current directory with the latest commit?
 	//Modify README.md 
 	# Demo Project
 	This is a simple README file
@@ -712,10 +712,786 @@ How to switch from one branch to the other?
 
 	** For this merge, its such a simple merge that its able to do something called fast-forward
 	Which means that we are going to pretend that you never really switched away from master in order to make those updates
+	So we are going to apply directly those changes to the master branch.
+	
+	git hist
+	* 1132905 (HEAD -> master, updates) adding updates from branch
+	* 3149144 Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+	
+	Now we do git hist, we see that "HEAD" , "updates" and "master"
+	They all point to the same commit id. That's the effect of fast forward merge
+	
+	There are options to disable the fast forward merges from happening
+	Even though they may be possible , but most of times you want this behaviour
+	
+	Once we have completed merging in our changes, we are no longer need the updates branch.
+	
+	** Effective branches in git are just labels of timelines
+	And once they are integrated into the main timeline , there's no need for them anymore
+	
+How to delete a branch?
+	//git branch -d updates
+	Deleted branch updates (was 1132905).
+	
+	//git branch
+	* master
+
+	//git hist
+	* 1132905 (HEAD -> master) adding updates from branch
+	* 3149144 Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+
+
+	**Important - Note :- The history didn't go away, just the label, "updates", did.
+
+What is conflicts resolution?
+	//cd demo
+	//git branch
+	* master
+	//git checkout -b very-bad
+	Switched to a new branch 'very-bad'
+
+	//git branch -a
+ 	 master
+	* very-bad (with asterick and green highlight denoting the current branch)
+	
+	Let's modify our Readme file; 
+	Let's do it in such a way that will cause a conflict,
+		which means updating the same part of the file on both branches.
+	So, I changed the last line to "This is bound to cause trouble!".
+	Let's go ahead and save and close.
+	I'm going to use my express commit technique, saying it's a "very bad update".
+		//git commit -am "very bad update"
+		[very-bad a9d50e5] very bad update
+ 		1 file changed, 1 insertion(+), 1 deletion(-)
+	
+		//git hist
+		* a9d50e5 (HEAD -> very-bad) very bad update
+		* 1132905 (master) adding updates from branch
+		* 3149144 Adding ignore file
+		* 84c1424 remove myfile.txt
+		* b19ae52 rename and add
+		* 96aabeb deleting demo file
+		* 024ebfa renaming example
+		* 04120eb adding example file
+		* 4162d07 Updating README
+		* 53c4589 all files - license.md,readme.md,ds_store
+		
+	And, we have "very bad update" at the very top, which is the last commit.
+		
+		//git checkout master
+		Switched to branch 'master'
+	Let's return back to master, and before I merge in those changes
+	I'm going to pretend to be another developer, 
+	or perhaps I'll just forget about those changes that I made on the "very-bad" branch.
+	I'll modify our README file exactly in the same location.
+	Change that to "I hope this isn't much of a problem", save and close.
+	Back at the terminal, again, another express commit: "Causing issues again".
+
+	//git commit -am "Causing issues again"
+	[master 0511026] Causing issues again
+	 1 file changed, 1 insertion(+), 1 deletion(-)
+
+	Now, let's merge our "very-bad" branch into our master branch.
+	//git branch -a
+	* master
+  	very-bad
+	This remind ourselves of our branch names. "git merge very-bad";
+
+	//git merge very-bad
+	Auto-merging README.md
+	CONFLICT (content): Merge conflict in README.md
+	Automatic merge failed; fix conflicts and then commit the result.
+
+	//And, as expected, the auto-merging was unable to resolve the conflict.
+	Auto merging's pretty good, but it's not perfect, and it can't read minds,
+		so it doesn't know which version of our file we want.
+	
+	The "README.md" file is the file that's implicated in the merge conflict;
+	if we "cat" the file, which just outputs the entire contents of that file,
+	The current version has these weird carrots that denote the parts of the file that are conflicted.
+	And, you can see that "HEAD" versus "very-bad".
+	
+	//cat README.md
+	# Demo Project
+	This is a simple README file
+	## Heading 2
+
+	<<<<<<< HEAD
+	I hope this isn't much of a problem
+	=======
+	This is bound to cause trouble!
+	>>>>>>> very-bad
+
+
+	Since this happens to be a very simple case, we could manually modify this file;
+	we have a merge tool configured with Git, so let's use it.
+	While in a merging state, just type "git mergetool", then press enter.
+	And, P4Merge launches with a three-way merge in progress;
+	and, we can see that we have the various versions of our file, and the possible solution at the bottom.
+	Any number of these possible solutions can be incorporated;
+	let's say I like that one. Once I'm done, I need to click the save button
+	in order to save those changes that I've made to the README file.
+	Now, once I've done that, and I have no further conflicts to resolve,
+	I can quit P4Merge: command+q.
+	If there are no more files with merge conflicts, then you'll simply return back to the command prompt.
+	To complete the merge, we need to commit what we've saved: "git commit -m",
+	we can pass in our commit message: "Resolving conflict", then press enter.
+
+	//git commit -m "resolving conflicts"
+	[master b8ab50f] resolving conflicts
+
+	If that successfully resolves the conflict, you'll be returned back to a command prompt that looks more normal.
+	In this case, we're back to our branch name, simply in parenthesis.
+	
+	//git status
+	On branch master
+	Untracked files:
+  		(use "git add <file>..." to include in what will be committed)
+			README.md.orig
+			README_BACKUP_17024.md
+			README_BASE_17024.md
+			README_LOCAL_17024.md
+			README_REMOTE_17024.md
+	nothing added to commit but untracked files present (use "git add" to track)
+
+	
+	If we do a "git status", we can see we have a ".orig" file that is untracked.
+	".orig" is the original version of the Readme file.
+	Well, I don't like ".orig" files lying around in my Git repository that I might accidentally add back to my repository.
+	Let's add this back to our ".gitignore".
+	
+	Lets modify .gitignore 
+	*.log
+	*.orig
+	README_*
+	
+	Let's do our express commit: "updating ignore to exclude merge files".
+	//git commit -am "updating ignore to exclude merge files"
+	[master 81b6484] updating ignore to exclude merge files
+	 1 file changed, 2 insertions(+)
+
+	Great, so we still have that ".orig" file;
+	I really don't like that guy hanging around, so I'm just going to delete him. Great.
+
+
+
+What are git Tags?
+	//I am curreently in demo repository 
+	//And in master branch with clean slate nothing to commit
+	
+	//cd demo
+	//git branch
+	* master
+  	very-bad
+	//git status
+	On branch master
+	nothing to commit, working tree clean
+	
+	//git hist
+	* 81b6484 (HEAD -> master) updating ignore to exclude merge files
+	*   b8ab50f resolving conflicts
+	|\  
+	| * a9d50e5 (very-bad) very bad update
+	* | 0511026 Causing issues again
+	|/  
+	* 1132905 adding updates from branch
+	* 3149144 Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+
+	Note : *** Tags are just labels that we can put at any arbitary commit points
+	And by default if you do not specify a commit , it will be the current commit or HEAD.
+	These are 2 types
+	1. lightweight tags - we can just give a name and git creates it for you.
+	
+	//git tag mytag
+	//git tag --list
+	mytag
+
+	//git hist
+	* 81b6484 (HEAD -> master, tag: mytag) updating ignore to exclude merge files
+	*   b8ab50f resolving conflicts
+	|\  
+	| * a9d50e5 (very-bad) very bad update
+	* | 0511026 Causing issues again
+	|/  
+	* 1132905 adding updates from branch
+	* 3149144 Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
 	
 
 
+	2. Annotated Tags
+	Which means they have extra information associated with the tag.
+	So before we do that lets delete mytag 
+	
+	//git tag -d mytag
+	Deleted tag 'mytag' (was 81b6484)
 
+	//git tag -a v1.0 -m "Release 1.0"
+	//git tag --list
+	v1.0
+
+	//git hist
+	* 81b6484 (HEAD -> master, tag: v1.0) updating ignore to exclude merge files
+	*   b8ab50f resolving conflicts
+	|\  
+	| * a9d50e5 (very-bad) very bad update
+	* | 0511026 Causing issues again
+	|/  
+	* 1132905 adding updates from branch
+	* 3149144 Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+
+	//git show v1.0
+	tag v1.0
+	Tagger: soumyasurajita <ssurajita111@gmail.com>
+	Date:   Sun Jun 14 14:21:32 2020 +0530
+	Release 1.0
+	commit 81b6484b5cce53be6c4c5c154107391d959184d1 (HEAD -> master, tag: v1.0)
+	Author: soumyasurajita <ssurajita111@gmail.com>
+	Date:   Sun Jun 14 14:08:22 2020 +0530
+	updating ignore to exclude merge files
+	diff --git a/.gitignore b/.gitignore
+	index 397b4a7..49baadb 100644
+	--- a/.gitignore
+	+++ b/.gitignore
+	@@ -1 +1,3 @@
+	*.log
+	+*.orig
+	+README_*
+	\ No newline at end of file
+
+
+	** It is truly useful when using major milestones
+	And you might want to associate some information with it
+	
+What is stashing?
+	//I am currently on demo git repository on master branch.
+	//Lets modify the README.md file. Adding "Just something going on" last lien
+	
+	# Demo Project
+	This is a simple README file
+	## Heading 2	
+	Just something going on
+
+	 //git status
+	On branch master
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+	
+	But what if we decide that we are really not supposed to be doing that right now...
+	What if we decide that we really should have started this on a branch,
+	or maybe we need to change content and work on something else for a while?
+	Well, we can do that by using Git's stashing ability.
+	Alright, so let's do that;
+	
+	//git stash
+	
+	//and it tells me that the HEAD was saved,
+	which is the last commit on the current branch, which is master.
+	If we do a "git stash list", it shows us our stashes.
+
+	//git stash list
+	stash@{0}: WIP on master: 81b6484 updating ignore to exclude merge files
+
+	We have a "WIP on master", and it shows us the last commit,and the associated commit message.
+	
+	After the "stash", we're actually back on a clean working directory.
+	//git status
+	On branch master
+	nothing to commit, working tree clean
+
+	Let's apply our "emergency fix" if you will; save and close.
+	Lets modify suppose LICENSE.txt
+	# LICENSE
+	## Apache 3.0
+	
+	//git status
+	On branch master
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   LICENSE.txt
+	no changes added to commit (use "git add" and/or "git commit -a")
+	
+	//git commit -am "updating license file"
+	[master 033437b] updating license file
+ 	1 file changed, 1 insertion(+), 1 deletion(-)
+	
+	
+	Now, let's apply our stash; do a "git stash pop".
+	So, that will do two actions at once; one is an "apply", and then the next is a "drop".
+	The "stash apply" will apply whatever the stash is: the last stash.
+	In this case, we put those changes back in the Readme file,
+	Then, after that, it dropped that stash that was applied.
+	
+	//git status
+	On branch master
+	nothing to commit, working tree clean
+	
+	//git stash pop
+	On branch master
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+	Dropped refs/stash@{0} (e41f5a9ef7dbfc40da33aae675f722aa7ee44277
+	
+	
+	//git stash list
+	(nothing will be displayed)
+	
+	//git commit -am "updating readme again"
+	[master c648e7f] updating readme again
+ 	1 file changed, 1 insertion(+), 1 deletion(-)
+	
+	//git status
+	On branch master
+	nothing to commit, working tree clean
+
+What is reset and reflog?
+	//Now suppose we modify again README.md file - added one extra line "Update in stage"
+	# Demo Project
+	This is a simple README file
+	## Heading 2
+	Just something going on
+	Update in stage
+	
+	//git status
+	On branch master
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+
+	//git add .
+	
+	//git status
+	On branch master
+	Changes to be committed:
+  		(use "git reset HEAD <file>..." to unstage)
+			modified:   README.md
+
+
+	** three types of reset
+	** 1. soft -least destructive of all of them, all it does is change where HEAD is pointing
+	   2. default -mixed, hard
+	
+	Now lets suppose we got to know that what we have added is not correct or we missed one line.
+	Lets modify the README file again.. Adding one more extra line - More updates in working directory
+	
+	# Demo Project
+	This is a simple README file
+	## Heading 2
+	Just something going on
+	Update in stage
+	More updates in working directory
+
+	If we do a "git status", we see we have our modifications detected, in both the staging area, and just in our working directory.
+	Now, there may be times when you need to go to a different commit point;
+	if you made a mistake in the last commit, for example, that you didn't need to have committed.
+	You want to roll back to a previous commit; that's certainly fine.
+
+	//git status
+	On branch master
+	Changes to be committed:
+  	(use "git reset HEAD <file>..." to unstage)
+	modified:   README.md
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+			
+	
+	//git hist
+	* c648e7f (HEAD -> master) updating readme again
+	* 033437b updating license file
+	* 81b6484 (tag: v1.0) updating ignore to exclude merge files
+	*   b8ab50f resolving conflicts
+	|\  
+	| * a9d50e5 (very-bad) very bad update
+	* | 0511026 Causing issues again
+	|/  
+	* 1132905 adding updates from branch
+	* 3149144 Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+	
+	//Make a note of where HEAD is pointing to right now, which is "67b1242".
+	//The soft reset is the least destructive of them all
+	//Basically, all it does is change where HEAD is pointing.
+	//So, let's try that out; usually no news is good news.
+	
+	//git reset 81b6484 --soft
+
+	//If we do a "git hist', as expected, HEAD is now pointing to "81b6484",
+	//which is the commit id that we passed in to the reset command.
+
+	//git hist
+	* 81b6484 (HEAD -> master, tag: v1.0) updating ignore to exclude merge files
+	*   b8ab50f resolving conflicts
+	|\  
+	| * a9d50e5 (very-bad) very bad update
+	* | 0511026 Causing issues again
+	|/  
+	* 1132905 adding updates from branch
+	* 3149144 Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+	
+	Let's check out our "git status"; we have files that have been modified,
+	and in our staging area. That's what soft allows us to do,is simply change the commit id that head is pointing to,
+	which means it preserves the Git staging area, and our working directory.
+	Effectively, we can back out our changes, make minor modifications to them,
+	and then commit where head is currently pointing.
+	
+	Let's try this another time; I'm going to choose the commit id "3149144".
+	
+	//git reset 3149144 --mixed
+	Unstaged changes after reset:
+	M	.gitignore
+	M	LICENSE.txt
+	M	README.md
+
+	//git hist
+	* 81b6484 (tag: v1.0) updating ignore to exclude merge files
+	*   b8ab50f resolving conflicts
+	|\  
+	| * a9d50e5 (very-bad) very bad update
+	* | 0511026 Causing issues again
+	|/  
+	* 1132905 adding updates from branch
+	* 3149144 (HEAD -> master) Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+
+	If we do a "git hist", we can see that HEAD is now pointing to "3149144".
+	If we do a "git status", we have several files that have been unstaged,
+	and placed into our working directory; there's nothing in our staging area.
+	
+	//git status
+	On branch master
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   .gitignore
+			modified:   LICENSE.txt
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+	
+	
+	Let's try this one last time. Now type "git reset", followed by the commit id:
+	I'm using "4162d07 --hard". This is the most destructive of all the reset modes.
+	
+	//git reset 4162d07 --hard
+	HEAD is now at 4162d07 Updating README
+
+	//git status
+	On branch master
+	nothing to commit, working tree clean
+	
+	** --hard will wipe out all the changes and returns a clean directory
+	most destructive of all
+	
+	
+	//git hist
+	* 81b6484 (tag: v1.0) updating ignore to exclude merge files
+	*   b8ab50f resolving conflicts
+	|\  
+	| * a9d50e5 (very-bad) very bad update
+	* | 0511026 Causing issues again
+	|/  
+	* 1132905 adding updates from branch
+	* 3149144 Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 (HEAD -> master) Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+	
+	//git log --oneline
+	4162d07 (HEAD -> master) Updating README
+	53c4589 all files - license.md,readme.md,ds_store
+	
+	
+What is git reflog? How it is different from git log?
+	//git log shows different commit ids
+	//git reflog shows different commit ids along with different actions taken
+	git reflog
+	4162d07 (HEAD -> master) HEAD@{0}: reset: moving to 4162d07
+	53c4589 HEAD@{1}: reset: moving to 53c4589
+	4162d07 (HEAD -> master) HEAD@{2}: reset: moving to 4162d07
+	4162d07 (HEAD -> master) HEAD@{3}: reset: moving to 4162d07
+	3149144 HEAD@{4}: reset: moving to 3149144
+	81b6484 (tag: v1.0) HEAD@{5}: reset: moving to 81b6484
+	c648e7f HEAD@{6}: commit: updating readme again
+	033437b HEAD@{7}: commit: updating license file
+	81b6484 (tag: v1.0) HEAD@{8}: reset: moving to HEAD
+	81b6484 (tag: v1.0) HEAD@{9}: commit: updating ignore to exclude merge files
+	b8ab50f HEAD@{10}: commit (merge): resolving conflicts
+	0511026 HEAD@{11}: commit: Causing issues again
+	1132905 HEAD@{12}: checkout: moving from very-bad to master
+	a9d50e5 (very-bad) HEAD@{13}: commit: very bad update
+	1132905 HEAD@{14}: checkout: moving from master to very-bad
+	1132905 HEAD@{15}: merge updates: Fast-forward
+	3149144 HEAD@{16}: checkout: moving from updates to master
+	1132905 HEAD@{17}: commit: adding updates from branch
+	3149144 HEAD@{18}: checkout: moving from master to updates
+	3149144 HEAD@{19}: commit: Adding ignore file
+	84c1424 HEAD@{20}: commit: remove myfile.txt
+	b19ae52 HEAD@{21}: commit: rename and add
+	96aabeb HEAD@{22}: commit: deleting demo file
+	
+	
+	//git log
+	commit 4162d07ad474eebe2b6b4bd0355f9b14895e2b36 (HEAD -> master)
+	Author: soumyasurajita <ssurajita111@gmail.com>
+	Date:   Sun Jun 14 00:59:03 2020 +0530
+
+    	Updating README
+
+	commit 53c4589d5bdd4fde08db657b6a724a55d0b54ae9
+	Author: soumyasurajita <ssurajita111@gmail.com>
+	Date:   Sun Jun 14 00:26:17 2020 +0530
+
+    	all files - license.md,readme.md,ds_store
+	
+What is GitHub?
+	//So far we were working on git local.
+	//it's time to publish our code somewhere others can see it, and potentially contribute to it.
+	//The most popular hosting service for Git repositories is GitHub.
+	//GitHub has become the most popular Git hosting service largely because of the free account it offers,
+		which includes public repositories, along with its long list of powerful features.
+	//GitHub does have a paid service for those that need private repositories too.
+	
+Signup for github?
+	//if you dont have an account then go ahead and create one..
+	//https://github.com/
+	//remember the username
+	//mine is ssurajita
+	
+	//github profile
+	//upload a picture
+	//url - any website we have
+	//name
+	//email
+	//company
+	//location
+	
+	//account settings
+	//change password
+	//change username
+	//delete account
+	
+	//Email - we can add additional email address as well
+	//Delete email or resend verofication options are there
+	
+	//Notification - we can show hide different notifications to email
+	
+	//Billing - for free account it is not required as of now.
+	
+	//Security - we can enable two factor authentication
+	
+	
+How to create a new repository?
+	//login to github
+	//click on new repositor
+	//public repo 
+	//once repository will be created it will redirect to a page with the command to use for repo
+	
+How to link our local repository to our github repository?
+	
+	//git remote -v
+	//git remote add origin https://github.com/ssurajita/demo.git
+
+	The "add" sub command takes two parameters:
+	The name of the remote reference we want to create,in this case, I want to name this reference "origin";
+	And then, the second parameter is the full URL to the remote repository,which is the URL to my GitHub repository.
+	
+	//git remote add origin https://github.com/ssurajita/demo.git
+
+	Now, in this case, we could use any name we want to in place of "origin",
+	but by convention, the first and primary remote repository is named origin.
+	Again, that's simply a convention. Double check the line, and then press enter.
+	
+	
+	//git remote -v
+	origin	https://github.com/ssurajita/demo.git (fetch)
+	origin	https://github.com/ssurajita/demo.git (push)
+	
+	//pushing chnages to github
+	//git push -u origin master --tags
+	//Username for 'https://github.com': ssurajita
+	//Password for 'https://ssurajita@github.com': *********
+
+	Enumerating objects: 37, done.
+	Counting objects: 100% (37/37), done.
+	Delta compression using up to 4 threads
+	Compressing objects: 100% (32/32), done.
+	Writing objects: 100% (37/37), 3.36 KiB | 430.00 KiB/s, done.
+	Total 37 (delta 15), reused 0 (delta 0)
+	remote: Resolving deltas: 100% (15/15), done.
+	To https://github.com/ssurajita/demo.git
+	 * [new branch]      master -> master
+	 * [new tag]         v1.0 -> v1.0
+	Branch 'master' set up to track remote branch 'master' from 'origin'.
+	
+	After pushing to remote repo we can check all commits, branches, tags info on github.
+	
+Differences between SSH authentication and https ?
+	//Currently, the origin repository is set up to use the HTTPs.
+	So when we try to do a push, "git push origin master",GitHub will prompt me for my username and password.
+	//For private repositories, it may prompt you each time you need to do any network-based communication, 
+	including pulling or fetching or anything else that requires going back to the remote.
+	
+	//For public repositories, it may only prompt you when you need to push changes up.
+	Also, if you've been following along, and you weren't prompted for your username and password,
+	it means you are on an operating system like the Mac that has a password manager like Keychain, 
+	and that Keychain is configured to keep track of your username and passwords from the terminal program.
+	This is the way I have things configured now, and so I actually had to delete my prior configuration 
+		in order to force this to happen again.
+	
+	//If you're on Windows, you may be prompted again and again for your username and password 
+		each time you need to communicate back to GitHub.
+	This can get annoying after a while, and thus we have SSH,
+	which is just as secure as HTTPs, and it's a little bit more convenient,
+	since we establish a public and a private key that this machine knows about
+	and is registered with GitHub as well. We're going to set that up in the next few videos.
+	
+How to setup ssh key ?
+	//cd ~
+	//ls .ssh
+	ls: .ssh: No such file or directory
+	//mkdir .ssh
+	//cd .ssh
+	//pwd
+	/Users/soumyasurajita/.ssh
+	***//sh-keygen -t rsa -C "ssurajita111@gmail.com"
+	Generating public/private rsa key pair.
+	Enter file in which to save the key (/Users/soumyasurajita/.ssh/id_rsa): 
+	Enter passphrase (empty for no passphrase): *********
+	Enter same passphrase again: *********
+
+	Your identification has been saved in /Users/soumyasurajita/.ssh/id_rsa.
+	Your public key has been saved in /Users/soumyasurajita/.ssh/id_rsa.pub.
+	The key fingerprint is:
+	SHA256:nIL4vU3nRa7dvcM/+r7kketf4n8C7HQJ6fNlpw1CH+8 ssurajita111@gmail.com
+	The key's randomart image is:
+	+---[RSA 2048]----+
+	|                 |
+	|                 |
+	|             .   |
+	|   . . . .  + .  |
+	|  . . . S  +.o + |
+	|   . . .   oB = *|
+	|    . . . .oo*o@o|
+	|       + o +.o**E|
+	|      . . o ..B@&|
+	+----[SHA256]-----+
+
+	
+	//ls -al
+	total 16
+	drwxr-xr-x   4 soumyasurajita  staff   128 Jun 14 17:06 .
+	drwxr-xr-x+ 77 soumyasurajita  staff  2464 Jun 14 17:04 ..
+	-rw-------   1 soumyasurajita  staff  1876 Jun 14 17:06 id_rsa
+	-rw-r--r--   1 soumyasurajita  staff   404 Jun 14 17:06 id_rsa.pub
+
+
+	Now go to .ssh and open id_rsa.pub file
+	Copy the whole content of it..
+	ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH6AlVoFYuw8rFK65YyGoAyAdghqzhKnI42QVn6cmsZHc9RGWoEhO9o+mY08J+YXaRitDvdrMS4KgB+YOUQTzKk0b1t6AurgzMxeydLASejGALvmIw2FRqHfBesYYcvyKNdy9/4WLHwSm7PX9nOQyAZd/PVz9D/G/YTe++WCKcf+kO/OcDLQy0FqguwJ2r9ok2y2SWF9/geWp/h+kBeKMWc8N8wRi9D8qirYbcub/ZImKqBr6c8yXvxzi7IGn5jFTRibRmmPF5dRJXauJeXN2WOE0q+iSKwJgq3j+bRC2LOAnHiA+dhb5bgi3xAbtfC+J8op+njOawgByF9y92Z2tP ssurajita111@gmail.com
+
+	Then go back to the github page. click on ssh option.
+	Click on new ssh key
+	Title - Soumya Macbook Air (we can give any title)
+	Key - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDH6AlVoFYuw8rFK65YyGoAyAdghqzhKnI42QVn6cmsZHc9RGWoEhO9o+mY08J+YXaRitDvdrMS4KgB+YOUQTzKk0b1t6AurgzMxeydLASejGALvmIw2FRqHfBesYYcvyKNdy9/4WLHwSm7PX9nOQyAZd/PVz9D/G/YTe++WCKcf+kO/OcDLQy0FqguwJ2r9ok2y2SWF9/geWp/h+kBeKMWc8N8wRi9D8qirYbcub/ZImKqBr6c8yXvxzi7IGn5jFTRibRmmPF5dRJXauJeXN2WOE0q+iSKwJgq3j+bRC2LOAnHiA+dhb5bgi3xAbtfC+J8op+njOawgByF9y92Z2tP ssurajita111@gmail.com
+	//Add SSH key
+	
+	Also we can delete ssh key if we wish to and we can add another..
+	
+	However, let's check it out; let's see if this worked.
+	So, let's go back to our terminal, and to confirm that this machine that I'm currently on is able to communicate 
+	with GitHub via SSH, we're going to use the "ssh" command to try to log in.
+
+	cd ~
+	cd .ssh
+	ssh -T git@github.com
+	The authenticity of host 'github.com (13.234.176.102)' can't be established.
+	RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+	Are you sure you want to continue connecting (yes/no)? yes
+	Warning: Permanently added 'github.com,13.234.176.102' (RSA) to the list of known hosts.
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': *********
+	Hi ssurajita! You've successfully authenticated, but GitHub does not provide shell access.
+
+	Type "ssh -T git@github.com". Once you've done that press enter.
+	If you've never connected to GitHub before via SSH, you would be prompted onfirming whether or not you really want to connect. Type "yes".
+	You'll be prompted for your SSH key passphrase.
+	Sometimes it may be referred to as a password, but they're the same thing.
+	Since I'm on the Mac, I have the option of remembering this passphrase or password in my keychain, 
+	and I'm going to do so, since I don't like being prompted each time. 
+	Click OK, or press enter.
+	Once you've done that, SSH will attempt to connect, and then it will exit out to the terminal.
+	The last line is what's important; it should greet you by your username,
+	and then tell you that you have successfully authenticated, which is the important part.
+	But, GitHub does not provide shell access, which it explains.
+	That's ok, because don't need shell access; we just need to use the SSH authentication process to log in, 
+		and we have just confirmed that.
+	
 
 
 
