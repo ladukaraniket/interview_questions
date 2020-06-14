@@ -346,6 +346,375 @@ How to create a git alias?
 	* 4162d07 (HEAD -> master) Updating README
 	* 53c4589 all files - license.md,readme.md,ds_store
 
+How to rename and delete a file using git command?
+	//cd demo
+	//cat example.txt
+	//git status
+	On branch master
+	Untracked files:
+  		(use "git add <file>..." to include in what will be committed)
+			example.txt
+	nothing added to commit but untracked files present (use "git add" to track)
+	//git add example.txt
+	//git commit -m "adding example file"
+	[master 04120eb] adding example file
+ 	1 file changed, 0 insertions(+), 0 deletions(-)
+ 	create mode 100644 example.txt
+
+	//**renaming a file
+	//git mv example.txt demo.txt
+	//git status
+	On branch master
+	Changes to be committed:
+  		(use "git reset HEAD <file>..." to unstage)
+			renamed:    example.txt -> demo.txt
+	//Now it is already moved to staging area we just need to commit.
+	//git commit -m "renaming example"
+	[master 024ebfa] renaming example
+ 	1 file changed, 0 insertions(+), 0 deletions(-)
+ 	rename example.txt => demo.txt (100%)
+
+	//delete file demo.txt
+	//ls
+	LICENSE.md	README.md	demo.txt
+	//git rm demo.txt
+	rm 'demo.txt'
+	//ls
+	LICENSE.md	README.md
+	//git status
+	On branch master
+	Changes to be committed:
+  		(use "git reset HEAD <file>..." to unstage)
+			deleted:    demo.txt
+	
+	//Now it is already moved to staging area we just need to commit.
+	//git commit -m "deleting demo file"
+	[master 96aabeb] deleting demo file
+ 	1 file changed, 0 insertions(+), 0 deletions(-)
+ 	delete mode 100644 demo.txt
+
+
+How to rename and delete a file using bash command?
+	//cd demo
+	//ls
+	LICENSE.md	README.md
+	//touch myfile.txt
+	//ls
+	LICENSE.md	README.md	myfile.txt
+	//mv LICENSE.md LICENSE.txt
+	//ls
+	LICENSE.txt	README.md	myfile.txt
+
+	//git status
+	On branch master
+	Changes not staged for commit:
+  		(use "git add/rm <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			deleted:    LICENSE.md
+
+	Untracked files:
+  		(use "git add <file>..." to include in what will be committed)
+			LICENSE.txt
+			myfile.txt
+	no changes added to commit (use "git add" and/or "git commit -a")
+
+
+	//When we use bash commands for renaming a file and addng a new file,
+	new file is showed under untracked files which is expected.
+	But at same time the renamed file name is also showed in untracked files. i.e.LICENSE.txt
+	
+	Also license.md at same time will be displayed as not yet staged for commit..
+	unlike we used git command -> "git mv LICENSE.md LICENSE.txt" , we used here "mv LICENSE.md LICENSE.txt"
+	The main difference is in git commands this is alredy staged we just had to commit. (shows "renaming")
+	In came of normal bash command we have to move it to stage and then commit..(shows "deleting" and "adding")
+	
+	//git add -u
+	//git status
+	On branch master
+	Changes to be committed:
+  		(use "git reset HEAD <file>..." to unstage)
+			deleted:    LICENSE.md
+
+	Untracked files:
+  		(use "git add <file>..." to include in what will be committed)
+			LICENSE.txt
+			myfile.txt
+	
+	Note : ** git add -u only picked LICENSE.md but didnot pick myfile.txt.
+	In order to pick both we need to use git add -A
+	git add -A will move all the untracked files as well as unstaged files to staging area..
+	//git add -A
+	//git status
+	On branch master
+	Changes to be committed:
+  		(use "git reset HEAD <file>..." to unstage)
+			renamed:    LICENSE.md -> LICENSE.txt
+			new file:   myfile.txt
+
+	//But these are now in staging area we need to commit that is the second step
+	$git commit -m "rename and add"
+	[master b19ae52] rename and add
+ 	2 files changed, 0 insertions(+), 0 deletions(-)
+ 	rename LICENSE.md => LICENSE.txt (100%)
+ 	create mode 100644 myfile.txt
+
+	//ls -l
+	total 16
+	-rw-r--r--  1 soumyasurajita  staff  25 Jun 14 00:20 LICENSE.txt
+	-rw-r--r--  1 soumyasurajita  staff  59 Jun 14 01:14 README.md
+	-rw-r--r--  1 soumyasurajita  staff   0 Jun 14 10:44 myfile.txt
+
+	//deleting a file with bash command
+	//rm myfile.txt
+	//git status
+	git status
+	On branch master
+	Changes not staged for commit:
+  		(use "git add/rm <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			deleted:    myfile.txt
+	no changes added to commit (use "git add" and/or "git commit -a")
+
+	//it is now not yet staged, so to move it to staging area use below command for update
+	//git add -u
+	//git status
+	On branch master
+	Changes to be committed:
+  		(use "git reset HEAD <file>..." to unstage)
+			deleted:    myfile.txt
+	//lets commit the same
+	//git commit -m "remove myfile.txt"
+	[master 84c1424] remove myfile.txt
+ 	1 file changed, 0 insertions(+), 0 deletions(-)
+ 	delete mode 100644 myfile.txt
+	
+How to exclude unwanted files in GIT?
+	//cd demo
+	//touch application.log
+	// ls
+	LICENSE.txt	README.md	application.log
+	//git status
+	On branch master
+	Untracked files:
+  		(use "git add <file>..." to include in what will be committed)
+			application.log
+	nothing added to commit but untracked files present (use "git add" to track)
+
+	//touch .gitignore
+	//edit .gitignore and below.
+	*.log
+	//git status
+	On branch master
+	Untracked files:
+  		(use "git add <file>..." to include in what will be committed)
+			.gitignore
+	nothing added to commit but untracked files present (use "git add" to track)
+	
+
+	//Now as we have added .gitignore it will ignore all file modifications that we have added inside .gitingore..
+	//So up above it is showing only .gitignore is modified but not showing application.log anymore
+	
+	//git add .gitignore
+	//git commit -m "Adding ignore file"
+	[master 3149144] Adding ignore file
+ 	1 file changed, 1 insertion(+)
+ 	create mode 100644 .gitignore
+
+
+How to save work in progress or how to time travel?
+	//tagging
+	
+	
+How to get the differences between differnt commit points?
+	//git status
+	On branch master
+	nothing to commit, working tree clean
+	//git hist
+	* 3149144 (HEAD -> master) Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+
+	//git diff 4162d07 HEAD
+	diff --git a/.gitignore b/.gitignore
+	new file mode 100644
+	index 0000000..397b4a7
+	--- /dev/null
+	+++ b/.gitignore
+	@@ -0,0 +1 @@
+	+*.log
+	diff --git a/LICENSE.md b/LICENSE.txt
+	similarity index 100%
+	rename from LICENSE.md
+	rename to LICENSE.txt
+
+	**HEAD -> points to the latest commit in master
+	
+	//git difftool 4162d07 HEAD
+
+How to getthe difference between something modified in the current directory with the latest commit?
+	//Modify README.md 
+	# Demo Project
+	This is a simple README file
+	## Heading 2
+	just some updates
+	//git diff 
+	diff --git a/README.md b/README.md
+	index 187585c..aed1bb7 100644
+	--- a/README.md
+	+++ b/README.md
+	@@ -3,3 +3,5 @@
+	This is a simple README file
+ 	## Heading 2
+	+
+	+just some updates
+
+	** git diff => will compare the current working directory changes with the last commit on git repo i.e. with HEAD
+	** git difftool => will compare the same but it will open up the difftool that we have setup
+	
+	//git help diff
+	
+What is a branch in git?
+	//branch is just a timeline in git
+	//we can create and delete branches without affecting timeline
+	//all we do is deleting labels or branch names
+	//In earlier examples all we have done is moifying the master branch
+	//Now we can create a separate branch from master and making the changes & finally merging it to master branch
+	//**there are different types of merging available
+		1. fast-forwardmerge
+			This happens in the simplest of cases
+			When no additional work has been detected in the parent branch..in our case maser
+			Git will simply apply all commits from the other branch directly onto the nearest branch
+				as if we never branched to begin with	
+			Of course we can disable the fast forward merges if they are undesired for some reason
+			
+		2. Automatic
+			//Git also automatically resolve any conflicts
+			//This happens when git detects non conflicting changes in the parent branch
+			//Git is able to automatically resolve any conflicts
+			//In doing so the old branch's timeline is preserved,
+			and a new merge commit is created to show the merging between two branches
+			
+		3. Manual merge
+			//This happens when git is unable to automatically resolve any conflicts
+			//git enters a special conflicting merge state, which means that all merge conflicts must be 
+			resolved prior to moving forward with a commit
+			//once all commits have been resolved , those changes are saved as a merge commit
+			
+What is HEAD?
+	//HEAD points to last commit of the current branch
+	//That means as we switch branches the location of HEAD moves to match the last commit location of that branch.
+	//While this is generally true , it is also possible to manually move the HEAD location some place other than the last commit
+	
+How to create a branch in git from master?
+	//git status
+	On branch master
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+	
+	//git branch
+	* master
+	
+	//git checkout -b updates
+	M	README.md
+	Switched to a new branch 'updates'
+		** a new branch is created from master called updates
+		** Now we are switched to the new branch created i.e. updates
+		** If any modification was done in master branch or crrent working directory  
+		it carred all the modifications forward into the new branch
+	//This is the technique you can use when you start working on master
+	//And you decide later that,before commiting , that these changes really should be isolated
+		into their feature or topic branch
+		
+	//git branch
+	  master
+	* updates
+	
+	//git status
+	On branch updates
+	Changes not staged for commit:
+  		(use "git add <file>..." to update what will be committed)
+  		(use "git checkout -- <file>..." to discard changes in working directory)
+			modified:   README.md
+	no changes added to commit (use "git add" and/or "git commit -a")
+	
+	//git add .
+	//git commit -m "adding updates from branch"
+	[updates 1132905] adding updates from branch
+ 	1 file changed, 2 insertions(+)
+	
+	//git status
+	On branch updates
+	nothing to commit, working tree clean
+
+	//git hist
+	* 1132905 (HEAD -> updates) adding updates from branch
+	* 3149144 (master) Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store	
+			
+	** we have the latest commit which is on HEAD and updates branch, but if we go one back we can see master branch.
+	** now we can check difference between master and updates branch.
+	Instead of using commit id we can use branch names
+	
+	//git diff updates master
+	diff --git a/README.md b/README.md
+	index 55f38d4..187585c 100644
+	--- a/README.md
+	+++ b/README.md
+	@@ -3,5 +3,3 @@
+	This is a simple README file
+ 
+ 	## Heading 2
+	-
+	-just some updates,on a branch
+
+
+How to switch from one branch to the other?
+	//git checkout master
+	Switched to branch 'master'
+	
+	//git hist
+	* 1132905 (updates) adding updates from branch
+	* 3149144 (HEAD -> master) Adding ignore file
+	* 84c1424 remove myfile.txt
+	* b19ae52 rename and add
+	* 96aabeb deleting demo file
+	* 024ebfa renaming example
+	* 04120eb adding example file
+	* 4162d07 Updating README
+	* 53c4589 all files - license.md,readme.md,ds_store
+
+	** Now it shows that HEAD is now on "master"
+	since head typically means the last commit on the current branch
+	And since the current branch is master , "HEAD" and "master" are sharing the same commit id.
+	since our hist command specifies the --all parameter to our log command, 
+		we also notice the commit id is associated with the "updates" branch.
+		
+	Now lets go ahead and merge changesfrom updates to branch
+	//git merge updates
+	Updating 3149144..1132905
+	Fast-forward
+ 	README.md | 2 ++
+ 	1 file changed, 2 insertions(+)
+
+	** For this merge, its such a simple merge that its able to do something called fast-forward
+	Which means that we are going to pretend that you never really switched away from master in order to make those updates
+	
+
+
 
 
 
