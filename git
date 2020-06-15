@@ -1878,5 +1878,410 @@ Viewing and editing files on github?
 	//We can also directly create a file on master branch
 	//renaming and deleting files on github
 	
+Syncing files from remote github repo with local repo?
+	//pwd
+	/Users/soumyasurajita/Desktop/git/projects/website
 	
+	// git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	nothing to commit, working tree clean
+
+	//git fetch
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	remote: Enumerating objects: 9, done.
+	remote: Counting objects: 100% (9/9), done.
+	remote: Compressing objects: 100% (8/8), done.
+	remote: Total 8 (delta 3), reused 0 (delta 0), pack-reused 0
+	Unpacking objects: 100% (8/8), done.
+	From github.com:ssurajita/website
+   	7d25ff3..9851a4b  master     -> origin/master
+
+	//git status
+	On branch master
+	Your branch is behind 'origin/master' by 4 commits, and can be fast-forwarded.
+  		(use "git pull" to update your local branch)
+	nothing to commit, working tree clean
 	
+	//git pull
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	Updating 7d25ff3..9851a4b
+	Fast-forward
+ 	lipsum.txt | 7 +++++++
+ 	1 file changed, 7 insertions(+)
+ 	create mode 100644 lipsum.txt
+
+	** we can add comments to each commit id to whatever changes we added..
+	For each changed line we can add to inform developers if anything is wrong..
+	
+	** we can copy any comit reference
+	git repo -> commits ->any cimmit(copy icon first left)
+	go to terminal to my-website repo
+	
+	//git show bf688cfea37ea72ddf541da8c187dd93f886d802
+	commit bf688cfea37ea72ddf541da8c187dd93f886d802
+	Author: soumyasurajita <ssurajita111@gmail.com>
+	Date:   Sun Jun 14 19:23:35 2020 +0530
+
+    	Updating README
+
+	diff --git a/README.md b/README.md
+	index ee5d7b8..a84c67f 100644
+	--- a/README.md
+	+++ b/README.md
+	@@ -1 +1,3 @@
+	-# my-website
+	\ No newline at end of file
+	+# my-website
+	+
+	+This is really awesome website
+
+Repository branches?
+	We can create branches in github repo.
+	click on branches dropdown we see only master.
+	But there is a textfield. whatever we type and click enter it is going to create a branch.
+	And it will switch to that branch. For example if we have created example it will create and switch to that branch..
+	Now lets modify README.md file. here in example branch
+	
+	README.md
+	# my-website
+	This is really awesome website
+	Edit from example branch
+
+	Commit changes message
+	updating README from example branch
+
+	Click on Commit changes
+	
+	lets return to the main page of this repository by clicking on website
+	** Clicking on website or repo link resets the current branch to master.
+	To get back to that example branch we have to go the dropdoown and select example
+	
+Local branch?
+	//git checkout -b remove-ipsum
+	Switched to a new branch 'remove-ipsum'
+	
+	//git branch
+  	master
+	* remove-ipsum
+
+	//ls -l	
+	total 96
+	-rw-r--r--  1 soumyasurajita  staff  11357 Jun 14 18:12 LICENSE
+	-rw-r--r--  1 soumyasurajita  staff     45 Jun 14 19:19 README.md
+	-rwxr-xr-x@ 1 soumyasurajita  staff   3959 Jun 14 18:49 apple-touch-icon.png
+	-rwxr-xr-x@ 1 soumyasurajita  staff    416 Jun 14 18:49 browserconfig.xml
+	drwxr-xr-x@ 9 soumyasurajita  staff    288 Jun 14 18:49 css
+	-rwxr-xr-x@ 1 soumyasurajita  staff    766 Jun 14 18:49 favicon.ico
+	drwxr-xr-x@ 6 soumyasurajita  staff    192 Jun 14 18:49 fonts
+	drwxr-xr-x@ 2 soumyasurajita  staff     64 Jun 14 18:49 img
+	-rwxr-xr-x  1 soumyasurajita  staff   5293 Jun 14 19:36 index.html
+	drwxr-xr-x@ 4 soumyasurajita  staff    128 Jun 14 18:49 js
+	-rw-r--r--  1 soumyasurajita  staff    606 Jun 14 20:53 lipsum.txt
+	-rwxr-xr-x@ 1 soumyasurajita  staff   1854 Jun 14 18:49 tile-wide.png
+	-rwxr-xr-x@ 1 soumyasurajita  staff   3482 Jun 14 18:49 tile.png
+
+	
+	 //git rm lipsum.txt
+	rm 'lipsum.txt'
+	
+	//git status
+	On branch remove-ipsum
+	Changes to be committed:
+  		(use "git reset HEAD <file>..." to unstage)
+			deleted:    lipsum.txt
+
+	//git commit -m "removing lipsum file"
+	[remove-ipsum 99c3063] removing lipsum file
+ 	1 file changed, 7 deletions(-)
+	 delete mode 100644 lipsum.txt
+	 
+	//git status
+	On branch remove-ipsum
+	nothing to commit, working tree clean
+
+	//git push -u origin remove-ipsum
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	Enumerating objects: 3, done.
+	Counting objects: 100% (3/3), done.
+	Delta compression using up to 4 threads
+	Compressing objects: 100% (2/2), done.
+	Writing objects: 100% (2/2), 234 bytes | 234.00 KiB/s, done.
+	Total 2 (delta 1), reused 0 (delta 0)
+	remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+	remote: 
+	remote: Create a pull request for 'remove-ipsum' on GitHub by visiting:
+	remote:      https://github.com/ssurajita/website/pull/new/remove-ipsum
+	remote: 
+	To github.com:ssurajita/website.git
+	 * [new branch]      remove-ipsum -> remove-ipsum
+	Branch 'remove-ipsum' set up to track remote branch 'remove-ipsum' from 'origin'.
+
+	
+	"git push -u", that sets up the tracking relationship; space;
+	and the name of our remote, which is "origin"; and then the name of the branch we wish to push up, 
+		which is "remove-ipsum".
+
+
+	Now in github we will see a new branch called remove-ipsum.
+	Earlier we had 2 - master and example
+	
+	After that, the tracking relationship is set up,which is what the "-u" parameter was all about.
+	And the tracking branch just means that these two branches are in sync with each other, i.e.origin and remove-ipsum
+	or that's what their intentions are. So, if I do a "git pull",
+	or a Git push without specifying anymore, this is the branch that it will be going to.
+
+	In remove-ipsum branch in github we no longer have the "lipsum.txt" file.
+	However, if I switch back to master, this branch still has the "ipsum.txt" file.
+
+
+Comparing and Pull Request?
+	I'm currently logged into GitHub, and I'm on the "website" Git repository,
+	and I'm currently in the master branch. Since we created two branches fairly recently,
+	the GitHub interface notices that we have recent branches,
+	and it lists those two branches above the rest of the contents for my repository.
+	This is such because a lot of the workflow that GitHub has is around comparing and pull requests.
+	So, I'm going to follow that process with my first branch, which is example.
+	So, I'm going to click on "Compare & pull request".
+	Now, I could go into the "Pull requests" menu item over here,
+	and go through the same process, but if this button appears, this is the quickest way to do it.
+	By default, if there are no forks involved, which we will cover later,
+	GitHub will automatically do a compare and prepare for a pull request based on the default branch, which in this case is master.
+	At the top, we have a commit message to go along with the pull request, and a comment that we could start a conversation with.
+	Then, at the bottom, we have a diff that shows the differences between where we're starting at, and were we're going to.
+	So, this is the difference between the Readme file for our current branch versus master.
+	We could change the view a bit by going from unified to split, and then we can see the changes side by side.
+	We also see that we have one commit involved; one file changed; there are no comments currently associated with them;
+	and the single contributor, which is myself.
+
+	I'm going to go up to the comment field, and the comment field allows me to write in Markdown if I choose to do so.
+	It's not required, but it is nice to have that quasi rich text type field.
+	I have typed some text in here, into the comments field, that is in Markdown syntax.
+	Double hash is a level two heading.
+	This is regular text, with inline styling; so the double underscore is bolding.
+	If I wanted to use italics or just emphasis,
+	I could use either single underscores or just asterisks.
+	If I want to see what this looks like before I submit it, I can click on preview.
+	So, you can see that I have a level two heading, and the word please is bolded.
+	Once I'm happy with my comment, and the rest of the pull request,
+	I'm going to click on "Create pull request".
+	That lands me on the main pull request page for this particular pull request.
+
+	You can see that it has the heading that was the commit message for the pull request,
+	and, for this repository, it's actually the second pull request.
+	For public repos, anyone can submit a pull request;
+	however, only people that have access to commit to the repository will have the ability to merge the pull request.
+	So, when I land on this, I see that I have a button that I can merge this pull request.
+	But, before we do, we can put on a different hat,
+	and say that I'm the lead developer of this repository
+	or, if you're the only person in the repository, then it doesn't matter;
+	you're wearing all the hats. You can see that I have the conversation,
+	which if you're working in a team environment would be a little bit more meaningful.
+	You have the commits listed that are involved with this pull request,
+	right now we only have a single commit involved, but if I had more commits they would be listed here.
+
+	And then, files changed, I can see which files were changed, and what was changed.
+	I can come in here and actually leave comments at the line level,which, for me, I'm just going to cancel for now.
+	And comments at the pull request level are basically part of the conversation.
+	You'll also notice that GitHub has the ability of using emoticons, which are accessible by starting with a colon.
+	I'm going to choose "+1", and now I can preview.
+	You can see that I have my heading, and I have the thumbs up icon.
+	So, I'm going to click on comment, which adds my comment above.
+	If I click the other button, "Close pull request", it would just close the pull request without merging.
+	Well, until this is merged in, the changes from the example branch are not going to be on master.
+	Thankfully, the changes within this branch are compatible with the base branch, which is master.
+	So, we get the green check mark, and the button, "Merge pull request", is active.
+	So, I'm going to go ahead and click "Merge pull request".
+	I'm given the opportunity to revise the commit message, and now I'm going to click on "Confirm merge".
+	Great, the pull request was successfully merged and closed.
+	So, everything that is in example has been merged into master.
+
+	So, we can safely delete our branch, which we can do directly from the pull request page.
+	Now, the example branch has been deleted.
+
+	Alright, let's go check it out; let's click on the name of the repository,
+	that brings us back to the master branch.
+	At the top, we no longer have the example branch listed, and if we do the dropdown
+		for our branches, example branch is no longer listed here either.
+	Also, we have a commit message that says
+	"Merge pull request #2 from", our repository, slash, branch name.
+	Basically, that's the commit message that you get automatically when GitHub does the merge.
+	We can still review this since the "#2" is a hotlink directly to the pull request.
+	It has a status of merged, but we can always review this if we wanted to.
+	Let's return by clicking on the name of our repository, and let's double check our change.
+	Click on the "README.md" file, and now you can see the edit that was made
+	on the example branch and this edit is on the master branch.
+
+
+Merging branches locally?
+	//We just covered how to merge branches in github using pull request and finally deleting the branch which we already merged
+	//Now we will see how to do the same from local
+	//We have created a branch remove-ipsum and deleted file lipsum.txt and pushed chanegs to remote
+	//now this branch is clean slate
+	//lets switch to master branch
+	
+	//git checkout master
+	Switched to branch 'master'
+	Your branch is up to date with 'origin/master'.
+	//git pull
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	remote: Enumerating objects: 6, done.
+	remote: Counting objects: 100% (6/6), done.
+	remote: Compressing objects: 100% (4/4), done.
+	remote: Total 4 (delta 1), reused 0 (delta 0), pack-reused 0
+	Unpacking objects: 100% (4/4), done.
+	From github.com:ssurajita/website
+   	9851a4b..85cd435  master     -> origin/master
+	Updating 9851a4b..85cd435
+	Fast-forward
+ 	README.md | 2 ++
+ 	1 file changed, 2 insertions(+)
+
+	//git merge remove-ipsum
+	Removing lipsum.txt
+	Merge made by the 'recursive' strategy.
+ 	lipsum.txt | 7 -------
+	1 file changed, 7 deletions(-)
+ 	delete mode 100644 lipsum.txt
+
+	//git push
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	Enumerating objects: 4, done.
+	Counting objects: 100% (4/4), done.
+	Delta compression using up to 4 threads
+	Compressing objects: 100% (2/2), done.
+	Writing objects: 100% (2/2), 270 bytes | 270.00 KiB/s, done.
+	Total 2 (delta 1), reused 0 (delta 0)
+	remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+	To github.com:ssurajita/website.git
+   	85cd435..c299e60  master -> master
+
+
+	//delete remove-ipsum branch from github
+	 git branch -a
+	* master
+  	remove-ipsum
+  	remotes/origin/HEAD -> origin/master
+  	remotes/origin/master
+  	remotes/origin/remove-ipsum
+	
+	// git branch -d remove-ipsum
+	Deleted branch remove-ipsum (was 99c3063).
+	
+	git branch -a
+	* master
+  	remotes/origin/HEAD -> origin/master
+  	remotes/origin/master
+  	remotes/origin/remove-ipsum
+
+	"git branch -d" for delete; space; and then our branch name, which is "remove-ipsum".
+	Great, we have deleted that branch.
+	Now, Git would have warned us if we had not already
+	integrated those changes into master, so that's an important step.
+	Now, if I do a "git branch -a", we are left with a master branch locally
+	but we still have the "remove-ipsum" branch referenced on origin;
+	however, we know that that branch doesn't exist on GitHub,
+	it's just a stale reference. So, we need to update those stale references.
+	And one way to do that is with the "fetch" command.
+	Type "git fetch"; space; and then "-p", the "-p" is the prune option
+	which means it's going to look for any dead branches and remove those references.
+	Double check that line, and then press enter
+	
+	//git fetch -p
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	From github.com:ssurajita/website
+ 	- [deleted]         (none)     -> origin/remove-ipsum
+
+	You can see that Git found a deleted branch, which it removed.
+	Now doing a "git branch -a", we see that we have master like before, locally,
+	and now we only have master on the remote side,
+	and then, of course, our special pointer called "HEAD". Either way,
+	the "remove-ipsum" branch is no longer locally referenced or pointing to our remote.
+
+	//git branch -a
+	* master
+  	remotes/origin/HEAD -> origin/master
+  	remotes/origin/master
+
+Locally switch to branch on github?
+	//In github create a new branch - update-readme
+	//modify readme file - Now edit on update-readme branch
+	//Now lets checkout this branch locally and switch to this branch..
+	
+	//git branch
+	* master
+	//git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	nothing to commit, working tree clean
+
+	//git fetch 
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	remote: Enumerating objects: 5, done.
+	remote: Counting objects: 100% (5/5), done.
+	remote: Compressing objects: 100% (3/3), done.
+	remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+	Unpacking objects: 100% (3/3), done.
+	From github.com:ssurajita/website
+ 	* [new branch]      update-readme -> origin/update-readme
+	
+	//git branch -a
+	* master
+  	remotes/origin/HEAD -> origin/master
+  	remotes/origin/master
+  	remotes/origin/update-readme
+
+	//git checkout update-readme
+	Branch 'update-readme' set up to track remote branch 'update-readme' from 'origin'.
+	Switched to a new branch 'update-readme'
+
+	//git branch -a
+  	master
+	* update-readme
+  	remotes/origin/HEAD -> origin/master
+  	remotes/origin/master
+  	remotes/origin/update-readme
+
+	//Now lets modify README.md - delete 2nd line and add a new line
+	# my-website
+	This is really awesome website
+	Now edit on update-readme branch
+	Updated Locally
+
+	//git commit -am "more tweaks to README"
+	[update-readme 5207302] more tweaks to README
+ 	1 file changed, 2 insertions(+), 2 deletions(-)
+
+	//git push
+	Enter passphrase for key '/Users/soumyasurajita/.ssh/id_rsa': 
+	Enumerating objects: 5, done.
+	Counting objects: 100% (5/5), done.
+	Delta compression using up to 4 threads
+	Compressing objects: 100% (3/3), done.
+	Writing objects: 100% (3/3), 351 bytes | 351.00 KiB/s, done.
+	Total 3 (delta 1), reused 0 (delta 0)
+	remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+	To github.com:ssurajita/website.git
+   	da7c153..5207302  update-readme -> update-readme
+
+Deleting branches locally?
+	// git branch -d update-readme
+	// git push origin :update-readme
+
+
+What is rebase?
+	//If you remember what rebase actually does,
+	it rewinds the current commits that are on your branch to a point to where the branch you're merging in originally diverged;
+
+
+
+
+
+
+
+
+
+
+
+
+
