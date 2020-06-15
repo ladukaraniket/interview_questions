@@ -1,1 +1,156 @@
 
+What is bootstarp?
+  //Bootstrsp is an open source library which is built on top of HTML and CSS
+  //Started in the Year 2011 -> In company called Twitter -> By Mark Otto
+  //current version 4.4
+  
+What is advantages of Bootstrap?
+  //As a UI developer we are going to develop a website, if we know HTML,CSS,JS that is enough.
+  //But our website may need some complex components like NavBar, Cards, Alerts, Carousels, Popups, etc..
+  //This designing by core technologies is going to take time..
+  //developing website in a faster way..
+  //Basic knowledge of HTML,CSS is required. And little bit of javascript
+  //https://getbootstrap.com
+  //includes documentation, examples,icons, themes, expo(paid theme),blog(any new updates)
+  
+ What is MD bootstrap?
+  //Google developed Material Design
+  //Material Design Bootstrap
+  
+Prerequisite of bootstrap?
+  //Editor - VS code, Sublime , Brackets, Atom. , Webstorm
+  //bootstrap.css,mdb.css,style.css (should be loaded in same order)
+  //jquery.js,popper.js,bootstrap.js,mdb.js
+  //icons - font-awesome.css
+  
+  https://mdbootstrap.com/docs/jquery/getting-started/download/
+  //We will get all these js and css files from the downloaded folder from above link..
+  //And we need to include in our project 
+  
+What is Bootstrap typography?
+  //means content mainly headers, sub headers , paragraphs etc
+  //h1,h2,h3,h4,h5,h6
+  //display-1,display-2,display-3,display-4
+  //lead, lead-muted
+  //font-weight-bold,font-weight-normal,font-italic
+  //text-lowercase,text-uppercase,text-capitalize
+  
+What are Bootstrap Alerts?
+  //alert
+  //alert-primary
+  //alert-secondary
+  //alert-success
+  //alert-info
+  //alert-danger
+  //alert-warning
+  //dark
+  //white
+  //light
+  //alert-link
+ //alert-dismissable
+ <button data-dismiss="alert">X</button>
+ //animated jello
+ //animated slideInLeft
+ //animated slideInRight
+ //animated flipInX
+ //animated flipInY
+ //animated zoomIn
+ //animated zoomOut
+ 
+
+What are badges in Bootstrap?
+  //Badges to highlight notifications, or new emails 
+  //badge
+  //badge-primary
+  //badge-secondary
+  //badge-success
+  //badge-info
+  //badge-danger
+  //badge-warning
+  //rounded-circle
+  //badge-pill
+  badge badge-info badge-pill
+  badge badge-success rounded-circle
+  <button class="btn btn-outline-primary">
+        Emails<span class="badge badge-primary">10</span>
+      </button>
+      
+ What are bootstrap colors and backgrounds?
+    //info -> light blue
+    //primary -> blue
+    //secondary -> grey ,purple(mdb)
+    //success -> green
+    //warning ->orange
+    //danger -> red
+    //dark -> grey
+    //light -> light grey
+    //black -> black
+    //white ->. white
+    
+    //For text
+    //text-info
+    
+    
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ //project creation steps
+ 1. Create a folder bootstrap_4_training and open in VSC
+ 2. Create a folder CSS and copy bootstrap.css,mdb.css,style.css
+ 3. Create a folder JS and copy jquery.js,popper.js,bootstrap.js,mdb.js
+ 4. Create a HTML file inside root folder bootstrap_4_training. Name it 00_Bootstrap_Starter_File.html
+ 5. Open HTML page in live server (install extension if you have not yet)
+    Right click on HTML and open in live server.
+    Otherwise from terminal from root folder location type -> live-server --port:5500
+    http://127.0.0.1:5500/
+    Now we will able to see all the folders and files on browser..
+    Use ! mark and enter to generate HTML code in 00_Bootstrap_Starter_File.html
+    It will generate the meta tag viewport to make the page responsive.
+    Copy paste navbar code, buttons code, jumbotron for example to see how it works..
+    
+ 6. Create a file 01_BS_Typography.html
+    navbar
+    navbar-dark
+    bg-dark
+    navbar-brand
+    
+    container
+    mt-5
+    //header classes
+    h1,h2,h3,h4,h5,h6
+    //display classes
+    display-1,display-2,display-3,display-4,display-5
+    //lead class (bigger font)
+    lead text-muted(greyed text)
+    //italic / bold
+    font-weight-bold,font-weight-normal,font-italic, 
+    text-lowercase, text-uppercase, text-capitalize
+    
+    //color classes
+    text-primary,text-success, text-danger, text-info
+    
+ 7. Create a new HTML File - 02_BS_Alerts.html
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
