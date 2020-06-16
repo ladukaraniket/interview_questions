@@ -211,11 +211,86 @@ What are bootstrap buttons?
  
   
 What are bootstrap forms?
+  //form-group
+  //form-control
+  //form-check-label
+  //form-check
+  //form-check-inline
+  //form-check-input
+  //form-control-file
+  
+What are input Groups in Bootstrap?
+  //Easily extend form controls by adding text, buttons, or button groups on either side of textual inputs, 
+    custom selects, and custom file inputs.
+  //input-group
+  //input-group-prepend
+  //input-group-append
+  //input-group-text
+  //form-control - for textbox
+ 
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-user-circle"></i>
+          </span>
+        </div>
+        <input type="text" class="form-conrol" placeholder="UserName" />
+        <div class="input-group-append">
+          <span class="input-group-text">
+            @infosys.com
+          </span>
+        </div>
+      </div>
+ 
+What are Progress Bars in Bootstrap?
+  //progress
+  //progress-bar
+  
+   <div class="progress mb-4">
+        <div class="progress-bar bg-danger" style="width: 75%;">75%</div>
+   </div>
+
+    .progress {
+        height: 35px;
+        border-radius: 50px;
+        box-shadow: 0 5px 5px grey;
+      }
+      .progress-bar {
+        border-radius: 50px;
+        font-size: 18px;
+      }
+
+What are Bootstrap tables?
+  //table
+  //table-hover
+  //table-striped
+  //table-bordered
+  //table-borderless
+  //table-dark
+  //table-primary
+  //table-secondary
+  //table-success
+  //table-warning
+  //table-info
+  
+  //also we can use normal regular classes like bg-dark,bg-primary etc, text-uppercase
+  
+What are Bootstrap Spinners?
   //
- 
- 
- 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  //project creation steps
  1. Create a folder bootstrap_4_training and open in VSC
  2. Create a folder CSS and copy bootstrap.css,mdb.css,style.css
@@ -261,6 +336,13 @@ What are bootstrap forms?
   
   
   
+  
+  Sites
+  https://fontawesome.com/v4.7.0/icons/
+  https://getbootstrap.com/docs/4.5/components/input-group/
+  https://mdbootstrap.com
+  
+  https://use.fontawesome.com/releases/v5.8.1/css/all.css
   
   
   
