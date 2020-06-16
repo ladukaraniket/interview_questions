@@ -85,21 +85,133 @@ What are badges in Bootstrap?
     //dark -> grey
     //light -> light grey
     //black -> black
-    //white ->. white
+    //white -> white
     
     //For text
     //text-info
+    //text-primary
+    //text-secondary
+    //text-success
+    //text-warning
+    //text-danger
+    //text-dark
+    //text-light
+    //text-white
+    //text-black
     
+    //For background
+    //bg-info
+    //bg-primary
+    //bg-secondary
+    //bg-success
+    //bg-warning
+    //bg-danger
+    //bg-dark
+    //bg-light
+    //bg-white
+    //bg-black, bg-black-50
     
+What are bootstrap paddings and margins ?
+    //ml-0 i.e margin-left : 0px
+    //ml-0
+    //ml-1
+    //ml-2
+    //ml-3
+    //ml-4
+    //ml-5
+    //pl-auto
+    //allowed values are (0,1,2,3,4,5,auto)
+    
+    //same for mr -> margin-right
+    //same for mt -> margin-top
+    //same for mb -> margin-bottom
+    
+    //ml-3 mr-3 can be replaced with mx-3 (margin x asis)
+    //mt-3 mb-3 can be replaced with my-3 (margin y asis)
+    //mx-3 my-3 can be replaced with m-3 (margin for all axis)
+    //So total 49 classes for margin(7*7 -> ml,mr,mt,mb,mx,my,m)
+    
+    //for padding also same..
+    //pl-0 i.e padding-left : 0px
+    //pl-0
+    //pl-1
+    //pl-2
+    //pl-3
+    //pl-4
+    //pl-5
+    //pl-auto
+    //allowed values are (0,1,2,3,4,5,auto)
+    
+    //same for pr -> padding-right
+    //same for pt -> padding-top
+    //same for pb -> padding-bottom
+   
+    //pl-3 pr-3 can be replaced with px-3 (padding x asis)
+    //pt-3 pb-3 can be replaced with py-3 (padding y asis)
+    //px-3 py-3 can be replaced with p-3 (padding for all axis)
+    //So total 49 classes for margin(7*7 -> pl,pr,pt,pb,px,py,p)
+    
+What are bootstrap breadcrumbs?
+  //breadcrumb - Navigation between pages, 
+  //Indicate the current page’s location within a navigational hierarchy that automatically adds separators via CSS.
+  //breadcrumb
+  //breadcrumb-item
+  
+   <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+        <li class="breadcrumb-item">Profile</li>
+      </ol>
+  
+What are bootstrap listgroup?
+  //list-group
+  //list-group-item
+  //list-group-item-primary,list-group-item-secondary...
     
  
+What are bootstrap buttons?
+  //btn
+  //btn-primary
+  //btn-info
+  //btn-secondary
+  //btn-success
+  //btn-danger
+  //btn-warning
+  //btn-dark
+  //btn-light
+  //btn-white
+  //btn-white
+  
+  //btn-outline-info
+  //btn-outline-primary
+  //btn-outline-secondary
+  //btn-outline-success
+  //btn-outline-danger
+  //btn-outline-warning
+  //btn-outline-dark
+  //btn-outline-white
+  //btn-outline-black
+  //btn-outline-white
+
+  //btn-toolbar
+  //btn-group
+
+    <div class="btn btn-toolbar">
+        <div class="btn btn-group">
+          <button class="btn btn-warning">RED</button>
+          <button class="btn btn-warning">GREEN</button>
+          <button class="btn btn-warning">BLUE</button>
+        </div>
+        <div class="btn btn-group">
+          <button class="btn btn-danger">RED</button>
+          <button class="btn btn-danger">GREEN</button>
+          <button class="btn btn-danger">BLUE</button>
+        </div>
+    </div>
  
- 
- 
- 
- 
- 
- 
+  
+What are bootstrap forms?
+  //
  
  
  
@@ -140,7 +252,9 @@ What are badges in Bootstrap?
     text-primary,text-success, text-danger, text-info
     
  7. Create a new HTML File - 02_BS_Alerts.html
- 
+ 8. Create a new HTML File - 03_BS_Badge.html
+ 7. Create a new HTML File - 04_BS_Colors_Backgrounds.html
+
   
   
   
