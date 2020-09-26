@@ -3209,6 +3209,476 @@ What is a callback function?
 		— these are called asynchronous callbacks. 
 	A good example is the callback functions executed inside a .then() block chained onto the end of a promise 
 		after that promise fulfills or rejects.
+		
+What is promise? What is async await? Promise all scenaarios?
+	promise
+	=> is an object that may produce single value some time in future
+	=> is a special object that represents an eventual result of an async action
+	=> 2 values - resolve,reject
+	=> 3 states - resolved, rejected or pending
+	=> There is a special class in javascript which is called Promise 
+	=> if you want to create a promise you simply need to create an instance of this class.
+	=> The promise constructor takes only one argument and this is a function.
+	=> This argument is required and you cannot create a premise without it.
+	=> This function is called executer and it is invoked at that very moment when we create a promise
+	=> this function takes two arguments resolve and reject
+	=> resolve and reject are functions as well.
+	=> Initially my promisse is in pending state.
+	=> You should invoke resolve function in order to transfer the promisse to the full state 
+		or you should invoke reject function in order to transfer the premise to reject that state.
+	=> There are 2 internal properties of a promise - promiseStatus, promiseResult
+	=> initially promiseStatus will be pending and promiseResult will be undefined.. lets console.log() and see..
+	
+	const myPromise = new Promise(function(resolve,reject){
+
+	});
+	console.log(myPromise);
+	//Promise {<pending>}
+	//expand object and watch the promiseResult and promiseStatus
+	//[[PromiseState]]: "pending"
+	//[[PromiseResult]]: undefined
+
+	=> 	now lets write or implement the resolve() and reject()
+	const myPromise = new Promise(function(resolve,reject){
+		resolve('value')
+	});
+	console.log(myPromise);
+	//Promise {<fulfilled>}
+	//expand object and watch the promiseResult and promiseStatus
+	//[[PromiseState]]: "fulfilled"
+	//[[PromiseResult]]: "value"
+	
+	=> lets change our promise function again and call reject() instead of resolve()
+	const myPromise = new Promise(function(resolve,reject){
+		reject('value')
+	});
+	console.log(myPromise);
+	//Promise {<rejected>}
+	//expand object and watch the promiseResult and promiseStatus
+	//[[PromiseState]]: "rejected"
+	//[[PromiseResult]]: "value"
+	
+	=> If the promise is in full fulfillment or reject that state it cannot change its state again 
+	=> Only if the promise is in state then the state can be changed to fulfill or rejected.
+	=> Let's call a promise that tries to do resolve() or reject() several times..
+	=> This promise is to be resolved two times with different values and then it tries to be rejected as a reason.
+	const myPromise = new Promise(function(resolve,reject){
+		resolve('soumya - super..')
+		resolve('stalin - i want to override')
+		reject('uh! error')
+	})
+	
+	//Promise {<fulfilled>: "soumya - super.."}
+	//[[PromiseState]]: "fulfilled"
+	//[[PromiseResult]]: "soumya - super.."
+
+​	=> even though we called resolve option two times inside and then also called a reject function.
+	=> The promise became fulfilled after the first call to resolve function.
+	=> And then it never changed its state.
+	
+	=> Let's create a problem similar to what we had before but now it's the reject and then resolved.
+	
+	const myPromise = new Promise(function(resolve,reject){
+		reject('uh! error')
+		resolve('soumya - super..')
+	})
+	
+	//Promise {<rejected>: "uh! error"}
+	//[[PromiseState]]: "rejected"
+	//[[PromiseResult]]: "uh! error"
+	
+	
+	
+	=> All we learnt is how to create the promises but we dont know how to use them..
+	=> lets do it..
+	=> we know the internal states of promise - PromiseState or PromiseResult that we seen in the browser console
+	=> We cannot simply print the value of promise to console.
+	=> These properties aren't exposed to the outside world so we can't use them directly.
+	=> Instead a promise object has a couple of methods that that we can use in order to access promiseResult and promiseStatus
+	=> So one useful method is then()
+	=> then() method takes 2 arguments - onFulfilled, onRejected
+	=> Both of them are functions.
+	=> onFulfilled() It has only one argument - PromiseResult
+	=> onRejected() it has also only one argument - reject reason
+	
+	
+	const myPromise = new Promise(function(resolve,reject){
+		resolve('soumya - super..')
+	})
+	
+	myPromise.then(function(value){
+		console.log(value)
+	})
+	
+	=> These functions will be called asynchronously after the premise becomes fulfilled or rejected.
+	=> They are added to the message queue and will be executed only after the call stack becomes empty.
+	
+	
+	const myPromise = new Promise(function(resolve,reject){
+		resolve('soumya - super..')
+	})
+	
+	myPromise.then(function(value){
+		console.log('promise val' + value)
+	})
+	
+	console.log(' i am called after promise')
+	//i am called after promise
+	//promise val soumya - super..
+	
+	=> lets see one realtime ex..
+	function calculateSquare(number){
+		const promise = new Promise(function(resolve,reject){
+			setTimeout(function(){
+				if(typeof number !== 'number'){
+					return reject(new Error('Argument of type number is expected'))
+				}
+				const result = number * number;
+				resolve(result);
+			},1000)
+		});
+		return promise;
+	}
+	
+	calculateSquare(2).then(value => {console.log(value)}, reason => { console.log(error)}) 
+	//4
+	calculateSquare('soumya').then(value => {console.log(value)}, reason => { console.log(reason)})
+	//Error: Argument of type number is expected
+
+
+	=> How to promisify any javascript function?
+	function capitalize(text){  
+			return text[0].toUpperCase() + text.substr(1)
+		}
+		
+		function capitalize(text){
+			return new Promise(function(resolve, reject){
+				if(typeof text !== 'string'){
+					return reject(new Error('Argument must be a string'))
+				}
+				const result = text[0].toUpperC	ase() + text.substr(1)
+				return resolve(result)
+			})
+		}
+		
+	=> chaining of promises
+		calculateSquare(2).then(v=> console.log(v);).then(v2 => console.log(v2)) => wroong
+		calculateSquare(2).then(v=> {console.log(v); return v;}).then(v2 => console.log(v2)) => right
+		calculateSquare(2).then(v=> {console.log(v); throw new Error('error');}).then(v2 => {console.log(v2)}, reason => {console.log(reason)}) => right
+
+	=> handling only rejections..
+	   calculateSquare(1).then(value => { console.log(value);return calculateSquare(2);}).then(value => {
+	   	console.log(value);
+	   }, reason => {
+	   	console.log('error happened: ' + reason)
+	   })
+	
+	
+	  calculateSquare(1).then(value => { 
+	  		console.log(value);
+	  		throw new Error('something wrong')
+	  	return calculateSquare(2);}).then(value => {
+	   		console.log(value);
+	   }, reason => {
+	   	console.log('error happened: ' + reason)
+	   })
+	
+	
+	 calculateSquare(1).then(value => { 
+	  		console.log(value);
+	  		return calculateSquare(2);
+	  	}).then(value => {
+	  		  		throw new Error('something wrong')
+	   			console.log(value);
+	   		}, reason => {
+	   			console.log('error happened: ' + reason)
+	   	})
+	
+	
+	 calculateSquare(1).then(value => { 
+	  		console.log(value);
+	  		return calculateSquare(2);
+	  	}).then(value => {
+	  		  		throw new Error('something wrong')
+	   			console.log(value);
+	   		}).then( undefined, reason => {
+	   			console.log(reason)
+	   		})
+	
+		=> .catch(e=> console.log(e)) function...
+	
+	
+	
+	
+		=> using a non promising value while calling a promise..
+		function logToConsole(somePromise){
+			somePromise.then(value => console.log(value))
+		}
+	
+		let somePromise = new Promise((resolve,reject) => resolve('hello'))
+		logToConsole(somePromise) //hello
+		
+		const value = 'soumya'
+		logToConsole(value) //Uncaught TypeError: somePromise.then is not a function
+		
+		
+		=> How to fix the above?
+		const promisifiedValue = Promise.resolve(value)
+		logToConsole(promisifiedValue)
+		
+	
+		//similar for reject - Promise.reject(value)
+		const rejectedPromise = Promise.reject(value)
+	
+	
+	=> Execution of promises in parallel
+		function callProm1() { 
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					resolve(8000)
+				}, 3000)
+			})
+		}
+		function callProm2() { 
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					resolve(12000)
+				}, 5000)
+			})
+		}
+		
+		function callProm3() { 
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					resolve(10000)
+				}, 8000)
+			})
+		}
+		Promise.all([callProm1(), callProm2(), callProm3()]).then( value => {
+			console.log(value)
+		})
+	
+	=> passing non promise values to Promise.all()
+		Promise.all([1,'str',true])
+		//Promise {<fulfilled>: Array(3)}
+		_proto_: Promise
+		[[PromiseState]]: "fulfilled"
+		[[PromiseResult]]: Array(3)
+			0: 1
+			1: "str"
+			2: true
+			length: 3
+			_proto_: Array(0)
+	
+	=> Promise.all([])
+		[[PromiseState]]: "fulfilled"
+		[[PromiseResult]]: Array(0)
+			length: 0
+	
+	
+	=> handling rejections in Promise.all()
+		function callProm1() { 
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					resolve(8000)
+				}, 3000)
+			})
+		}
+		function callProm2() { 
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					reject('not suitable')
+				}, 5000)
+			})
+		}
+		
+		function callProm3() { 
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					resolve(10000)
+				}, 8000)
+			})
+		}
+		
+		Promise.all([callProm1(), callProm2(), callProm3()]).then( value => {
+			console.log(value)
+		})
+		
+		Promise.all([
+			callProm1().catch(error => {return error }), 
+			callProm2().catch(error => {return error }), 
+			callProm3().catch(error => {return error })]).then( value => {
+			console.log(value)
+		})
+		
+			
+		Promise.all([
+			callProm1().catch(error => {return error }), 
+			callProm2().catch(error => {return error }), 
+			callProm3().catch(error => {return error }),
+			Promise.reject('rejected for some reason')]).then( value => {
+			console.log(value)
+		}).catch(error => console.log(error))
+	
+	=> which promise is faster?
+		Promise.race()
+		
+		var callProm1 = () => {
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					resolve('yes 1')
+				}, 3000)
+			})
+		}
+		
+			var callProm2 = () => {
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					resolve('yes 2')
+				}, 7000)
+			})
+		}
+		
+			var callProm3 = () => {
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					resolve('yes 3')
+				}, 5000)
+			})
+		}
+	
+		Promise.race([callProm1(),callProm2(),callProm3()]).then(value => {
+			//result of fastest
+			console.log(value)
+		})
+	
+	
+	====
+			var callProm2 = () => {
+			return new Promise((resolve,reject)=> {
+				setTimeout(()=> {
+					reject('yes 2')
+				}, 1000)
+			})
+		}
+	
+		Promise.race([callProm1(),callProm2(),callProm3()]).then(value => {
+			//result of fastest
+			console.log(value)
+		}).catch(error => console.log(error))
+	
+	
+		var callProm4 = () => {
+			return Promise.resolve('yes 4')
+		}
+	
+		
+		Promise.race([callProm1(),callProm2(),callProm3(), callProm4()	]).then(value => {
+			//result of fastest
+			console.log(value)
+		}).catch(error => console.log(error))
+	
+	
+	
+	*********
+	async await
+		
+	=> async is used before a function definition
+	=> async function f() { return ' hello world' }
+	=> always returns a promise..
+	=> async function f() { return new promise(resolve, reject)=> {
+			setTimeout(()=>{
+				resolve(true)
+			},10000)
+		}}
+		const var1 = f()
+	=> async function f() {
+			 return Promise.reject(404);
+		}}
+	   f()
+	   
+	=> await operator is used to wait for a promise to be resolved or rejected..
+		function getSpecifiedNumber(){
+			return new Promise((resolve,reject) => {
+				setTimeout(()=> {
+					resolve(42)
+				},2000)
+			})
+		}		
+	
+		async function f(){
+			const specificNumber = await getSpecifiedNumber()
+			console.log(specifiedNumber);
+		}
+	
+		function f(){
+			getSpecifiedNumber().then(specificNumber => console.log(specificNumber))
+		}
+	
+	
+	
+	=> handling errors
+		async function f(){
+			try{
+				const response = await fetch('https://somehost.com/wrong-url')
+			}catch(e){
+				console.log('some error '+ e)
+			}
+		}
+		
+		f()
+		f().catch(e => console.log(e))
+		
+	=> parallel vs sequential
+	
+		function printNumber1(){
+			return new Promise((resolve,reject) => {
+				setTimeout(()=>{
+					console.log('no1 is done')
+					resolve(1)
+				},1000)
+			})
+		}
+	
+		function printNumber2(){
+			return new Promise((resolve,reject) => {
+				setTimeout(()=>{
+					console.log('no2 is done')
+					resolve(2)
+				},1000)
+			})
+		}
+	
+		async function onebyone(){
+			const num1 = await printNumber1()
+			const num2 = await printNumber2()
+			console.log(num1, num2)
+		}
+	
+		onebyone()
+	
+	
+	
+		async function inparallel(){
+			const promise1 = printNumber1()
+			const promise2 = printNumber2()
+			const num1  = await promise1
+			const num2  = await promise2
+
+			console.log(num1, num2)
+		}
+	
+	
+		async function inparallel(){
+			const promise1 = printNumber1()
+			const promise2 = printNumber2()
+			const [num1,num2]  = [ await promise1,  await promise2]
+			console.log(num1, num2)
+		}
+	
+	
+	
+	
 	
 Why callback function are called higher order functions?
 	Higher-order functions are functions that accept a function as an argument and return a function. 
