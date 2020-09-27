@@ -63,6 +63,104 @@ Q. What are the features of React?
 Q. What is advantages of React?
 Q. What are the limitations of react?
 Q. What do you understand by react server side rendering?
+   React Server side rendering
+   ============================
+
+
+=>  Why server side rendering?
+	traditional react app means a normal react app that does not render on server.
+	It's a normal react application that only works and renders in the browser.
+	
+	client side rendering steps
+	=============================
+	browser requesta a page => content visible
+	what happens internally here?
+	browser requesta a page => browser requests a js file(localhost,bundle.js) => content visible
+	browser requesta a page => browser requests a js file(localhost,bundle.js) => React app boots, requests json from backend => content visible
+
+	Now this is clearly not the most efficient solution in the world in terms of getting content in front of a user as quickly as possible.
+	We have three round trip requests here before we can get any useful information up on the screen for the user to look at.
+	
+	The entire goal of server side rendering as we are going to approach it is to make sure that we are getting content visible on the user's screen as quickly as possible.
+	We don't want to make these three roundtrip requests before any content appears for the user.
+	We want to make one request and then boom has some content visible that the user can start to read and understand 
+	
+	
+	So even when we start using server side rendering that doesn't mean that all of a sudden we're not using react on the client anymore.
+	We still use react in the browser.
+	We just defer loading of the re-act application to be a little bit further along the process.
+	Again the entire key to this process is understanding that we want to get content visible on the screen asap.
+	
+		browser requesta a page => content visible
+
+
+	server side rendering steps
+	=============================
+	user navigates to ourApp.com
+	=> server receives request
+	=> loads up react app in memory
+	=> fetch any required data
+	=> render the react app
+	=> take the generated html, send it to user
+	=> html generated is loaded first..
+	=> user sees content
+	=> html file says browser needs bundle.js
+	=> go get bundle.js
+	=> server receives request again.
+	=> server sends back bundle.js
+	=> get bundle.js react app boots up
+	=> react app makes follow up requests for data
+	=> server receives request again
+	=> server sends back json data
+	=> app renders on to the screen!
+	
+	
+	
+	=> lets create a simple app using ssr.
+	[ssr [user] [admin] [login/logout]]
+		Homepage!
+		welcome
+	user => list of users..
+	admins => list of admins..
+	
+	
+	=> api server -> for handling business logics - list of users, list of admins, authentication etc
+		-> business logic and data layer (db access, validation, authentication, authorization, logging) -> this is api server
+	=> rendering server -> The second server that we're going to be working with will be what we refer to as the renderer server.
+		-> This is the server that you and I are going to build the actual server that will be responsible for rendering our application and serving it to the user.
+		-> view layer (take data produce html) -> this is the renderer server
+
+	=> server side rendering generate html on the server
+	=> universal javascript - the same code runs on server and browser
+	=> isomerphic javascript - the same code runs on server and browser
+
+	
+	=> Modify Home component and click on button we see no changes..
+	=> The last video we observe that our set up is currently only sending HTML down to the browser and no javascript code at all.
+	
+	
+	
+	=> why client.js?
+	Home.js => index.js(intended to only run on server)
+	Home.js => client.js(intended to only run on browser)
+	
+	
+	
+	=> So the final steps are here
+	=> App rendered on the server into some div in the 'template'
+	=> Rendered app sent to the users browser..
+	=> browser renders html file on the screen, then loads client bundle
+	=> client bundle boots up
+	=> we manually render the react app a second time into "same" div
+	=> react renders our app on the client side, and compares the new html to what already exists in the document.
+	=> react 'takes over' te existing rendered app, binds event handlers etc..
+	
+
+	=> npm-run-all
+	
+	=> static-router -> server side rendering
+	=> browser-router/hash-router -> client side rendering
+	
 Q. What is current version of react?
 Q. What is the difference between Element and Component?
 Q. What is React.createElement()?
